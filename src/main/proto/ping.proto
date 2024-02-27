@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/utmstack/UTMStack/agent";
+
+package agent;
+
+import "common.proto";
+
+service PingService {
+  rpc Ping(stream PingRequest) returns (stream  PingResponse) {}
+}
+
+message PingRequest{
+  AuthResponse auth = 1;
+  ConnectorType type = 2;
+}
+
+message PingResponse {
+  string received= 1;
+}
