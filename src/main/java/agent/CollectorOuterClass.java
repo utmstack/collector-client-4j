@@ -8957,12 +8957,6 @@ public final class CollectorOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
-     */
-    int getId();
-
-    /**
      * <code>int32 group_id = 2;</code>
      * @return The groupId.
      */
@@ -9072,17 +9066,6 @@ public final class CollectorOuterClass {
       return agent.CollectorOuterClass.internal_static_agent_CollectorGroupConfigurations_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               agent.CollectorOuterClass.CollectorGroupConfigurations.class, agent.CollectorOuterClass.CollectorGroupConfigurations.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_ = 0;
-    /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public int getId() {
-      return id_;
     }
 
     public static final int GROUP_ID_FIELD_NUMBER = 2;
@@ -9316,9 +9299,6 @@ public final class CollectorOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (id_ != 0) {
-        output.writeInt32(1, id_);
-      }
       if (groupId_ != 0) {
         output.writeInt32(2, groupId_);
       }
@@ -9349,10 +9329,6 @@ public final class CollectorOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
-      }
       if (groupId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, groupId_);
@@ -9391,8 +9367,6 @@ public final class CollectorOuterClass {
       }
       agent.CollectorOuterClass.CollectorGroupConfigurations other = (agent.CollectorOuterClass.CollectorGroupConfigurations) obj;
 
-      if (getId()
-          != other.getId()) return false;
       if (getGroupId()
           != other.getGroupId()) return false;
       if (!getConfKey()
@@ -9418,8 +9392,6 @@ public final class CollectorOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
       hash = (37 * hash) + GROUP_ID_FIELD_NUMBER;
       hash = (53 * hash) + getGroupId();
       hash = (37 * hash) + CONF_KEY_FIELD_NUMBER;
@@ -9566,7 +9538,6 @@ public final class CollectorOuterClass {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = 0;
         groupId_ = 0;
         confKey_ = "";
         confValue_ = "";
@@ -9608,27 +9579,24 @@ public final class CollectorOuterClass {
       private void buildPartial0(agent.CollectorOuterClass.CollectorGroupConfigurations result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.groupId_ = groupId_;
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.confKey_ = confKey_;
         }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.confValue_ = confValue_;
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.confName_ = confName_;
         }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
           result.confDescription_ = confDescription_;
         }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.confDataType_ = confDataType_;
         }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.confRequired_ = confRequired_;
         }
       }
@@ -9677,35 +9645,32 @@ public final class CollectorOuterClass {
 
       public Builder mergeFrom(agent.CollectorOuterClass.CollectorGroupConfigurations other) {
         if (other == agent.CollectorOuterClass.CollectorGroupConfigurations.getDefaultInstance()) return this;
-        if (other.getId() != 0) {
-          setId(other.getId());
-        }
         if (other.getGroupId() != 0) {
           setGroupId(other.getGroupId());
         }
         if (!other.getConfKey().isEmpty()) {
           confKey_ = other.confKey_;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         if (!other.getConfValue().isEmpty()) {
           confValue_ = other.confValue_;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         if (!other.getConfName().isEmpty()) {
           confName_ = other.confName_;
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         if (!other.getConfDescription().isEmpty()) {
           confDescription_ = other.confDescription_;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           onChanged();
         }
         if (!other.getConfDataType().isEmpty()) {
           confDataType_ = other.confDataType_;
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         if (other.getConfRequired() != false) {
@@ -9737,44 +9702,39 @@ public final class CollectorOuterClass {
               case 0:
                 done = true;
                 break;
-              case 8: {
-                id_ = input.readInt32();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
               case 16: {
                 groupId_ = input.readInt32();
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000001;
                 break;
               } // case 16
               case 26: {
                 confKey_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000002;
                 break;
               } // case 26
               case 34: {
                 confValue_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000004;
                 break;
               } // case 34
               case 42: {
                 confName_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000008;
                 break;
               } // case 42
               case 50: {
                 confDescription_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000010;
                 break;
               } // case 50
               case 58: {
                 confDataType_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 58
               case 64: {
                 confRequired_ = input.readBool();
-                bitField0_ |= 0x00000080;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 64
               default: {
@@ -9794,38 +9754,6 @@ public final class CollectorOuterClass {
       }
       private int bitField0_;
 
-      private int id_ ;
-      /**
-       * <code>int32 id = 1;</code>
-       * @return The id.
-       */
-      @java.lang.Override
-      public int getId() {
-        return id_;
-      }
-      /**
-       * <code>int32 id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(int value) {
-
-        id_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
-        onChanged();
-        return this;
-      }
-
       private int groupId_ ;
       /**
        * <code>int32 group_id = 2;</code>
@@ -9843,7 +9771,7 @@ public final class CollectorOuterClass {
       public Builder setGroupId(int value) {
 
         groupId_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -9852,7 +9780,7 @@ public final class CollectorOuterClass {
        * @return This builder for chaining.
        */
       public Builder clearGroupId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         groupId_ = 0;
         onChanged();
         return this;
@@ -9901,7 +9829,7 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         confKey_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -9911,7 +9839,7 @@ public final class CollectorOuterClass {
        */
       public Builder clearConfKey() {
         confKey_ = getDefaultInstance().getConfKey();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
@@ -9925,7 +9853,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         confKey_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -9973,7 +9901,7 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         confValue_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -9983,7 +9911,7 @@ public final class CollectorOuterClass {
        */
       public Builder clearConfValue() {
         confValue_ = getDefaultInstance().getConfValue();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
@@ -9997,7 +9925,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         confValue_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -10045,7 +9973,7 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         confName_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -10055,7 +9983,7 @@ public final class CollectorOuterClass {
        */
       public Builder clearConfName() {
         confName_ = getDefaultInstance().getConfName();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -10069,7 +9997,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         confName_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -10117,7 +10045,7 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         confDescription_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -10127,7 +10055,7 @@ public final class CollectorOuterClass {
        */
       public Builder clearConfDescription() {
         confDescription_ = getDefaultInstance().getConfDescription();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -10141,7 +10069,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         confDescription_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -10189,7 +10117,7 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         confDataType_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -10199,7 +10127,7 @@ public final class CollectorOuterClass {
        */
       public Builder clearConfDataType() {
         confDataType_ = getDefaultInstance().getConfDataType();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
         return this;
       }
@@ -10213,7 +10141,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         confDataType_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -10235,7 +10163,7 @@ public final class CollectorOuterClass {
       public Builder setConfRequired(boolean value) {
 
         confRequired_ = value;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -10244,7 +10172,7 @@ public final class CollectorOuterClass {
        * @return This builder for chaining.
        */
       public Builder clearConfRequired() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         confRequired_ = false;
         onChanged();
         return this;
@@ -12667,34 +12595,34 @@ public final class CollectorOuterClass {
       "rConfigGroup\022\n\n\002id\030\001 \001(\005\022\022\n\ngroup_name\030\003" +
       " \001(\t\022\031\n\021group_description\030\004 \001(\t\022;\n\016confi" +
       "gurations\030\005 \003(\0132#.agent.CollectorGroupCo" +
-      "nfigurations\022\024\n\014collector_id\030\006 \001(\005\"\276\001\n\034C" +
-      "ollectorGroupConfigurations\022\n\n\002id\030\001 \001(\005\022" +
-      "\020\n\010group_id\030\002 \001(\005\022\020\n\010conf_key\030\003 \001(\t\022\022\n\nc" +
-      "onf_value\030\004 \001(\t\022\021\n\tconf_name\030\005 \001(\t\022\030\n\020co" +
-      "nf_description\030\006 \001(\t\022\026\n\016conf_data_type\030\007" +
-      " \001(\t\022\025\n\rconf_required\030\010 \001(\010\"<\n\017Collector" +
-      "Delete\022\022\n\ndeleted_by\030\001 \001(\t\022\025\n\rcollector_" +
-      "key\030\002 \001(\t\">\n\021CollectorResponse\022\022\n\ndelete" +
-      "d_by\030\001 \001(\t\022\025\n\rcollector_key\030\002 \001(\t\"F\n\025Lis" +
-      "tCollectorResponse\022\036\n\004rows\030\001 \003(\0132\020.agent" +
-      ".Collector\022\r\n\005total\030\002 \001(\005*\035\n\017CollectorMo" +
-      "dule\022\n\n\006AS_400\020\0002\334\003\n\020CollectorService\022B\n" +
-      "\021RegisterCollector\022\026.agent.RegisterReque" +
-      "st\032\023.agent.AuthResponse\"\000\022E\n\017DeleteColle" +
-      "ctor\022\026.agent.CollectorDelete\032\030.agent.Col" +
-      "lectorResponse\"\000\022C\n\rListCollector\022\022.agen" +
-      "t.ListRequest\032\034.agent.ListCollectorRespo" +
-      "nse\"\000\022K\n\017CollectorStream\022\030.agent.Collect" +
-      "orMessages\032\030.agent.CollectorMessages\"\000(\001" +
-      "0\001\022I\n\026ListCollectorHostnames\022\022.agent.Lis" +
-      "tRequest\032\031.agent.CollectorHostnames\"\000\022`\n" +
-      " GetCollectorsByHostnameAndModule\022\034.agen" +
-      "t.FilterByHostAndModule\032\034.agent.ListColl" +
-      "ectorResponse\"\0002n\n\035CollectorConfiguratio" +
-      "nService\022M\n\025CollectorConfigStream\022\026.agen" +
-      "t.CollectorConfig\032\026.agent.ConfigKnowledg" +
-      "e\"\000(\0010\001B$Z\"github.com/utmstack/UTMStack/" +
-      "agentb\006proto3"
+      "nfigurations\022\024\n\014collector_id\030\006 \001(\005\"\262\001\n\034C" +
+      "ollectorGroupConfigurations\022\020\n\010group_id\030" +
+      "\002 \001(\005\022\020\n\010conf_key\030\003 \001(\t\022\022\n\nconf_value\030\004 " +
+      "\001(\t\022\021\n\tconf_name\030\005 \001(\t\022\030\n\020conf_descripti" +
+      "on\030\006 \001(\t\022\026\n\016conf_data_type\030\007 \001(\t\022\025\n\rconf" +
+      "_required\030\010 \001(\010\"<\n\017CollectorDelete\022\022\n\nde" +
+      "leted_by\030\001 \001(\t\022\025\n\rcollector_key\030\002 \001(\t\">\n" +
+      "\021CollectorResponse\022\022\n\ndeleted_by\030\001 \001(\t\022\025" +
+      "\n\rcollector_key\030\002 \001(\t\"F\n\025ListCollectorRe" +
+      "sponse\022\036\n\004rows\030\001 \003(\0132\020.agent.Collector\022\r" +
+      "\n\005total\030\002 \001(\005*\035\n\017CollectorModule\022\n\n\006AS_4" +
+      "00\020\0002\334\003\n\020CollectorService\022B\n\021RegisterCol" +
+      "lector\022\026.agent.RegisterRequest\032\023.agent.A" +
+      "uthResponse\"\000\022E\n\017DeleteCollector\022\026.agent" +
+      ".CollectorDelete\032\030.agent.CollectorRespon" +
+      "se\"\000\022C\n\rListCollector\022\022.agent.ListReques" +
+      "t\032\034.agent.ListCollectorResponse\"\000\022K\n\017Col" +
+      "lectorStream\022\030.agent.CollectorMessages\032\030" +
+      ".agent.CollectorMessages\"\000(\0010\001\022I\n\026ListCo" +
+      "llectorHostnames\022\022.agent.ListRequest\032\031.a" +
+      "gent.CollectorHostnames\"\000\022`\n GetCollecto" +
+      "rsByHostnameAndModule\022\034.agent.FilterByHo" +
+      "stAndModule\032\034.agent.ListCollectorRespons" +
+      "e\"\0002n\n\035CollectorConfigurationService\022M\n\025" +
+      "CollectorConfigStream\022\026.agent.CollectorC" +
+      "onfig\032\026.agent.ConfigKnowledge\"\000(\0010\001B$Z\"g" +
+      "ithub.com/utmstack/UTMStack/agentb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12760,7 +12688,7 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorGroupConfigurations_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorGroupConfigurations_descriptor,
-        new java.lang.String[] { "Id", "GroupId", "ConfKey", "ConfValue", "ConfName", "ConfDescription", "ConfDataType", "ConfRequired", });
+        new java.lang.String[] { "GroupId", "ConfKey", "ConfValue", "ConfName", "ConfDescription", "ConfDataType", "ConfRequired", });
     internal_static_agent_CollectorDelete_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_agent_CollectorDelete_fieldAccessorTable = new

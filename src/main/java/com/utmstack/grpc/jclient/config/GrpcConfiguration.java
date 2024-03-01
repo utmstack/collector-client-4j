@@ -28,7 +28,7 @@ public class GrpcConfiguration {
 
     public ManagedChannel managedChannel() {
         this.channel = ManagedChannelBuilder.forAddress(serverAddress, serverPort)
-            .intercept(new GrpcInterceptor())
+            .intercept(new GrpcBaseAuthInterceptor())
             .usePlaintext()
             .enableRetry()
             .build();

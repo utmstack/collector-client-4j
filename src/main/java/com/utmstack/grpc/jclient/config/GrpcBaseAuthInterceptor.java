@@ -2,7 +2,7 @@ package com.utmstack.grpc.jclient.config;
 
 import io.grpc.*;
 
-public class GrpcInterceptor implements ClientInterceptor {
+public class GrpcBaseAuthInterceptor implements ClientInterceptor {
     private static final Metadata.Key<String> CUSTOM_HEADER_KEY =
             Metadata.Key.of(Constants.AGENT_MANAGER_CONNECTION_KEY_HEADER, Metadata.ASCII_STRING_MARSHALLER);
 

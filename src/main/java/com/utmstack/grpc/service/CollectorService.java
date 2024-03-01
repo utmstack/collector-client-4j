@@ -10,6 +10,8 @@ import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorGrpcServiceException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
+import com.utmstack.grpc.jclient.config.interceptors.GrpcIdInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.GrpcKeyInterceptor;
 import io.grpc.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,10 +47,13 @@ public class CollectorService {
     /**
      * Method to remove a collector
      * */
-    public CollectorResponse deleteCollector(CollectorDelete request) throws CollectorGrpcServiceException {
+    public CollectorResponse deleteCollector(CollectorDelete request, int collectorId) throws CollectorGrpcServiceException {
         final String ctx = CLASSNAME + ".deleteCollector";
         try {
-            return blockingStub.deleteCollector(request);
+            return blockingStub.withInterceptors(new GrpcKeyInterceptor()
+                    .withCollectorKey(request.getCollectorKey()),
+                            new GrpcIdInterceptor().withCollectorId(collectorId))
+                    .deleteCollector(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error removing collector");
             throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
