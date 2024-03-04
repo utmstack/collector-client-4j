@@ -79,11 +79,11 @@ public class CollectorService {
      * Method to List Collector by Hostnames (Not implemented by server yet)
      * */
     public CollectorHostnames ListCollectorHostnames(ListRequest request) throws CollectorGrpcServiceException {
-        final String ctx = CLASSNAME + ".listCollector";
+        final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
             return blockingStub.listCollectorHostnames(request);
         } catch (Exception e) {
-            logger.error(ctx + ": Error listing collectors");
+            logger.error(ctx + ": Error listing collectors hostnames");
             throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
         }
     }
@@ -92,11 +92,11 @@ public class CollectorService {
      * Method to get collectors by hostname and module (Not implemented by server yet)
      * */
     public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request) throws CollectorGrpcServiceException {
-        final String ctx = CLASSNAME + ".listCollector";
+        final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
             return blockingStub.getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
-            logger.error(ctx + ": Error listing collectors");
+            logger.error(ctx + ": Error getting collectors by hostname and module");
             throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
         }
     }
