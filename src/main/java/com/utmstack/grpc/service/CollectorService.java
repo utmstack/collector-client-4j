@@ -4,6 +4,8 @@ import agent.CollectorOuterClass.RegisterRequest;
 import agent.CollectorOuterClass.CollectorResponse;
 import agent.CollectorOuterClass.CollectorDelete;
 import agent.CollectorOuterClass.ListCollectorResponse;
+import agent.CollectorOuterClass.CollectorHostnames;
+import agent.CollectorOuterClass.FilterByHostAndModule;
 import agent.CollectorServiceGrpc;
 import agent.Common.ListRequest;
 import agent.Common.AuthResponse;
@@ -67,6 +69,32 @@ public class CollectorService {
         final String ctx = CLASSNAME + ".listCollector";
         try {
             return blockingStub.listCollector(request);
+        } catch (Exception e) {
+            logger.error(ctx + ": Error listing collectors");
+            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+        }
+    }
+
+    /**
+     * Method to List Collector by Hostnames (Not implemented by server yet)
+     * */
+    public CollectorHostnames ListCollectorHostnames(ListRequest request) throws CollectorGrpcServiceException {
+        final String ctx = CLASSNAME + ".listCollector";
+        try {
+            return blockingStub.listCollectorHostnames(request);
+        } catch (Exception e) {
+            logger.error(ctx + ": Error listing collectors");
+            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+        }
+    }
+
+    /**
+     * Method to get collectors by hostname and module (Not implemented by server yet)
+     * */
+    public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request) throws CollectorGrpcServiceException {
+        final String ctx = CLASSNAME + ".listCollector";
+        try {
+            return blockingStub.getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error listing collectors");
             throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
