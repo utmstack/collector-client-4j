@@ -71,6 +71,8 @@ public class PingService {
                 }
             });
             pingRequestStreamObserver.onNext(request);
+            // Done making requests
+            pingRequestStreamObserver.onCompleted();
         } catch (Exception e) {
             logger.error(ctx + ": " + e.getMessage());
             throw new PingException(ctx + ": " + e.getMessage());

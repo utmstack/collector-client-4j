@@ -7,6 +7,10 @@ import io.grpc.ManagedChannelBuilder;
 import javax.annotation.PreDestroy;
 
 
+/**
+ * @author Freddy R. Laffita Almaguer
+ * This class is used to create default configuration channel with connection-key header
+ * */
 public class GrpcConfiguration {
     private ManagedChannel channel;
 

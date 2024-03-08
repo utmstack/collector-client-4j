@@ -10,7 +10,7 @@ import agent.CollectorServiceGrpc;
 import agent.Common.ListRequest;
 import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
-import com.utmstack.grpc.exception.CollectorGrpcServiceException;
+import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.GrpcKeyInterceptor;
@@ -36,20 +36,20 @@ public class CollectorService {
     /**
      * Method to register a collector
      * */
-    public AuthResponse registerCollector(RegisterRequest request) throws CollectorGrpcServiceException {
+    public AuthResponse registerCollector(RegisterRequest request) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".registerCollector";
         try {
            return blockingStub.registerCollector(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error registering collector");
-            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 
     /**
      * Method to remove a collector
      * */
-    public CollectorResponse deleteCollector(CollectorDelete request, int collectorId) throws CollectorGrpcServiceException {
+    public CollectorResponse deleteCollector(CollectorDelete request, int collectorId) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".deleteCollector";
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
@@ -58,46 +58,46 @@ public class CollectorService {
                     .deleteCollector(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error removing collector");
-            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 
     /**
      * Method to get collector list
      * */
-    public ListCollectorResponse listCollector(ListRequest request) throws CollectorGrpcServiceException {
+    public ListCollectorResponse listCollector(ListRequest request) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".listCollector";
         try {
             return blockingStub.listCollector(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error listing collectors");
-            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 
     /**
      * Method to List Collector by Hostnames (Not implemented by server yet)
      * */
-    public CollectorHostnames ListCollectorHostnames(ListRequest request) throws CollectorGrpcServiceException {
+    private CollectorHostnames ListCollectorHostnames(ListRequest request) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
             return blockingStub.listCollectorHostnames(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error listing collectors hostnames");
-            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 
     /**
      * Method to get collectors by hostname and module (Not implemented by server yet)
      * */
-    public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request) throws CollectorGrpcServiceException {
+    private ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
             return blockingStub.getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
             logger.error(ctx + ": Error getting collectors by hostname and module");
-            throw new CollectorGrpcServiceException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 }

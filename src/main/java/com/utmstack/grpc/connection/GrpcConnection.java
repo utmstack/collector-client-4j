@@ -2,11 +2,15 @@ package com.utmstack.grpc.connection;
 
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.GrpcConfiguration;
-import com.utmstack.grpc.util.StringUtil;
+import io.netty.util.internal.StringUtil;
 import io.grpc.ManagedChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Freddy R. Laffita Almaguer
+ * This class is used to manage the grpc connection
+ * */
 public class GrpcConnection {
     private ManagedChannel channel;
     private String AGENT_MANAGER_HOST;
@@ -46,7 +50,7 @@ public class GrpcConnection {
     public void reconnect() throws GrpcConnectionException {
         final String ctx = CLASSNAME + ".reconnect";
 
-        if (StringUtil.hasText(this.AGENT_MANAGER_HOST) && this.AGENT_MANAGER_PORT > 0) {
+        if (!StringUtil.isNullOrEmpty(this.AGENT_MANAGER_HOST) && this.AGENT_MANAGER_PORT > 0) {
             try {
                 connectTo(this.AGENT_MANAGER_HOST, this.AGENT_MANAGER_PORT);
             } catch (GrpcConnectionException e) {
