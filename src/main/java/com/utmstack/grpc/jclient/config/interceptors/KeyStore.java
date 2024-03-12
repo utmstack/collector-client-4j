@@ -1,7 +1,7 @@
 package com.utmstack.grpc.jclient.config.interceptors;
 
 /**
- * @author Freddy R. Laffita Almaguer
+ * @author Freddy R. Laffita Almaguer.
  * This class is used to store the keys used by the interceptors
  * */
 public class KeyStore {

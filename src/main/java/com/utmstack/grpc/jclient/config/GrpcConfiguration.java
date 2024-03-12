@@ -8,8 +8,9 @@ import javax.annotation.PreDestroy;
 
 
 /**
- * @author Freddy R. Laffita Almaguer
+ * @author Freddy R. Laffita Almaguer.
  * This class is used to create default configuration channel with connection-key header
+ * Note: You need to assign a CONNECTION_KEY variable value of the KeyStore class before use this class
  * */
 public class GrpcConfiguration {
     private ManagedChannel channel;

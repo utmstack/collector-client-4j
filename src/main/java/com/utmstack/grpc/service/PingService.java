@@ -29,7 +29,11 @@ public class PingService {
 
 
     /**
-     * Method to make a continuous ping from a collector
+     * Method to make a continuous ping from a collector, this is a blocking method, so, use it in separate thread
+     * @param request is the ping request to the server
+     * @param timeUnit is the unit of time to wait before the next call
+     * @param timeAmount the amount of timeUnit to wait before the next call
+     * Example: timeUnit=TimeUnit.SECONDS, timeAmount=10; wait=10 seconds before the next ping call
      */
     public void ping(PingRequest request, TimeUnit timeUnit, int timeAmount) throws PingException {
         final String ctx = CLASSNAME + ".ping";
@@ -41,8 +45,9 @@ public class PingService {
             } catch (PingException e) {
                 throw new PingException(ctx + ": " + e.getMessage());
             } catch (InterruptedException e) {
-                logger.error(ctx + ": Ping process was interrupted: " + e.getMessage());
-                throw new PingException(ctx + ": Ping process was interrupted: " + e.getMessage());
+                String msg = ctx + ": Ping process was interrupted: " + e.getMessage();
+                logger.error(msg);
+                throw new PingException(msg);
             }
         }
     }
@@ -62,7 +67,7 @@ public class PingService {
 
                 @Override
                 public void onError(Throwable cause) {
-                    logger.error("Executing ping request to server: " + cause.getMessage());
+                    logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
                 }
 
                 @Override
@@ -74,8 +79,8 @@ public class PingService {
             // Done making requests
             pingRequestStreamObserver.onCompleted();
         } catch (Exception e) {
-            logger.error(ctx + ": " + e.getMessage());
-            throw new PingException(ctx + ": " + e.getMessage());
+            String msg = ctx + ": " + e.getMessage();
+            throw new PingException(msg);
         }
     }
 

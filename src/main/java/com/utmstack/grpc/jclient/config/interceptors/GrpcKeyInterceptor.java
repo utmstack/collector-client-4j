@@ -4,7 +4,7 @@ import com.utmstack.grpc.jclient.config.Constants;
 import io.grpc.*;
 
 /**
- * @author Freddy R. Laffita Almaguer
+ * @author Freddy R. Laffita Almaguer.
  * This class is used to create the interceptor for key header
  * */
 public class GrpcKeyInterceptor implements ClientInterceptor {

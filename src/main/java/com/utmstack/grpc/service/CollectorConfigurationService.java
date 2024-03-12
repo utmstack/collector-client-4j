@@ -13,14 +13,20 @@ import io.netty.util.internal.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Freddy R. Laffita Almaguer.
+ * This class handle the services related to collector configurations.
+ * */
 public class CollectorConfigurationService {
     private static final String CLASSNAME = "CollectorConfigurationService";
     private static final Logger logger = LogManager.getLogger(CollectorService.class);
-    private CollectorConfigurationServiceGrpc.CollectorConfigurationServiceStub nonBlockingStub;
-    private ManagedChannel grpcManagedChannel;
+    private final CollectorConfigurationServiceGrpc.CollectorConfigurationServiceStub nonBlockingStub;
+    private final ManagedChannel grpcManagedChannel;
 
     private StreamObserver<CollectorConfig> configStreamObserver;
 
@@ -29,23 +35,35 @@ public class CollectorConfigurationService {
         this.nonBlockingStub = CollectorConfigurationServiceGrpc.newStub(grpcManagedChannel);
     }
 
+    /**
+     * Method to send a collector config to the server, this method wait 25 seconds for a server response.
+     * This method uses the internal key interceptor, so, you need to set its value in the KeyStore.INTERNAL_KEY
+     * @param request is the collector config to send
+     * @return ConfigKnoledge with the server response
+     * @throws CollectorConfigurationGrpcException if the server not answer with a valid ConfigKnoledge after 60 seconds
+     * */
     private ConfigKnowledge callForCollectorConfig(CollectorConfig request) throws CollectorConfigurationGrpcException {
         final String ctx = CLASSNAME + ".callForCollectorConfig";
         final CountDownLatch finishLatch = new CountDownLatch(1);
-        ConfigKnowledge confirmationKnowledge = ConfigKnowledge.newBuilder().build();
+        final List<ConfigKnowledge> confirmationList = new ArrayList<>();
+
+        // Adding first element to ensure that always return a valid element
+        confirmationList.add(ConfigKnowledge.newBuilder().build());
+
         try {
             configStreamObserver = nonBlockingStub
                     .withInterceptors(new GrpcInternalKeyInterceptor()).collectorConfigStream(new StreamObserver<>() {
 
                 @Override
                 public void onNext(ConfigKnowledge configKnowledge) {
-                    confirmationKnowledge.toBuilder().setAccepted(configKnowledge.getAccepted());
-                    confirmationKnowledge.toBuilder().setRequestId(confirmationKnowledge.getRequestId());
+                    confirmationList.set(0,configKnowledge);
+                    finishLatch.countDown();
                 }
 
                 @Override
                 public void onError(Throwable cause) {
-                    throw new RuntimeException("Executing call configuration, server responded with error: " + cause.getMessage());
+                    finishLatch.countDown();
+                    logger.error(ctx + ": Executing call configuration, server responded with error: " + cause.getMessage());
                 }
 
                 @Override
@@ -55,17 +73,22 @@ public class CollectorConfigurationService {
                 }
             });
             configStreamObserver.onNext(request);
+            // Complete the RPC call
+            configStreamObserver.onCompleted();
 
             // Try to wait for the server response
-            int counter = 5;
+            int counter = 12;
             while (counter > 0){
               finishLatch.await(5, TimeUnit.SECONDS);
               counter --;
             }
-            if (StringUtil.isNullOrEmpty(confirmationKnowledge.getAccepted())) {
-                throw new CollectorConfigurationGrpcException(ctx + ": Not responded since last 25 seconds");
+
+            // Check if the server responded
+            ConfigKnowledge result = confirmationList.get(0);
+            if (StringUtil.isNullOrEmpty(result.getAccepted())) {
+                throw new CollectorConfigurationGrpcException("Server not responded since last 60 seconds");
             }
-            return confirmationKnowledge;
+            return result;
         } catch (Exception e) {
             logger.error(ctx + ": " + e.getMessage());
             throw new CollectorConfigurationGrpcException(ctx + ": " + e.getMessage());

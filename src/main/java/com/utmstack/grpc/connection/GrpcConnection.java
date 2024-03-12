@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author Freddy R. Laffita Almaguer
+ * @author Freddy R. Laffita Almaguer.
  * This class is used to manage the grpc connection
  * */
 public class GrpcConnection {
