@@ -17,6 +17,7 @@ import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorConfigurationGrpcException;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
+import com.utmstack.grpc.exception.PingException;
 import com.utmstack.grpc.jclient.config.interceptors.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.GrpcKeyInterceptor;
 import io.grpc.*;
@@ -40,6 +41,8 @@ public class CollectorService {
     private final CollectorServiceGrpc.CollectorServiceBlockingStub blockingStub;
     private final CollectorServiceGrpc.CollectorServiceStub nonBlockingStub;
     private final ManagedChannel grpcManagedChannel;
+
+    StreamObserver<CollectorMessages> requestObserver;
 
     public CollectorService(GrpcConnection grpcConnection) throws GrpcConnectionException {
         this.grpcManagedChannel = grpcConnection.getConnectionChannel();
@@ -125,12 +128,10 @@ public class CollectorService {
                 }
             };
 
-            StreamObserver<CollectorMessages> requestObserver = nonBlockingStub.collectorStream(responseObserver);
+            requestObserver = nonBlockingStub.collectorStream(responseObserver);
 
             // Send a message to the server
             requestObserver.onNext(request);
-            // Complete the RPC call
-            requestObserver.onCompleted();
 
             // Try to wait for the server response
             int counter = 12;
@@ -194,6 +195,18 @@ public class CollectorService {
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
             logger.error(msg);
+            throw new CollectorServiceGrpcException(msg);
+        }
+    }
+    /**
+     * Method to done making ping requests to server
+     */
+    public void callOnCompleted() throws CollectorServiceGrpcException {
+        final String ctx = CLASSNAME + ".callOnCompleted";
+        try {
+            requestObserver.onCompleted();
+        } catch (Exception e) {
+            String msg = ctx + ": " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
         }
     }
