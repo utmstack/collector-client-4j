@@ -14,6 +14,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Freddy R. Laffita Almaguer.
+ * This class handle the collector ping operations
+ */
 public class PingService {
     private static final String CLASSNAME = "PingGrpcService";
     private static final Logger logger = LogManager.getLogger(PingService.class);
@@ -30,10 +34,11 @@ public class PingService {
 
     /**
      * Method to make a continuous ping from a collector, this is a blocking method, so, use it in separate thread
-     * @param request is the ping request to the server
-     * @param timeUnit is the unit of time to wait before the next call
+     *
+     * @param request    is the ping request to the server
+     * @param timeUnit   is the unit of time to wait before the next call
      * @param timeAmount the amount of timeUnit to wait before the next call
-     * Example: timeUnit=TimeUnit.SECONDS, timeAmount=10; wait=10 seconds before the next ping call
+     *                   Example: timeUnit=TimeUnit.SECONDS, timeAmount=10; wait=10 seconds before the next ping call
      */
     public void ping(PingRequest request, TimeUnit timeUnit, int timeAmount) throws PingException {
         final String ctx = CLASSNAME + ".ping";
@@ -76,12 +81,22 @@ public class PingService {
                 }
             });
             pingRequestStreamObserver.onNext(request);
-            // Done making requests
-            pingRequestStreamObserver.onCompleted();
         } catch (Exception e) {
             String msg = ctx + ": " + e.getMessage();
             throw new PingException(msg);
         }
     }
 
+    /**
+     * Method to done making ping requests to server
+     */
+    public void callOnCompleted() throws PingException {
+        final String ctx = CLASSNAME + ".callOnCompleted";
+        try {
+            pingRequestStreamObserver.onCompleted();
+        } catch (Exception e) {
+            String msg = ctx + ": " + e.getMessage();
+            throw new PingException(msg);
+        }
+    }
 }
