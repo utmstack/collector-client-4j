@@ -1,6 +1,5 @@
 package com.utmstack.grpc.service;
 
-import agent.CollectorOuterClass;
 import agent.CollectorOuterClass.RegisterRequest;
 import agent.CollectorOuterClass.CollectorResponse;
 import agent.CollectorOuterClass.CollectorDelete;
@@ -11,15 +10,11 @@ import agent.CollectorOuterClass.FilterByHostAndModule;
 import agent.CollectorServiceGrpc;
 import agent.Common.ListRequest;
 import agent.Common.AuthResponse;
-import agent.Ping;
-import com.google.protobuf.Descriptors;
 import com.utmstack.grpc.connection.GrpcConnection;
-import com.utmstack.grpc.exception.CollectorConfigurationGrpcException;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.exception.PingException;
-import com.utmstack.grpc.jclient.config.interceptors.GrpcIdInterceptor;
-import com.utmstack.grpc.jclient.config.interceptors.GrpcKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;

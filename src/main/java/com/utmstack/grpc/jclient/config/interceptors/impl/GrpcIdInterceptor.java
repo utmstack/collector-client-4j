@@ -1,4 +1,4 @@
-package com.utmstack.grpc.jclient.config.interceptors;
+package com.utmstack.grpc.jclient.config.interceptors.impl;
 
 import com.utmstack.grpc.jclient.config.Constants;
 import io.grpc.*;

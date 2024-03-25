@@ -6,7 +6,7 @@ import agent.CollectorOuterClass.CollectorConfig;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorConfigurationGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.jclient.config.interceptors.GrpcInternalKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcInternalKeyInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import io.netty.util.internal.StringUtil;

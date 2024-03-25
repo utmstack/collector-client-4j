@@ -1,14 +1,15 @@
-package com.utmstack.grpc.jclient.config;
+package com.utmstack.grpc.jclient.config.interceptors.impl;
 
+import com.utmstack.grpc.jclient.config.Constants;
 import com.utmstack.grpc.jclient.config.interceptors.KeyStore;
 import io.grpc.*;
 
 /**
  * @author Freddy R. Laffita Almaguer.
  * This class is used to create the interceptor for connection-key header.
- * You need to You need to assign a CONNECTION_KEY value of the KeyStore class before use this class
+ * You need to You need to assign a CONNECTION_KEY value of the KeyStore class before use this interceptor.
  * */
-public class GrpcBaseAuthInterceptor implements ClientInterceptor {
+public class GrpcConnectionKeyInterceptor implements ClientInterceptor {
     private static final Metadata.Key<String> CUSTOM_HEADER_KEY =
             Metadata.Key.of(Constants.AGENT_MANAGER_CONNECTION_KEY_HEADER, Metadata.ASCII_STRING_MARSHALLER);
 
