@@ -8,6 +8,7 @@ public final class Constants {
     // GRPC
     public static final String AGENT_MANAGER_CONNECTION_KEY_HEADER = "connection-key";
     public static final String AGENT_MANAGER_INTERNAL_KEY_HEADER = "internal-key";
+    public static final String COLLECTOR_LOG_AUTH_PROXY_KEY_HEADER = "collector-key";
     public static final String COLLECTOR_KEY_HEADER = "key";
     public static final String COLLECTOR_ID_HEADER = "id";
 
