@@ -63,7 +63,7 @@ public class PingService {
      */
     private StreamObserver<PingRequest> getPingRequestStreamObserver() throws PingException {
         final String ctx = CLASSNAME + ".getPingRequestStreamObserver";
-        if(pingRequestStreamObserver == null) {
+
             try {
                 pingRequestStreamObserver = nonBlockingStub.ping(new StreamObserver<>() {
 
@@ -85,7 +85,7 @@ public class PingService {
             } catch (Exception e) {
                 throw new PingException(ctx + ": " + e.getMessage());
             }
-        }
+
         return pingRequestStreamObserver;
     }
 }
