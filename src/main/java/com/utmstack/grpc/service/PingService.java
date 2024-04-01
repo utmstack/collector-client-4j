@@ -45,7 +45,8 @@ public class PingService {
         final CountDownLatch finishLatch = new CountDownLatch(1);
         while (true) {
             try {
-                pingCall(request);
+                StreamObserver<PingRequest> pingCall = getPingRequestStreamObserver();
+                pingCall.onNext(request);
                 finishLatch.await(timeAmount, timeUnit);
             } catch (PingException e) {
                 throw new PingException(ctx + ": " + e.getMessage());
@@ -60,43 +61,31 @@ public class PingService {
     /**
      * Method to ping from a collector
      */
-    private void pingCall(PingRequest request) throws PingException {
-        final String ctx = CLASSNAME + ".pingCall";
-        try {
-            pingRequestStreamObserver = nonBlockingStub.ping(new StreamObserver<>() {
+    private StreamObserver<PingRequest> getPingRequestStreamObserver() throws PingException {
+        final String ctx = CLASSNAME + ".getPingRequestStreamObserver";
+        if(pingRequestStreamObserver == null) {
+            try {
+                pingRequestStreamObserver = nonBlockingStub.ping(new StreamObserver<>() {
 
-                @Override
-                public void onNext(PingResponse pingResponse) {
-                    logger.info("Response executed ..." + pingResponse.getReceived());
-                }
+                    @Override
+                    public void onNext(PingResponse pingResponse) {
+                        logger.info("Response executed ..." + pingResponse.getReceived());
+                    }
 
-                @Override
-                public void onError(Throwable cause) {
-                    logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
-                }
+                    @Override
+                    public void onError(Throwable cause) {
+                        logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
+                    }
 
-                @Override
-                public void onCompleted() {
-                    logger.info("Stream completed");
-                }
-            });
-            pingRequestStreamObserver.onNext(request);
-        } catch (Exception e) {
-            String msg = ctx + ": " + e.getMessage();
-            throw new PingException(msg);
+                    @Override
+                    public void onCompleted() {
+                        logger.info("Stream completed");
+                    }
+                });
+            } catch (Exception e) {
+                throw new PingException(ctx + ": " + e.getMessage());
+            }
         }
-    }
-
-    /**
-     * Method to done making ping requests to server
-     */
-    public void callOnCompleted() throws PingException {
-        final String ctx = CLASSNAME + ".callOnCompleted";
-        try {
-            pingRequestStreamObserver.onCompleted();
-        } catch (Exception e) {
-            String msg = ctx + ": " + e.getMessage();
-            throw new PingException(msg);
-        }
+        return pingRequestStreamObserver;
     }
 }
