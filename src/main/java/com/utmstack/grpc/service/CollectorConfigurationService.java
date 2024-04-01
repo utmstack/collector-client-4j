@@ -90,7 +90,6 @@ public class CollectorConfigurationService {
     private StreamObserver<CollectorConfig> getConfigStreamObserver() throws CollectorConfigurationGrpcException {
         final String ctx = CLASSNAME + ".getConfigStreamObserver";
 
-        if (configStreamObserver == null) {
             try {
                 configStreamObserver = nonBlockingStub
                         .withInterceptors(new GrpcInternalKeyInterceptor()).collectorConfigStream(new StreamObserver<>() {
@@ -102,7 +101,7 @@ public class CollectorConfigurationService {
 
                             @Override
                             public void onError(Throwable cause) {
-                                logger.error(ctx + ": Executing call configuration, server responded with error: " + cause.getMessage());
+                                logger.error(ctx + ": Initializing insertion channel, server responded with error: " + cause.getMessage());
                             }
 
                             @Override
@@ -113,7 +112,6 @@ public class CollectorConfigurationService {
             } catch (Exception e) {
                 throw new CollectorConfigurationGrpcException(ctx + ": " + e.getMessage());
             }
-        }
         return configStreamObserver;
     }
     /**
