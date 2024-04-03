@@ -1,5 +1,6 @@
 package com.utmstack.grpc.service;
 
+import agent.CollectorOuterClass.CollectorConfig;
 import agent.CollectorOuterClass.RegisterRequest;
 import agent.CollectorOuterClass.CollectorResponse;
 import agent.CollectorOuterClass.CollectorDelete;
@@ -13,8 +14,10 @@ import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
+import com.utmstack.grpc.exception.PingException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
+import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -22,13 +25,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author Freddy R. Laffita Almaguer.
  * This class handle the crud operations of collectors
- * */
+ */
 public class CollectorService {
     private static final String CLASSNAME = "CollectorService";
     private static final Logger logger = LogManager.getLogger(CollectorService.class);
@@ -37,7 +43,6 @@ public class CollectorService {
     private final CollectorServiceGrpc.CollectorServiceStub nonBlockingStub;
     private final ManagedChannel grpcManagedChannel;
 
-    StreamObserver<CollectorMessages> requestObserver;
 
     public CollectorService(GrpcConnection grpcConnection) throws GrpcConnectionException {
         this.grpcManagedChannel = grpcConnection.getConnectionChannel();
@@ -48,6 +53,7 @@ public class CollectorService {
 
     /**
      * Method to register a collector
+     *
      * @param request is th information of the collector to register
      * @throws CollectorServiceGrpcException if the action can't be performed
      */
@@ -64,7 +70,8 @@ public class CollectorService {
 
     /**
      * Method to remove a collector
-     * @param request is th information of the collector to delete
+     *
+     * @param request     is th information of the collector to delete
      * @param collectorId is the database id of the collector to delete
      * @throws CollectorServiceGrpcException if the action can't be performed
      */
@@ -82,77 +89,75 @@ public class CollectorService {
         }
     }
 
+
     /**
-     * Method to exchange messages with the server
-     *
-     * @param request is the CollectorMessages instance to send
-     * @throws CollectorServiceGrpcException if the server don't answer the call within 60 seconds
+     * Method to initialize the collector messages stream between client and the server.
+     * If the stream can't be created will try to create a new one
+     * The management
      */
-    public CollectorMessages callCollectorMessages(CollectorMessages request) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".callCollectorMessages";
-        final List<CollectorMessages> collectorMessagesList = new ArrayList<>();
-
-        // Adding first element to ensure that always return a valid element
-        collectorMessagesList.add(CollectorMessages.newBuilder().build());
-
-        // Create a latch to wait for server response
-        CountDownLatch latch = new CountDownLatch(1);
-
+    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction) throws CollectorServiceGrpcException {
+        final String ctx = CLASSNAME + ".getCollectorStreamObserver";
+        final CountDownLatch waitingLatch = new CountDownLatch(1);
         try {
-            // Call the RPC method CollectorStream
-            StreamObserver<CollectorMessages> responseObserver = new StreamObserver<>() {
+            return nonBlockingStub.collectorStream(new StreamObserver<>() {
+
                 @Override
-                public void onNext(CollectorMessages response) {
-                    // Handle response from server
-                    collectorMessagesList.set(0, response);
-                    // Release the latch to allow sending the message
-                    latch.countDown();
+                public void onNext(CollectorMessages messages) {
+                    toDoAction.executeOnNext(messages);
                 }
 
                 @Override
-                public void onError(Throwable t) {
-                    // Release the latch in case of error to avoid deadlock
-                    latch.countDown();
-                    logger.error(ctx + ": Executing call for collector messages, server responded with error: " + t.getMessage());
+                public void onError(Throwable cause) {
+                    logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
+                    try {
+                        waitingLatch.await(10, TimeUnit.SECONDS); // Wait for a second before reconnect
+                        getCollectorStreamObserver(toDoAction); // Try to reconnect again
+                    } catch (CollectorServiceGrpcException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 @Override
                 public void onCompleted() {
-                    latch.countDown();
                     logger.info(ctx + ": Executed successfully.");
                 }
-            };
-
-            requestObserver = nonBlockingStub.collectorStream(responseObserver);
-
-            // Send a message to the server
-            requestObserver.onNext(request);
-
-            // Try to wait for the server response
-            int counter = 12;
-            while (counter > 0) {
-                latch.await(5, TimeUnit.SECONDS);
-                counter--;
-            }
-
-            // Verify if the server return something
-            CollectorMessages result = collectorMessagesList.get(0);
-            if (!result.hasAuthResponse() && !result.hasConfig() && !request.hasResult()) {
-                throw new CollectorServiceGrpcException("Server not responded since last 60 seconds");
-            }
-
-            return result;
+            });
         } catch (Exception e) {
-            String msg = ctx + ": " + e.getMessage();
-            logger.error(msg);
-            throw new CollectorServiceGrpcException(msg);
+            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
     }
 
     /**
+     * Method used to insert/update a configuration in the list of configurations.
+     *
+     * @param message is the instance of CollectorMessages to check if the CollectorConfig configuration is present.
+     */
+    public static List<CollectorConfig> upsertConfiguration(List<CollectorConfig> baseList, CollectorMessages message) {
+        CollectorConfig current = message.getConfig();
+        Optional<CollectorConfig> search = baseList.stream()
+                .filter(c -> c.getCollectorKey().equals(current.getCollectorKey())).findFirst();
+
+        if (search.isPresent()) {
+            baseList.remove(search.get());
+            baseList.add(current);
+        } else {
+            baseList.add(current);
+        }
+        return baseList;
+    }
+
+    /**
+     * Method to get the list of CollectorConfig in case that has more than one received from the gRPC server
+     */
+    public static List<CollectorConfig> getConfigurationsByCollector(List<CollectorConfig> baseList, String collectorKey) {
+        return baseList.stream().filter(c -> c.getCollectorKey().equals(collectorKey)).collect(Collectors.toList());
+    }
+
+    /**
      * Method to get collector list
+     *
      * @param request is the request with all the pagination and search params used to list collectors
-     * according to those params
+     *                according to those params
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed
      */
     public ListCollectorResponse listCollector(ListRequest request) throws CollectorServiceGrpcException {
@@ -165,6 +170,8 @@ public class CollectorService {
             throw new CollectorServiceGrpcException(msg);
         }
     }
+
+// ----------------------------------------------------------------------------------------------------------------------------------
 
     /**
      * Method to List Collector by Hostnames (Not implemented by server yet)
@@ -190,18 +197,6 @@ public class CollectorService {
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
             logger.error(msg);
-            throw new CollectorServiceGrpcException(msg);
-        }
-    }
-    /**
-     * Method to done making ping requests to server
-     */
-    public void callOnCompleted() throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".callOnCompleted";
-        try {
-            requestObserver.onCompleted();
-        } catch (Exception e) {
-            String msg = ctx + ": " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
         }
     }

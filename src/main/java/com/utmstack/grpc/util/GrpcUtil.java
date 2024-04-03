@@ -3,6 +3,10 @@ package com.utmstack.grpc.util;
 import com.utmstack.grpc.exception.GrpcOnCompleteException;
 import io.grpc.stub.StreamObserver;
 
+/**
+ * @author Freddy R. Laffita Almaguer.
+ * This class handle useful functions related to gRPC
+ */
 public class GrpcUtil {
     private static final String CLASSNAME = "GrpcUtil";
     /**

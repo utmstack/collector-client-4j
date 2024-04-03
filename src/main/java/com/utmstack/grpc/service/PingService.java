@@ -66,7 +66,7 @@ public class PingService {
      * Method to ping from a collector
      */
     private void initPingRequestStreamObserver() throws PingException {
-        final String ctx = CLASSNAME + ".getPingRequestStreamObserver";
+        final String ctx = CLASSNAME + ".initPingRequestStreamObserver";
         final CountDownLatch finishLatch = new CountDownLatch(1);
 
         try {
