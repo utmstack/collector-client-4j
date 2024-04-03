@@ -45,11 +45,15 @@ public class PingService {
         final CountDownLatch finishLatch = new CountDownLatch(1);
         while (true) {
             try {
-                StreamObserver<PingRequest> pingCall = getPingRequestStreamObserver();
-                pingCall.onNext(request);
+                if (pingRequestStreamObserver == null) {
+                    initPingRequestStreamObserver();
+                }
+                pingRequestStreamObserver.onNext(request);
                 finishLatch.await(timeAmount, timeUnit);
             } catch (PingException e) {
-                throw new PingException(ctx + ": " + e.getMessage());
+                logger.error(ctx + ": " + e.getMessage());
+                // Reconnecting
+                initPingRequestStreamObserver();
             } catch (InterruptedException e) {
                 String msg = ctx + ": Ping process was interrupted: " + e.getMessage();
                 logger.error(msg);
@@ -61,31 +65,37 @@ public class PingService {
     /**
      * Method to ping from a collector
      */
-    private StreamObserver<PingRequest> getPingRequestStreamObserver() throws PingException {
+    private void initPingRequestStreamObserver() throws PingException {
         final String ctx = CLASSNAME + ".getPingRequestStreamObserver";
+        final CountDownLatch finishLatch = new CountDownLatch(1);
 
-            try {
-                pingRequestStreamObserver = nonBlockingStub.ping(new StreamObserver<>() {
+        try {
+            pingRequestStreamObserver = nonBlockingStub.ping(new StreamObserver<>() {
 
-                    @Override
-                    public void onNext(PingResponse pingResponse) {
-                        logger.info("Response executed ..." + pingResponse.getReceived());
+                @Override
+                public void onNext(PingResponse pingResponse) {
+                    logger.info("Response executed ..." + pingResponse.getReceived());
+                }
+
+                @Override
+                public void onError(Throwable cause) {
+                    logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
+                    try {
+                        // Wait 10 seconds before try again
+                        finishLatch.await(10, TimeUnit.SECONDS);
+                        initPingRequestStreamObserver();
+                    } catch (PingException | InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
+                }
 
-                    @Override
-                    public void onError(Throwable cause) {
-                        logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        logger.info("Stream completed");
-                    }
-                });
-            } catch (Exception e) {
-                throw new PingException(ctx + ": " + e.getMessage());
-            }
-
-        return pingRequestStreamObserver;
+                @Override
+                public void onCompleted() {
+                    logger.info("Stream completed");
+                }
+            });
+        } catch (Exception e) {
+            throw new PingException(ctx + ": " + e.getMessage());
+        }
     }
 }
