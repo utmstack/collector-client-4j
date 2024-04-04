@@ -16,34 +16,34 @@ public final class PanelCollectorServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig,
-      agent.CollectorOuterClass.ConfigKnowledge> getCollectorConfigStreamMethod;
+      agent.CollectorOuterClass.ConfigKnowledge> getRegisterCollectorConfigMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CollectorConfigStream",
+      fullMethodName = SERVICE_NAME + '/' + "RegisterCollectorConfig",
       requestType = agent.CollectorOuterClass.CollectorConfig.class,
       responseType = agent.CollectorOuterClass.ConfigKnowledge.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig,
-      agent.CollectorOuterClass.ConfigKnowledge> getCollectorConfigStreamMethod() {
-    io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig, agent.CollectorOuterClass.ConfigKnowledge> getCollectorConfigStreamMethod;
-    if ((getCollectorConfigStreamMethod = PanelCollectorServiceGrpc.getCollectorConfigStreamMethod) == null) {
+      agent.CollectorOuterClass.ConfigKnowledge> getRegisterCollectorConfigMethod() {
+    io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig, agent.CollectorOuterClass.ConfigKnowledge> getRegisterCollectorConfigMethod;
+    if ((getRegisterCollectorConfigMethod = PanelCollectorServiceGrpc.getRegisterCollectorConfigMethod) == null) {
       synchronized (PanelCollectorServiceGrpc.class) {
-        if ((getCollectorConfigStreamMethod = PanelCollectorServiceGrpc.getCollectorConfigStreamMethod) == null) {
-          PanelCollectorServiceGrpc.getCollectorConfigStreamMethod = getCollectorConfigStreamMethod =
+        if ((getRegisterCollectorConfigMethod = PanelCollectorServiceGrpc.getRegisterCollectorConfigMethod) == null) {
+          PanelCollectorServiceGrpc.getRegisterCollectorConfigMethod = getRegisterCollectorConfigMethod =
               io.grpc.MethodDescriptor.<agent.CollectorOuterClass.CollectorConfig, agent.CollectorOuterClass.ConfigKnowledge>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CollectorConfigStream"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RegisterCollectorConfig"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   agent.CollectorOuterClass.CollectorConfig.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   agent.CollectorOuterClass.ConfigKnowledge.getDefaultInstance()))
-              .setSchemaDescriptor(new PanelCollectorServiceMethodDescriptorSupplier("CollectorConfigStream"))
+              .setSchemaDescriptor(new PanelCollectorServiceMethodDescriptorSupplier("RegisterCollectorConfig"))
               .build();
         }
       }
     }
-    return getCollectorConfigStreamMethod;
+    return getRegisterCollectorConfigMethod;
   }
 
   /**
@@ -96,9 +96,9 @@ public final class PanelCollectorServiceGrpc {
 
     /**
      */
-    default void collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request,
+    default void registerCollectorConfig(agent.CollectorOuterClass.CollectorConfig request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCollectorConfigStreamMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRegisterCollectorConfigMethod(), responseObserver);
     }
   }
 
@@ -131,10 +131,10 @@ public final class PanelCollectorServiceGrpc {
 
     /**
      */
-    public void collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request,
+    public void registerCollectorConfig(agent.CollectorOuterClass.CollectorConfig request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getCollectorConfigStreamMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getRegisterCollectorConfigMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -156,9 +156,9 @@ public final class PanelCollectorServiceGrpc {
 
     /**
      */
-    public agent.CollectorOuterClass.ConfigKnowledge collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request) {
+    public agent.CollectorOuterClass.ConfigKnowledge registerCollectorConfig(agent.CollectorOuterClass.CollectorConfig request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCollectorConfigStreamMethod(), getCallOptions(), request);
+          getChannel(), getRegisterCollectorConfigMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,14 +180,14 @@ public final class PanelCollectorServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.ConfigKnowledge> collectorConfigStream(
+    public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.ConfigKnowledge> registerCollectorConfig(
         agent.CollectorOuterClass.CollectorConfig request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getCollectorConfigStreamMethod(), getCallOptions()), request);
+          getChannel().newCall(getRegisterCollectorConfigMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_COLLECTOR_CONFIG_STREAM = 0;
+  private static final int METHODID_REGISTER_COLLECTOR_CONFIG = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -206,8 +206,8 @@ public final class PanelCollectorServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_COLLECTOR_CONFIG_STREAM:
-          serviceImpl.collectorConfigStream((agent.CollectorOuterClass.CollectorConfig) request,
+        case METHODID_REGISTER_COLLECTOR_CONFIG:
+          serviceImpl.registerCollectorConfig((agent.CollectorOuterClass.CollectorConfig) request,
               (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge>) responseObserver);
           break;
         default:
@@ -229,12 +229,12 @@ public final class PanelCollectorServiceGrpc {
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
-          getCollectorConfigStreamMethod(),
+          getRegisterCollectorConfigMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               agent.CollectorOuterClass.CollectorConfig,
               agent.CollectorOuterClass.ConfigKnowledge>(
-                service, METHODID_COLLECTOR_CONFIG_STREAM)))
+                service, METHODID_REGISTER_COLLECTOR_CONFIG)))
         .build();
   }
 
@@ -283,7 +283,7 @@ public final class PanelCollectorServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new PanelCollectorServiceFileDescriptorSupplier())
-              .addMethod(getCollectorConfigStreamMethod())
+              .addMethod(getRegisterCollectorConfigMethod())
               .build();
         }
       }

@@ -15,7 +15,7 @@ service CollectorService {
 }
 
 service PanelCollectorService {
-  rpc CollectorConfigStream(CollectorConfig) returns (ConfigKnowledge) {}
+  rpc RegisterCollectorConfig(CollectorConfig) returns (ConfigKnowledge) {}
 }
 
 enum CollectorModule{

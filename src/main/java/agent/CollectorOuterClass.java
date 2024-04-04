@@ -11465,11 +11465,11 @@ public final class CollectorOuterClass {
       "s\022\022.agent.ListRequest\032\031.agent.CollectorH" +
       "ostnames\"\000\022`\n GetCollectorsByHostnameAnd" +
       "Module\022\034.agent.FilterByHostAndModule\032\034.a" +
-      "gent.ListCollectorResponse\"\0002b\n\025PanelCol" +
-      "lectorService\022I\n\025CollectorConfigStream\022\026" +
-      ".agent.CollectorConfig\032\026.agent.ConfigKno" +
-      "wledge\"\000B2Z0github.com/utmstack/UTMStack" +
-      "/agent-manager/agentb\006proto3"
+      "gent.ListCollectorResponse\"\0002d\n\025PanelCol" +
+      "lectorService\022K\n\027RegisterCollectorConfig" +
+      "\022\026.agent.CollectorConfig\032\026.agent.ConfigK" +
+      "nowledge\"\000B2Z0github.com/utmstack/UTMSta" +
+      "ck/agent-manager/agentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
