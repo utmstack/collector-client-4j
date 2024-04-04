@@ -1,21 +1,21 @@
 syntax = "proto3";
 
-option go_package = "github.com/utmstack/UTMStack/agent";
+option go_package = "github.com/utmstack/UTMStack/agent-manager/agent";
 import "common.proto";
 
 package agent;
 
 service CollectorService {
   rpc RegisterCollector(RegisterRequest) returns (AuthResponse) {}
-  rpc DeleteCollector(CollectorDelete) returns (CollectorResponse) {}
+  rpc DeleteCollector(CollectorDelete) returns (AuthResponse) {}
   rpc ListCollector (ListRequest) returns (ListCollectorResponse) {}
   rpc CollectorStream(stream CollectorMessages) returns (stream CollectorMessages) {}
   rpc ListCollectorHostnames (ListRequest) returns (CollectorHostnames) {}
   rpc GetCollectorsByHostnameAndModule (FilterByHostAndModule) returns (ListCollectorResponse) {}
 }
 
-service CollectorConfigurationService {
-  rpc CollectorConfigStream(stream CollectorConfig) returns (stream ConfigKnowledge) {}
+service PanelCollectorService {
+  rpc CollectorConfigStream(CollectorConfig) returns (ConfigKnowledge) {}
 }
 
 enum CollectorModule{
@@ -26,12 +26,8 @@ message CollectorMessages {
   oneof stream_message {
     CollectorConfig config = 1;
     ConfigKnowledge result = 2;
-    AuthResponse auth_response = 3;
+    ConfigRequest request = 3;
   }
-}
-
-message Module{
-  CollectorModule module = 1;
 }
 
 message CollectorHostnames{
@@ -55,6 +51,10 @@ message RegisterRequest {
   CollectorModule collector = 4;
 }
 
+message ConfigRequest {
+  CollectorModule module = 1;
+}
+
 message Collector {
   int32 id = 1;
   Status status = 2;
@@ -68,10 +68,8 @@ message Collector {
 }
 
 message CollectorConfig {
-  string collector_key = 1;
-  repeated CollectorConfigGroup groups = 2;
-  string request_id = 3;
-  string internal_key = 8;
+  repeated CollectorConfigGroup groups = 1;
+  string request_id = 2;
 }
 
 message CollectorConfigGroup {
@@ -94,12 +92,6 @@ message CollectorGroupConfigurations {
 
 message CollectorDelete {
   string deleted_by = 1;
-  string collector_key = 2;
-}
-
-message CollectorResponse {
-  string deleted_by = 1;
-  string collector_key = 2;
 }
 
 message ListCollectorResponse {

@@ -22,7 +22,7 @@ public final class PingServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "Ping",
       requestType = agent.Ping.PingRequest.class,
       responseType = agent.Ping.PingResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
   public static io.grpc.MethodDescriptor<agent.Ping.PingRequest,
       agent.Ping.PingResponse> getPingMethod() {
     io.grpc.MethodDescriptor<agent.Ping.PingRequest, agent.Ping.PingResponse> getPingMethod;
@@ -31,7 +31,7 @@ public final class PingServiceGrpc {
         if ((getPingMethod = PingServiceGrpc.getPingMethod) == null) {
           PingServiceGrpc.getPingMethod = getPingMethod =
               io.grpc.MethodDescriptor.<agent.Ping.PingRequest, agent.Ping.PingResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Ping"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -133,7 +133,7 @@ public final class PingServiceGrpc {
      */
     public io.grpc.stub.StreamObserver<agent.Ping.PingRequest> ping(
         io.grpc.stub.StreamObserver<agent.Ping.PingResponse> responseObserver) {
-      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncClientStreamingCall(
           getChannel().newCall(getPingMethod(), getCallOptions()), responseObserver);
     }
   }
@@ -214,7 +214,7 @@ public final class PingServiceGrpc {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
           getPingMethod(),
-          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+          io.grpc.stub.ServerCalls.asyncClientStreamingCall(
             new MethodHandlers<
               agent.Ping.PingRequest,
               agent.Ping.PingResponse>(

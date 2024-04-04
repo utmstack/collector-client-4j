@@ -8,11 +8,11 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
     value = "by gRPC proto compiler (version 1.55.1)",
     comments = "Source: collector.proto")
 @io.grpc.stub.annotations.GrpcGenerated
-public final class CollectorConfigurationServiceGrpc {
+public final class PanelCollectorServiceGrpc {
 
-  private CollectorConfigurationServiceGrpc() {}
+  private PanelCollectorServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "agent.CollectorConfigurationService";
+  public static final String SERVICE_NAME = "agent.PanelCollectorService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig,
@@ -22,23 +22,23 @@ public final class CollectorConfigurationServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "CollectorConfigStream",
       requestType = agent.CollectorOuterClass.CollectorConfig.class,
       responseType = agent.CollectorOuterClass.ConfigKnowledge.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig,
       agent.CollectorOuterClass.ConfigKnowledge> getCollectorConfigStreamMethod() {
     io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorConfig, agent.CollectorOuterClass.ConfigKnowledge> getCollectorConfigStreamMethod;
-    if ((getCollectorConfigStreamMethod = CollectorConfigurationServiceGrpc.getCollectorConfigStreamMethod) == null) {
-      synchronized (CollectorConfigurationServiceGrpc.class) {
-        if ((getCollectorConfigStreamMethod = CollectorConfigurationServiceGrpc.getCollectorConfigStreamMethod) == null) {
-          CollectorConfigurationServiceGrpc.getCollectorConfigStreamMethod = getCollectorConfigStreamMethod =
+    if ((getCollectorConfigStreamMethod = PanelCollectorServiceGrpc.getCollectorConfigStreamMethod) == null) {
+      synchronized (PanelCollectorServiceGrpc.class) {
+        if ((getCollectorConfigStreamMethod = PanelCollectorServiceGrpc.getCollectorConfigStreamMethod) == null) {
+          PanelCollectorServiceGrpc.getCollectorConfigStreamMethod = getCollectorConfigStreamMethod =
               io.grpc.MethodDescriptor.<agent.CollectorOuterClass.CollectorConfig, agent.CollectorOuterClass.ConfigKnowledge>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CollectorConfigStream"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   agent.CollectorOuterClass.CollectorConfig.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   agent.CollectorOuterClass.ConfigKnowledge.getDefaultInstance()))
-              .setSchemaDescriptor(new CollectorConfigurationServiceMethodDescriptorSupplier("CollectorConfigStream"))
+              .setSchemaDescriptor(new PanelCollectorServiceMethodDescriptorSupplier("CollectorConfigStream"))
               .build();
         }
       }
@@ -49,45 +49,45 @@ public final class CollectorConfigurationServiceGrpc {
   /**
    * Creates a new async stub that supports all call types for the service
    */
-  public static CollectorConfigurationServiceStub newStub(io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceStub>() {
+  public static PanelCollectorServiceStub newStub(io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceStub>() {
         @java.lang.Override
-        public CollectorConfigurationServiceStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CollectorConfigurationServiceStub(channel, callOptions);
+        public PanelCollectorServiceStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new PanelCollectorServiceStub(channel, callOptions);
         }
       };
-    return CollectorConfigurationServiceStub.newStub(factory, channel);
+    return PanelCollectorServiceStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
-  public static CollectorConfigurationServiceBlockingStub newBlockingStub(
+  public static PanelCollectorServiceBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceBlockingStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceBlockingStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceBlockingStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceBlockingStub>() {
         @java.lang.Override
-        public CollectorConfigurationServiceBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CollectorConfigurationServiceBlockingStub(channel, callOptions);
+        public PanelCollectorServiceBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new PanelCollectorServiceBlockingStub(channel, callOptions);
         }
       };
-    return CollectorConfigurationServiceBlockingStub.newStub(factory, channel);
+    return PanelCollectorServiceBlockingStub.newStub(factory, channel);
   }
 
   /**
    * Creates a new ListenableFuture-style stub that supports unary calls on the service
    */
-  public static CollectorConfigurationServiceFutureStub newFutureStub(
+  public static PanelCollectorServiceFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceFutureStub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<CollectorConfigurationServiceFutureStub>() {
+    io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceFutureStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<PanelCollectorServiceFutureStub>() {
         @java.lang.Override
-        public CollectorConfigurationServiceFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new CollectorConfigurationServiceFutureStub(channel, callOptions);
+        public PanelCollectorServiceFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new PanelCollectorServiceFutureStub(channel, callOptions);
         }
       };
-    return CollectorConfigurationServiceFutureStub.newStub(factory, channel);
+    return PanelCollectorServiceFutureStub.newStub(factory, channel);
   }
 
   /**
@@ -96,79 +96,94 @@ public final class CollectorConfigurationServiceGrpc {
 
     /**
      */
-    default io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorConfig> collectorConfigStream(
+    default void collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge> responseObserver) {
-      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getCollectorConfigStreamMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCollectorConfigStreamMethod(), responseObserver);
     }
   }
 
   /**
-   * Base class for the server implementation of the service CollectorConfigurationService.
+   * Base class for the server implementation of the service PanelCollectorService.
    */
-  public static abstract class CollectorConfigurationServiceImplBase
+  public static abstract class PanelCollectorServiceImplBase
       implements io.grpc.BindableService, AsyncService {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return CollectorConfigurationServiceGrpc.bindService(this);
+      return PanelCollectorServiceGrpc.bindService(this);
     }
   }
 
   /**
-   * A stub to allow clients to do asynchronous rpc calls to service CollectorConfigurationService.
+   * A stub to allow clients to do asynchronous rpc calls to service PanelCollectorService.
    */
-  public static final class CollectorConfigurationServiceStub
-      extends io.grpc.stub.AbstractAsyncStub<CollectorConfigurationServiceStub> {
-    private CollectorConfigurationServiceStub(
+  public static final class PanelCollectorServiceStub
+      extends io.grpc.stub.AbstractAsyncStub<PanelCollectorServiceStub> {
+    private PanelCollectorServiceStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CollectorConfigurationServiceStub build(
+    protected PanelCollectorServiceStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CollectorConfigurationServiceStub(channel, callOptions);
+      return new PanelCollectorServiceStub(channel, callOptions);
     }
 
     /**
      */
-    public io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorConfig> collectorConfigStream(
+    public void collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge> responseObserver) {
-      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
-          getChannel().newCall(getCollectorConfigStreamMethod(), getCallOptions()), responseObserver);
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCollectorConfigStreamMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
-   * A stub to allow clients to do synchronous rpc calls to service CollectorConfigurationService.
+   * A stub to allow clients to do synchronous rpc calls to service PanelCollectorService.
    */
-  public static final class CollectorConfigurationServiceBlockingStub
-      extends io.grpc.stub.AbstractBlockingStub<CollectorConfigurationServiceBlockingStub> {
-    private CollectorConfigurationServiceBlockingStub(
+  public static final class PanelCollectorServiceBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<PanelCollectorServiceBlockingStub> {
+    private PanelCollectorServiceBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CollectorConfigurationServiceBlockingStub build(
+    protected PanelCollectorServiceBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CollectorConfigurationServiceBlockingStub(channel, callOptions);
+      return new PanelCollectorServiceBlockingStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public agent.CollectorOuterClass.ConfigKnowledge collectorConfigStream(agent.CollectorOuterClass.CollectorConfig request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCollectorConfigStreamMethod(), getCallOptions(), request);
     }
   }
 
   /**
-   * A stub to allow clients to do ListenableFuture-style rpc calls to service CollectorConfigurationService.
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service PanelCollectorService.
    */
-  public static final class CollectorConfigurationServiceFutureStub
-      extends io.grpc.stub.AbstractFutureStub<CollectorConfigurationServiceFutureStub> {
-    private CollectorConfigurationServiceFutureStub(
+  public static final class PanelCollectorServiceFutureStub
+      extends io.grpc.stub.AbstractFutureStub<PanelCollectorServiceFutureStub> {
+    private PanelCollectorServiceFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CollectorConfigurationServiceFutureStub build(
+    protected PanelCollectorServiceFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new CollectorConfigurationServiceFutureStub(channel, callOptions);
+      return new PanelCollectorServiceFutureStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.ConfigKnowledge> collectorConfigStream(
+        agent.CollectorOuterClass.CollectorConfig request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCollectorConfigStreamMethod(), getCallOptions()), request);
     }
   }
 
@@ -191,6 +206,10 @@ public final class CollectorConfigurationServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_COLLECTOR_CONFIG_STREAM:
+          serviceImpl.collectorConfigStream((agent.CollectorOuterClass.CollectorConfig) request,
+              (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -201,9 +220,6 @@ public final class CollectorConfigurationServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_COLLECTOR_CONFIG_STREAM:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.collectorConfigStream(
-              (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ConfigKnowledge>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -214,7 +230,7 @@ public final class CollectorConfigurationServiceGrpc {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
           getCollectorConfigStreamMethod(),
-          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               agent.CollectorOuterClass.CollectorConfig,
               agent.CollectorOuterClass.ConfigKnowledge>(
@@ -222,9 +238,9 @@ public final class CollectorConfigurationServiceGrpc {
         .build();
   }
 
-  private static abstract class CollectorConfigurationServiceBaseDescriptorSupplier
+  private static abstract class PanelCollectorServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
-    CollectorConfigurationServiceBaseDescriptorSupplier() {}
+    PanelCollectorServiceBaseDescriptorSupplier() {}
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
@@ -233,21 +249,21 @@ public final class CollectorConfigurationServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
-      return getFileDescriptor().findServiceByName("CollectorConfigurationService");
+      return getFileDescriptor().findServiceByName("PanelCollectorService");
     }
   }
 
-  private static final class CollectorConfigurationServiceFileDescriptorSupplier
-      extends CollectorConfigurationServiceBaseDescriptorSupplier {
-    CollectorConfigurationServiceFileDescriptorSupplier() {}
+  private static final class PanelCollectorServiceFileDescriptorSupplier
+      extends PanelCollectorServiceBaseDescriptorSupplier {
+    PanelCollectorServiceFileDescriptorSupplier() {}
   }
 
-  private static final class CollectorConfigurationServiceMethodDescriptorSupplier
-      extends CollectorConfigurationServiceBaseDescriptorSupplier
+  private static final class PanelCollectorServiceMethodDescriptorSupplier
+      extends PanelCollectorServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
     private final String methodName;
 
-    CollectorConfigurationServiceMethodDescriptorSupplier(String methodName) {
+    PanelCollectorServiceMethodDescriptorSupplier(String methodName) {
       this.methodName = methodName;
     }
 
@@ -262,11 +278,11 @@ public final class CollectorConfigurationServiceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (CollectorConfigurationServiceGrpc.class) {
+      synchronized (PanelCollectorServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new CollectorConfigurationServiceFileDescriptorSupplier())
+              .setSchemaDescriptor(new PanelCollectorServiceFileDescriptorSupplier())
               .addMethod(getCollectorConfigStreamMethod())
               .build();
         }

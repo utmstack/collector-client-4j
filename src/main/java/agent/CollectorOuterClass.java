@@ -148,19 +148,19 @@ public final class CollectorOuterClass {
     agent.CollectorOuterClass.ConfigKnowledgeOrBuilder getResultOrBuilder();
 
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
-     * @return Whether the authResponse field is set.
+     * <code>.agent.ConfigRequest request = 3;</code>
+     * @return Whether the request field is set.
      */
-    boolean hasAuthResponse();
+    boolean hasRequest();
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
-     * @return The authResponse.
+     * <code>.agent.ConfigRequest request = 3;</code>
+     * @return The request.
      */
-    agent.Common.AuthResponse getAuthResponse();
+    agent.CollectorOuterClass.ConfigRequest getRequest();
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
+     * <code>.agent.ConfigRequest request = 3;</code>
      */
-    agent.Common.AuthResponseOrBuilder getAuthResponseOrBuilder();
+    agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder();
 
     agent.CollectorOuterClass.CollectorMessages.StreamMessageCase getStreamMessageCase();
   }
@@ -207,7 +207,7 @@ public final class CollectorOuterClass {
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       CONFIG(1),
       RESULT(2),
-      AUTH_RESPONSE(3),
+      REQUEST(3),
       STREAMMESSAGE_NOT_SET(0);
       private final int value;
       private StreamMessageCase(int value) {
@@ -227,7 +227,7 @@ public final class CollectorOuterClass {
         switch (value) {
           case 1: return CONFIG;
           case 2: return RESULT;
-          case 3: return AUTH_RESPONSE;
+          case 3: return REQUEST;
           case 0: return STREAMMESSAGE_NOT_SET;
           default: return null;
         }
@@ -305,35 +305,35 @@ public final class CollectorOuterClass {
       return agent.CollectorOuterClass.ConfigKnowledge.getDefaultInstance();
     }
 
-    public static final int AUTH_RESPONSE_FIELD_NUMBER = 3;
+    public static final int REQUEST_FIELD_NUMBER = 3;
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
-     * @return Whether the authResponse field is set.
+     * <code>.agent.ConfigRequest request = 3;</code>
+     * @return Whether the request field is set.
      */
     @java.lang.Override
-    public boolean hasAuthResponse() {
+    public boolean hasRequest() {
       return streamMessageCase_ == 3;
     }
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
-     * @return The authResponse.
+     * <code>.agent.ConfigRequest request = 3;</code>
+     * @return The request.
      */
     @java.lang.Override
-    public agent.Common.AuthResponse getAuthResponse() {
+    public agent.CollectorOuterClass.ConfigRequest getRequest() {
       if (streamMessageCase_ == 3) {
-         return (agent.Common.AuthResponse) streamMessage_;
+         return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
       }
-      return agent.Common.AuthResponse.getDefaultInstance();
+      return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
     }
     /**
-     * <code>.agent.AuthResponse auth_response = 3;</code>
+     * <code>.agent.ConfigRequest request = 3;</code>
      */
     @java.lang.Override
-    public agent.Common.AuthResponseOrBuilder getAuthResponseOrBuilder() {
+    public agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder() {
       if (streamMessageCase_ == 3) {
-         return (agent.Common.AuthResponse) streamMessage_;
+         return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
       }
-      return agent.Common.AuthResponse.getDefaultInstance();
+      return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -357,7 +357,7 @@ public final class CollectorOuterClass {
         output.writeMessage(2, (agent.CollectorOuterClass.ConfigKnowledge) streamMessage_);
       }
       if (streamMessageCase_ == 3) {
-        output.writeMessage(3, (agent.Common.AuthResponse) streamMessage_);
+        output.writeMessage(3, (agent.CollectorOuterClass.ConfigRequest) streamMessage_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -378,7 +378,7 @@ public final class CollectorOuterClass {
       }
       if (streamMessageCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (agent.Common.AuthResponse) streamMessage_);
+          .computeMessageSize(3, (agent.CollectorOuterClass.ConfigRequest) streamMessage_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -406,8 +406,8 @@ public final class CollectorOuterClass {
               .equals(other.getResult())) return false;
           break;
         case 3:
-          if (!getAuthResponse()
-              .equals(other.getAuthResponse())) return false;
+          if (!getRequest()
+              .equals(other.getRequest())) return false;
           break;
         case 0:
         default:
@@ -433,8 +433,8 @@ public final class CollectorOuterClass {
           hash = (53 * hash) + getResult().hashCode();
           break;
         case 3:
-          hash = (37 * hash) + AUTH_RESPONSE_FIELD_NUMBER;
-          hash = (53 * hash) + getAuthResponse().hashCode();
+          hash = (37 * hash) + REQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getRequest().hashCode();
           break;
         case 0:
         default:
@@ -576,8 +576,8 @@ public final class CollectorOuterClass {
         if (resultBuilder_ != null) {
           resultBuilder_.clear();
         }
-        if (authResponseBuilder_ != null) {
-          authResponseBuilder_.clear();
+        if (requestBuilder_ != null) {
+          requestBuilder_.clear();
         }
         streamMessageCase_ = 0;
         streamMessage_ = null;
@@ -629,8 +629,8 @@ public final class CollectorOuterClass {
           result.streamMessage_ = resultBuilder_.build();
         }
         if (streamMessageCase_ == 3 &&
-            authResponseBuilder_ != null) {
-          result.streamMessage_ = authResponseBuilder_.build();
+            requestBuilder_ != null) {
+          result.streamMessage_ = requestBuilder_.build();
         }
       }
 
@@ -687,8 +687,8 @@ public final class CollectorOuterClass {
             mergeResult(other.getResult());
             break;
           }
-          case AUTH_RESPONSE: {
-            mergeAuthResponse(other.getAuthResponse());
+          case REQUEST: {
+            mergeRequest(other.getRequest());
             break;
           }
           case STREAMMESSAGE_NOT_SET: {
@@ -737,7 +737,7 @@ public final class CollectorOuterClass {
               } // case 18
               case 26: {
                 input.readMessage(
-                    getAuthResponseFieldBuilder().getBuilder(),
+                    getRequestFieldBuilder().getBuilder(),
                     extensionRegistry);
                 streamMessageCase_ = 3;
                 break;
@@ -1059,71 +1059,71 @@ public final class CollectorOuterClass {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder> authResponseBuilder_;
+          agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder> requestBuilder_;
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
-       * @return Whether the authResponse field is set.
+       * <code>.agent.ConfigRequest request = 3;</code>
+       * @return Whether the request field is set.
        */
       @java.lang.Override
-      public boolean hasAuthResponse() {
+      public boolean hasRequest() {
         return streamMessageCase_ == 3;
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
-       * @return The authResponse.
+       * <code>.agent.ConfigRequest request = 3;</code>
+       * @return The request.
        */
       @java.lang.Override
-      public agent.Common.AuthResponse getAuthResponse() {
-        if (authResponseBuilder_ == null) {
+      public agent.CollectorOuterClass.ConfigRequest getRequest() {
+        if (requestBuilder_ == null) {
           if (streamMessageCase_ == 3) {
-            return (agent.Common.AuthResponse) streamMessage_;
+            return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
           }
-          return agent.Common.AuthResponse.getDefaultInstance();
+          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
         } else {
           if (streamMessageCase_ == 3) {
-            return authResponseBuilder_.getMessage();
+            return requestBuilder_.getMessage();
           }
-          return agent.Common.AuthResponse.getDefaultInstance();
+          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
-      public Builder setAuthResponse(agent.Common.AuthResponse value) {
-        if (authResponseBuilder_ == null) {
+      public Builder setRequest(agent.CollectorOuterClass.ConfigRequest value) {
+        if (requestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           streamMessage_ = value;
           onChanged();
         } else {
-          authResponseBuilder_.setMessage(value);
+          requestBuilder_.setMessage(value);
         }
         streamMessageCase_ = 3;
         return this;
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
-      public Builder setAuthResponse(
-          agent.Common.AuthResponse.Builder builderForValue) {
-        if (authResponseBuilder_ == null) {
+      public Builder setRequest(
+          agent.CollectorOuterClass.ConfigRequest.Builder builderForValue) {
+        if (requestBuilder_ == null) {
           streamMessage_ = builderForValue.build();
           onChanged();
         } else {
-          authResponseBuilder_.setMessage(builderForValue.build());
+          requestBuilder_.setMessage(builderForValue.build());
         }
         streamMessageCase_ = 3;
         return this;
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
-      public Builder mergeAuthResponse(agent.Common.AuthResponse value) {
-        if (authResponseBuilder_ == null) {
+      public Builder mergeRequest(agent.CollectorOuterClass.ConfigRequest value) {
+        if (requestBuilder_ == null) {
           if (streamMessageCase_ == 3 &&
-              streamMessage_ != agent.Common.AuthResponse.getDefaultInstance()) {
-            streamMessage_ = agent.Common.AuthResponse.newBuilder((agent.Common.AuthResponse) streamMessage_)
+              streamMessage_ != agent.CollectorOuterClass.ConfigRequest.getDefaultInstance()) {
+            streamMessage_ = agent.CollectorOuterClass.ConfigRequest.newBuilder((agent.CollectorOuterClass.ConfigRequest) streamMessage_)
                 .mergeFrom(value).buildPartial();
           } else {
             streamMessage_ = value;
@@ -1131,19 +1131,19 @@ public final class CollectorOuterClass {
           onChanged();
         } else {
           if (streamMessageCase_ == 3) {
-            authResponseBuilder_.mergeFrom(value);
+            requestBuilder_.mergeFrom(value);
           } else {
-            authResponseBuilder_.setMessage(value);
+            requestBuilder_.setMessage(value);
           }
         }
         streamMessageCase_ = 3;
         return this;
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
-      public Builder clearAuthResponse() {
-        if (authResponseBuilder_ == null) {
+      public Builder clearRequest() {
+        if (requestBuilder_ == null) {
           if (streamMessageCase_ == 3) {
             streamMessageCase_ = 0;
             streamMessage_ = null;
@@ -1154,50 +1154,50 @@ public final class CollectorOuterClass {
             streamMessageCase_ = 0;
             streamMessage_ = null;
           }
-          authResponseBuilder_.clear();
+          requestBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
-      public agent.Common.AuthResponse.Builder getAuthResponseBuilder() {
-        return getAuthResponseFieldBuilder().getBuilder();
+      public agent.CollectorOuterClass.ConfigRequest.Builder getRequestBuilder() {
+        return getRequestFieldBuilder().getBuilder();
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
       @java.lang.Override
-      public agent.Common.AuthResponseOrBuilder getAuthResponseOrBuilder() {
-        if ((streamMessageCase_ == 3) && (authResponseBuilder_ != null)) {
-          return authResponseBuilder_.getMessageOrBuilder();
+      public agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder() {
+        if ((streamMessageCase_ == 3) && (requestBuilder_ != null)) {
+          return requestBuilder_.getMessageOrBuilder();
         } else {
           if (streamMessageCase_ == 3) {
-            return (agent.Common.AuthResponse) streamMessage_;
+            return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
           }
-          return agent.Common.AuthResponse.getDefaultInstance();
+          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.agent.AuthResponse auth_response = 3;</code>
+       * <code>.agent.ConfigRequest request = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder> 
-          getAuthResponseFieldBuilder() {
-        if (authResponseBuilder_ == null) {
+          agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder> 
+          getRequestFieldBuilder() {
+        if (requestBuilder_ == null) {
           if (!(streamMessageCase_ == 3)) {
-            streamMessage_ = agent.Common.AuthResponse.getDefaultInstance();
+            streamMessage_ = agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
           }
-          authResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder>(
-                  (agent.Common.AuthResponse) streamMessage_,
+          requestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder>(
+                  (agent.CollectorOuterClass.ConfigRequest) streamMessage_,
                   getParentForChildren(),
                   isClean());
           streamMessage_ = null;
         }
         streamMessageCase_ = 3;
         onChanged();
-        return authResponseBuilder_;
+        return requestBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1258,515 +1258,6 @@ public final class CollectorOuterClass {
 
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorMessages getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface ModuleOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:agent.Module)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.agent.CollectorModule module = 1;</code>
-     * @return The enum numeric value on the wire for module.
-     */
-    int getModuleValue();
-    /**
-     * <code>.agent.CollectorModule module = 1;</code>
-     * @return The module.
-     */
-    agent.CollectorOuterClass.CollectorModule getModule();
-  }
-  /**
-   * Protobuf type {@code agent.Module}
-   */
-  public static final class Module extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:agent.Module)
-      ModuleOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Module.newBuilder() to construct.
-    private Module(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Module() {
-      module_ = 0;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Module();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return agent.CollectorOuterClass.internal_static_agent_Module_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return agent.CollectorOuterClass.internal_static_agent_Module_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              agent.CollectorOuterClass.Module.class, agent.CollectorOuterClass.Module.Builder.class);
-    }
-
-    public static final int MODULE_FIELD_NUMBER = 1;
-    private int module_ = 0;
-    /**
-     * <code>.agent.CollectorModule module = 1;</code>
-     * @return The enum numeric value on the wire for module.
-     */
-    @java.lang.Override public int getModuleValue() {
-      return module_;
-    }
-    /**
-     * <code>.agent.CollectorModule module = 1;</code>
-     * @return The module.
-     */
-    @java.lang.Override public agent.CollectorOuterClass.CollectorModule getModule() {
-      agent.CollectorOuterClass.CollectorModule result = agent.CollectorOuterClass.CollectorModule.forNumber(module_);
-      return result == null ? agent.CollectorOuterClass.CollectorModule.UNRECOGNIZED : result;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (module_ != agent.CollectorOuterClass.CollectorModule.AS_400.getNumber()) {
-        output.writeEnum(1, module_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (module_ != agent.CollectorOuterClass.CollectorModule.AS_400.getNumber()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, module_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof agent.CollectorOuterClass.Module)) {
-        return super.equals(obj);
-      }
-      agent.CollectorOuterClass.Module other = (agent.CollectorOuterClass.Module) obj;
-
-      if (module_ != other.module_) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + MODULE_FIELD_NUMBER;
-      hash = (53 * hash) + module_;
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static agent.CollectorOuterClass.Module parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static agent.CollectorOuterClass.Module parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static agent.CollectorOuterClass.Module parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static agent.CollectorOuterClass.Module parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(agent.CollectorOuterClass.Module prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code agent.Module}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:agent.Module)
-        agent.CollectorOuterClass.ModuleOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return agent.CollectorOuterClass.internal_static_agent_Module_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return agent.CollectorOuterClass.internal_static_agent_Module_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                agent.CollectorOuterClass.Module.class, agent.CollectorOuterClass.Module.Builder.class);
-      }
-
-      // Construct using agent.CollectorOuterClass.Module.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        module_ = 0;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return agent.CollectorOuterClass.internal_static_agent_Module_descriptor;
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.Module getDefaultInstanceForType() {
-        return agent.CollectorOuterClass.Module.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.Module build() {
-        agent.CollectorOuterClass.Module result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.Module buildPartial() {
-        agent.CollectorOuterClass.Module result = new agent.CollectorOuterClass.Module(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(agent.CollectorOuterClass.Module result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.module_ = module_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof agent.CollectorOuterClass.Module) {
-          return mergeFrom((agent.CollectorOuterClass.Module)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(agent.CollectorOuterClass.Module other) {
-        if (other == agent.CollectorOuterClass.Module.getDefaultInstance()) return this;
-        if (other.module_ != 0) {
-          setModuleValue(other.getModuleValue());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-                module_ = input.readEnum();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private int module_ = 0;
-      /**
-       * <code>.agent.CollectorModule module = 1;</code>
-       * @return The enum numeric value on the wire for module.
-       */
-      @java.lang.Override public int getModuleValue() {
-        return module_;
-      }
-      /**
-       * <code>.agent.CollectorModule module = 1;</code>
-       * @param value The enum numeric value on the wire for module to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModuleValue(int value) {
-        module_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.CollectorModule module = 1;</code>
-       * @return The module.
-       */
-      @java.lang.Override
-      public agent.CollectorOuterClass.CollectorModule getModule() {
-        agent.CollectorOuterClass.CollectorModule result = agent.CollectorOuterClass.CollectorModule.forNumber(module_);
-        return result == null ? agent.CollectorOuterClass.CollectorModule.UNRECOGNIZED : result;
-      }
-      /**
-       * <code>.agent.CollectorModule module = 1;</code>
-       * @param value The module to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModule(agent.CollectorOuterClass.CollectorModule value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000001;
-        module_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.CollectorModule module = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearModule() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        module_ = 0;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:agent.Module)
-    }
-
-    // @@protoc_insertion_point(class_scope:agent.Module)
-    private static final agent.CollectorOuterClass.Module DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new agent.CollectorOuterClass.Module();
-    }
-
-    public static agent.CollectorOuterClass.Module getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Module>
-        PARSER = new com.google.protobuf.AbstractParser<Module>() {
-      @java.lang.Override
-      public Module parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<Module> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Module> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public agent.CollectorOuterClass.Module getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4700,6 +4191,515 @@ public final class CollectorOuterClass {
 
   }
 
+  public interface ConfigRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:agent.ConfigRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.agent.CollectorModule module = 1;</code>
+     * @return The enum numeric value on the wire for module.
+     */
+    int getModuleValue();
+    /**
+     * <code>.agent.CollectorModule module = 1;</code>
+     * @return The module.
+     */
+    agent.CollectorOuterClass.CollectorModule getModule();
+  }
+  /**
+   * Protobuf type {@code agent.ConfigRequest}
+   */
+  public static final class ConfigRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:agent.ConfigRequest)
+      ConfigRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ConfigRequest.newBuilder() to construct.
+    private ConfigRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ConfigRequest() {
+      module_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ConfigRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return agent.CollectorOuterClass.internal_static_agent_ConfigRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return agent.CollectorOuterClass.internal_static_agent_ConfigRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              agent.CollectorOuterClass.ConfigRequest.class, agent.CollectorOuterClass.ConfigRequest.Builder.class);
+    }
+
+    public static final int MODULE_FIELD_NUMBER = 1;
+    private int module_ = 0;
+    /**
+     * <code>.agent.CollectorModule module = 1;</code>
+     * @return The enum numeric value on the wire for module.
+     */
+    @java.lang.Override public int getModuleValue() {
+      return module_;
+    }
+    /**
+     * <code>.agent.CollectorModule module = 1;</code>
+     * @return The module.
+     */
+    @java.lang.Override public agent.CollectorOuterClass.CollectorModule getModule() {
+      agent.CollectorOuterClass.CollectorModule result = agent.CollectorOuterClass.CollectorModule.forNumber(module_);
+      return result == null ? agent.CollectorOuterClass.CollectorModule.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (module_ != agent.CollectorOuterClass.CollectorModule.AS_400.getNumber()) {
+        output.writeEnum(1, module_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (module_ != agent.CollectorOuterClass.CollectorModule.AS_400.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, module_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof agent.CollectorOuterClass.ConfigRequest)) {
+        return super.equals(obj);
+      }
+      agent.CollectorOuterClass.ConfigRequest other = (agent.CollectorOuterClass.ConfigRequest) obj;
+
+      if (module_ != other.module_) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MODULE_FIELD_NUMBER;
+      hash = (53 * hash) + module_;
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static agent.CollectorOuterClass.ConfigRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static agent.CollectorOuterClass.ConfigRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static agent.CollectorOuterClass.ConfigRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(agent.CollectorOuterClass.ConfigRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code agent.ConfigRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:agent.ConfigRequest)
+        agent.CollectorOuterClass.ConfigRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return agent.CollectorOuterClass.internal_static_agent_ConfigRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return agent.CollectorOuterClass.internal_static_agent_ConfigRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                agent.CollectorOuterClass.ConfigRequest.class, agent.CollectorOuterClass.ConfigRequest.Builder.class);
+      }
+
+      // Construct using agent.CollectorOuterClass.ConfigRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        module_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return agent.CollectorOuterClass.internal_static_agent_ConfigRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public agent.CollectorOuterClass.ConfigRequest getDefaultInstanceForType() {
+        return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public agent.CollectorOuterClass.ConfigRequest build() {
+        agent.CollectorOuterClass.ConfigRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public agent.CollectorOuterClass.ConfigRequest buildPartial() {
+        agent.CollectorOuterClass.ConfigRequest result = new agent.CollectorOuterClass.ConfigRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(agent.CollectorOuterClass.ConfigRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.module_ = module_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof agent.CollectorOuterClass.ConfigRequest) {
+          return mergeFrom((agent.CollectorOuterClass.ConfigRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(agent.CollectorOuterClass.ConfigRequest other) {
+        if (other == agent.CollectorOuterClass.ConfigRequest.getDefaultInstance()) return this;
+        if (other.module_ != 0) {
+          setModuleValue(other.getModuleValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                module_ = input.readEnum();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private int module_ = 0;
+      /**
+       * <code>.agent.CollectorModule module = 1;</code>
+       * @return The enum numeric value on the wire for module.
+       */
+      @java.lang.Override public int getModuleValue() {
+        return module_;
+      }
+      /**
+       * <code>.agent.CollectorModule module = 1;</code>
+       * @param value The enum numeric value on the wire for module to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModuleValue(int value) {
+        module_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.agent.CollectorModule module = 1;</code>
+       * @return The module.
+       */
+      @java.lang.Override
+      public agent.CollectorOuterClass.CollectorModule getModule() {
+        agent.CollectorOuterClass.CollectorModule result = agent.CollectorOuterClass.CollectorModule.forNumber(module_);
+        return result == null ? agent.CollectorOuterClass.CollectorModule.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.agent.CollectorModule module = 1;</code>
+       * @param value The module to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModule(agent.CollectorOuterClass.CollectorModule value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        module_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.agent.CollectorModule module = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearModule() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        module_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:agent.ConfigRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:agent.ConfigRequest)
+    private static final agent.CollectorOuterClass.ConfigRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new agent.CollectorOuterClass.ConfigRequest();
+    }
+
+    public static agent.CollectorOuterClass.ConfigRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ConfigRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ConfigRequest>() {
+      @java.lang.Override
+      public ConfigRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ConfigRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ConfigRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public agent.CollectorOuterClass.ConfigRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface CollectorOrBuilder extends
       // @@protoc_insertion_point(interface_extends:agent.Collector)
       com.google.protobuf.MessageOrBuilder {
@@ -6509,64 +6509,40 @@ public final class CollectorOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string collector_key = 1;</code>
-     * @return The collectorKey.
-     */
-    java.lang.String getCollectorKey();
-    /**
-     * <code>string collector_key = 1;</code>
-     * @return The bytes for collectorKey.
-     */
-    com.google.protobuf.ByteString
-        getCollectorKeyBytes();
-
-    /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> 
         getGroupsList();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index);
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     int getGroupsCount();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
         getGroupsOrBuilderList();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
         int index);
 
     /**
-     * <code>string request_id = 3;</code>
+     * <code>string request_id = 2;</code>
      * @return The requestId.
      */
     java.lang.String getRequestId();
     /**
-     * <code>string request_id = 3;</code>
+     * <code>string request_id = 2;</code>
      * @return The bytes for requestId.
      */
     com.google.protobuf.ByteString
         getRequestIdBytes();
-
-    /**
-     * <code>string internal_key = 8;</code>
-     * @return The internalKey.
-     */
-    java.lang.String getInternalKey();
-    /**
-     * <code>string internal_key = 8;</code>
-     * @return The bytes for internalKey.
-     */
-    com.google.protobuf.ByteString
-        getInternalKeyBytes();
   }
   /**
    * Protobuf type {@code agent.CollectorConfig}
@@ -6581,10 +6557,8 @@ public final class CollectorOuterClass {
       super(builder);
     }
     private CollectorConfig() {
-      collectorKey_ = "";
       groups_ = java.util.Collections.emptyList();
       requestId_ = "";
-      internalKey_ = "";
     }
 
     @java.lang.Override
@@ -6607,57 +6581,18 @@ public final class CollectorOuterClass {
               agent.CollectorOuterClass.CollectorConfig.class, agent.CollectorOuterClass.CollectorConfig.Builder.class);
     }
 
-    public static final int COLLECTOR_KEY_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object collectorKey_ = "";
-    /**
-     * <code>string collector_key = 1;</code>
-     * @return The collectorKey.
-     */
-    @java.lang.Override
-    public java.lang.String getCollectorKey() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        collectorKey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string collector_key = 1;</code>
-     * @return The bytes for collectorKey.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getCollectorKeyBytes() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        collectorKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int GROUPS_FIELD_NUMBER = 2;
+    public static final int GROUPS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> groups_;
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     @java.lang.Override
     public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> getGroupsList() {
       return groups_;
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     @java.lang.Override
     public java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
@@ -6665,21 +6600,21 @@ public final class CollectorOuterClass {
       return groups_;
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index) {
       return groups_.get(index);
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
      */
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
@@ -6687,11 +6622,11 @@ public final class CollectorOuterClass {
       return groups_.get(index);
     }
 
-    public static final int REQUEST_ID_FIELD_NUMBER = 3;
+    public static final int REQUEST_ID_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
     private volatile java.lang.Object requestId_ = "";
     /**
-     * <code>string request_id = 3;</code>
+     * <code>string request_id = 2;</code>
      * @return The requestId.
      */
     @java.lang.Override
@@ -6708,7 +6643,7 @@ public final class CollectorOuterClass {
       }
     }
     /**
-     * <code>string request_id = 3;</code>
+     * <code>string request_id = 2;</code>
      * @return The bytes for requestId.
      */
     @java.lang.Override
@@ -6720,45 +6655,6 @@ public final class CollectorOuterClass {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         requestId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int INTERNAL_KEY_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object internalKey_ = "";
-    /**
-     * <code>string internal_key = 8;</code>
-     * @return The internalKey.
-     */
-    @java.lang.Override
-    public java.lang.String getInternalKey() {
-      java.lang.Object ref = internalKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        internalKey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string internal_key = 8;</code>
-     * @return The bytes for internalKey.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getInternalKeyBytes() {
-      java.lang.Object ref = internalKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        internalKey_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -6779,17 +6675,11 @@ public final class CollectorOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, collectorKey_);
-      }
       for (int i = 0; i < groups_.size(); i++) {
-        output.writeMessage(2, groups_.get(i));
+        output.writeMessage(1, groups_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requestId_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(internalKey_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, internalKey_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, requestId_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6800,18 +6690,12 @@ public final class CollectorOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, collectorKey_);
-      }
       for (int i = 0; i < groups_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, groups_.get(i));
+          .computeMessageSize(1, groups_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requestId_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(internalKey_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, internalKey_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, requestId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -6828,14 +6712,10 @@ public final class CollectorOuterClass {
       }
       agent.CollectorOuterClass.CollectorConfig other = (agent.CollectorOuterClass.CollectorConfig) obj;
 
-      if (!getCollectorKey()
-          .equals(other.getCollectorKey())) return false;
       if (!getGroupsList()
           .equals(other.getGroupsList())) return false;
       if (!getRequestId()
           .equals(other.getRequestId())) return false;
-      if (!getInternalKey()
-          .equals(other.getInternalKey())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -6847,16 +6727,12 @@ public final class CollectorOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + COLLECTOR_KEY_FIELD_NUMBER;
-      hash = (53 * hash) + getCollectorKey().hashCode();
       if (getGroupsCount() > 0) {
         hash = (37 * hash) + GROUPS_FIELD_NUMBER;
         hash = (53 * hash) + getGroupsList().hashCode();
       }
       hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
       hash = (53 * hash) + getRequestId().hashCode();
-      hash = (37 * hash) + INTERNAL_KEY_FIELD_NUMBER;
-      hash = (53 * hash) + getInternalKey().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6988,16 +6864,14 @@ public final class CollectorOuterClass {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        collectorKey_ = "";
         if (groupsBuilder_ == null) {
           groups_ = java.util.Collections.emptyList();
         } else {
           groups_ = null;
           groupsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         requestId_ = "";
-        internalKey_ = "";
         return this;
       }
 
@@ -7032,9 +6906,9 @@ public final class CollectorOuterClass {
 
       private void buildPartialRepeatedFields(agent.CollectorOuterClass.CollectorConfig result) {
         if (groupsBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             groups_ = java.util.Collections.unmodifiableList(groups_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.groups_ = groups_;
         } else {
@@ -7044,14 +6918,8 @@ public final class CollectorOuterClass {
 
       private void buildPartial0(agent.CollectorOuterClass.CollectorConfig result) {
         int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.collectorKey_ = collectorKey_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.requestId_ = requestId_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.internalKey_ = internalKey_;
         }
       }
 
@@ -7099,16 +6967,11 @@ public final class CollectorOuterClass {
 
       public Builder mergeFrom(agent.CollectorOuterClass.CollectorConfig other) {
         if (other == agent.CollectorOuterClass.CollectorConfig.getDefaultInstance()) return this;
-        if (!other.getCollectorKey().isEmpty()) {
-          collectorKey_ = other.collectorKey_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
         if (groupsBuilder_ == null) {
           if (!other.groups_.isEmpty()) {
             if (groups_.isEmpty()) {
               groups_ = other.groups_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureGroupsIsMutable();
               groups_.addAll(other.groups_);
@@ -7121,7 +6984,7 @@ public final class CollectorOuterClass {
               groupsBuilder_.dispose();
               groupsBuilder_ = null;
               groups_ = other.groups_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
               groupsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getGroupsFieldBuilder() : null;
@@ -7132,12 +6995,7 @@ public final class CollectorOuterClass {
         }
         if (!other.getRequestId().isEmpty()) {
           requestId_ = other.requestId_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (!other.getInternalKey().isEmpty()) {
-          internalKey_ = other.internalKey_;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -7167,11 +7025,6 @@ public final class CollectorOuterClass {
                 done = true;
                 break;
               case 10: {
-                collectorKey_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
                 agent.CollectorOuterClass.CollectorConfigGroup m =
                     input.readMessage(
                         agent.CollectorOuterClass.CollectorConfigGroup.parser(),
@@ -7183,17 +7036,12 @@ public final class CollectorOuterClass {
                   groupsBuilder_.addMessage(m);
                 }
                 break;
-              } // case 18
-              case 26: {
+              } // case 10
+              case 18: {
                 requestId_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000002;
                 break;
-              } // case 26
-              case 66: {
-                internalKey_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 66
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -7211,84 +7059,12 @@ public final class CollectorOuterClass {
       }
       private int bitField0_;
 
-      private java.lang.Object collectorKey_ = "";
-      /**
-       * <code>string collector_key = 1;</code>
-       * @return The collectorKey.
-       */
-      public java.lang.String getCollectorKey() {
-        java.lang.Object ref = collectorKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          collectorKey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 1;</code>
-       * @return The bytes for collectorKey.
-       */
-      public com.google.protobuf.ByteString
-          getCollectorKeyBytes() {
-        java.lang.Object ref = collectorKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          collectorKey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 1;</code>
-       * @param value The collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKey(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        collectorKey_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCollectorKey() {
-        collectorKey_ = getDefaultInstance().getCollectorKey();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 1;</code>
-       * @param value The bytes for collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        collectorKey_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
       private java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> groups_ =
         java.util.Collections.emptyList();
       private void ensureGroupsIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           groups_ = new java.util.ArrayList<agent.CollectorOuterClass.CollectorConfigGroup>(groups_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -7296,7 +7072,7 @@ public final class CollectorOuterClass {
           agent.CollectorOuterClass.CollectorConfigGroup, agent.CollectorOuterClass.CollectorConfigGroup.Builder, agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> groupsBuilder_;
 
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> getGroupsList() {
         if (groupsBuilder_ == null) {
@@ -7306,7 +7082,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public int getGroupsCount() {
         if (groupsBuilder_ == null) {
@@ -7316,7 +7092,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index) {
         if (groupsBuilder_ == null) {
@@ -7326,7 +7102,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder setGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup value) {
@@ -7343,7 +7119,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder setGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7357,7 +7133,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder addGroups(agent.CollectorOuterClass.CollectorConfigGroup value) {
         if (groupsBuilder_ == null) {
@@ -7373,7 +7149,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder addGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup value) {
@@ -7390,7 +7166,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder addGroups(
           agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7404,7 +7180,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder addGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7418,7 +7194,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder addAllGroups(
           java.lang.Iterable<? extends agent.CollectorOuterClass.CollectorConfigGroup> values) {
@@ -7433,12 +7209,12 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder clearGroups() {
         if (groupsBuilder_ == null) {
           groups_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           groupsBuilder_.clear();
@@ -7446,7 +7222,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public Builder removeGroups(int index) {
         if (groupsBuilder_ == null) {
@@ -7459,14 +7235,14 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder getGroupsBuilder(
           int index) {
         return getGroupsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
           int index) {
@@ -7476,7 +7252,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
            getGroupsOrBuilderList() {
@@ -7487,14 +7263,14 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder addGroupsBuilder() {
         return getGroupsFieldBuilder().addBuilder(
             agent.CollectorOuterClass.CollectorConfigGroup.getDefaultInstance());
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder addGroupsBuilder(
           int index) {
@@ -7502,7 +7278,7 @@ public final class CollectorOuterClass {
             index, agent.CollectorOuterClass.CollectorConfigGroup.getDefaultInstance());
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
        */
       public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup.Builder> 
            getGroupsBuilderList() {
@@ -7515,7 +7291,7 @@ public final class CollectorOuterClass {
           groupsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               agent.CollectorOuterClass.CollectorConfigGroup, agent.CollectorOuterClass.CollectorConfigGroup.Builder, agent.CollectorOuterClass.CollectorConfigGroupOrBuilder>(
                   groups_,
-                  ((bitField0_ & 0x00000002) != 0),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           groups_ = null;
@@ -7525,7 +7301,7 @@ public final class CollectorOuterClass {
 
       private java.lang.Object requestId_ = "";
       /**
-       * <code>string request_id = 3;</code>
+       * <code>string request_id = 2;</code>
        * @return The requestId.
        */
       public java.lang.String getRequestId() {
@@ -7541,7 +7317,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>string request_id = 3;</code>
+       * <code>string request_id = 2;</code>
        * @return The bytes for requestId.
        */
       public com.google.protobuf.ByteString
@@ -7558,7 +7334,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>string request_id = 3;</code>
+       * <code>string request_id = 2;</code>
        * @param value The requestId to set.
        * @return This builder for chaining.
        */
@@ -7566,22 +7342,22 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         requestId_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>string request_id = 3;</code>
+       * <code>string request_id = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearRequestId() {
         requestId_ = getDefaultInstance().getRequestId();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string request_id = 3;</code>
+       * <code>string request_id = 2;</code>
        * @param value The bytes for requestId to set.
        * @return This builder for chaining.
        */
@@ -7590,79 +7366,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         requestId_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object internalKey_ = "";
-      /**
-       * <code>string internal_key = 8;</code>
-       * @return The internalKey.
-       */
-      public java.lang.String getInternalKey() {
-        java.lang.Object ref = internalKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          internalKey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string internal_key = 8;</code>
-       * @return The bytes for internalKey.
-       */
-      public com.google.protobuf.ByteString
-          getInternalKeyBytes() {
-        java.lang.Object ref = internalKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          internalKey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string internal_key = 8;</code>
-       * @param value The internalKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setInternalKey(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        internalKey_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string internal_key = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearInternalKey() {
-        internalKey_ = getDefaultInstance().getInternalKey();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string internal_key = 8;</code>
-       * @param value The bytes for internalKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setInternalKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        internalKey_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -10256,18 +9960,6 @@ public final class CollectorOuterClass {
      */
     com.google.protobuf.ByteString
         getDeletedByBytes();
-
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The collectorKey.
-     */
-    java.lang.String getCollectorKey();
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The bytes for collectorKey.
-     */
-    com.google.protobuf.ByteString
-        getCollectorKeyBytes();
   }
   /**
    * Protobuf type {@code agent.CollectorDelete}
@@ -10283,7 +9975,6 @@ public final class CollectorOuterClass {
     }
     private CollectorDelete() {
       deletedBy_ = "";
-      collectorKey_ = "";
     }
 
     @java.lang.Override
@@ -10345,45 +10036,6 @@ public final class CollectorOuterClass {
       }
     }
 
-    public static final int COLLECTOR_KEY_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object collectorKey_ = "";
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The collectorKey.
-     */
-    @java.lang.Override
-    public java.lang.String getCollectorKey() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        collectorKey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The bytes for collectorKey.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getCollectorKeyBytes() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        collectorKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10401,9 +10053,6 @@ public final class CollectorOuterClass {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, deletedBy_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, collectorKey_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -10415,9 +10064,6 @@ public final class CollectorOuterClass {
       size = 0;
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, deletedBy_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, collectorKey_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -10436,8 +10082,6 @@ public final class CollectorOuterClass {
 
       if (!getDeletedBy()
           .equals(other.getDeletedBy())) return false;
-      if (!getCollectorKey()
-          .equals(other.getCollectorKey())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -10451,8 +10095,6 @@ public final class CollectorOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DELETED_BY_FIELD_NUMBER;
       hash = (53 * hash) + getDeletedBy().hashCode();
-      hash = (37 * hash) + COLLECTOR_KEY_FIELD_NUMBER;
-      hash = (53 * hash) + getCollectorKey().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10585,7 +10227,6 @@ public final class CollectorOuterClass {
         super.clear();
         bitField0_ = 0;
         deletedBy_ = "";
-        collectorKey_ = "";
         return this;
       }
 
@@ -10621,9 +10262,6 @@ public final class CollectorOuterClass {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.deletedBy_ = deletedBy_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.collectorKey_ = collectorKey_;
         }
       }
 
@@ -10676,11 +10314,6 @@ public final class CollectorOuterClass {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (!other.getCollectorKey().isEmpty()) {
-          collectorKey_ = other.collectorKey_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -10712,11 +10345,6 @@ public final class CollectorOuterClass {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
-              case 18: {
-                collectorKey_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -10802,78 +10430,6 @@ public final class CollectorOuterClass {
         checkByteStringIsUtf8(value);
         deletedBy_ = value;
         bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object collectorKey_ = "";
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return The collectorKey.
-       */
-      public java.lang.String getCollectorKey() {
-        java.lang.Object ref = collectorKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          collectorKey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return The bytes for collectorKey.
-       */
-      public com.google.protobuf.ByteString
-          getCollectorKeyBytes() {
-        java.lang.Object ref = collectorKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          collectorKey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @param value The collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKey(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        collectorKey_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCollectorKey() {
-        collectorKey_ = getDefaultInstance().getCollectorKey();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @param value The bytes for collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        collectorKey_ = value;
-        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -10936,706 +10492,6 @@ public final class CollectorOuterClass {
 
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorDelete getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CollectorResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:agent.CollectorResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string deleted_by = 1;</code>
-     * @return The deletedBy.
-     */
-    java.lang.String getDeletedBy();
-    /**
-     * <code>string deleted_by = 1;</code>
-     * @return The bytes for deletedBy.
-     */
-    com.google.protobuf.ByteString
-        getDeletedByBytes();
-
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The collectorKey.
-     */
-    java.lang.String getCollectorKey();
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The bytes for collectorKey.
-     */
-    com.google.protobuf.ByteString
-        getCollectorKeyBytes();
-  }
-  /**
-   * Protobuf type {@code agent.CollectorResponse}
-   */
-  public static final class CollectorResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:agent.CollectorResponse)
-      CollectorResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use CollectorResponse.newBuilder() to construct.
-    private CollectorResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private CollectorResponse() {
-      deletedBy_ = "";
-      collectorKey_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new CollectorResponse();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return agent.CollectorOuterClass.internal_static_agent_CollectorResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return agent.CollectorOuterClass.internal_static_agent_CollectorResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              agent.CollectorOuterClass.CollectorResponse.class, agent.CollectorOuterClass.CollectorResponse.Builder.class);
-    }
-
-    public static final int DELETED_BY_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object deletedBy_ = "";
-    /**
-     * <code>string deleted_by = 1;</code>
-     * @return The deletedBy.
-     */
-    @java.lang.Override
-    public java.lang.String getDeletedBy() {
-      java.lang.Object ref = deletedBy_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        deletedBy_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string deleted_by = 1;</code>
-     * @return The bytes for deletedBy.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getDeletedByBytes() {
-      java.lang.Object ref = deletedBy_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        deletedBy_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int COLLECTOR_KEY_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object collectorKey_ = "";
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The collectorKey.
-     */
-    @java.lang.Override
-    public java.lang.String getCollectorKey() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        collectorKey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string collector_key = 2;</code>
-     * @return The bytes for collectorKey.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getCollectorKeyBytes() {
-      java.lang.Object ref = collectorKey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        collectorKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, deletedBy_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, collectorKey_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, deletedBy_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, collectorKey_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof agent.CollectorOuterClass.CollectorResponse)) {
-        return super.equals(obj);
-      }
-      agent.CollectorOuterClass.CollectorResponse other = (agent.CollectorOuterClass.CollectorResponse) obj;
-
-      if (!getDeletedBy()
-          .equals(other.getDeletedBy())) return false;
-      if (!getCollectorKey()
-          .equals(other.getCollectorKey())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + DELETED_BY_FIELD_NUMBER;
-      hash = (53 * hash) + getDeletedBy().hashCode();
-      hash = (37 * hash) + COLLECTOR_KEY_FIELD_NUMBER;
-      hash = (53 * hash) + getCollectorKey().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static agent.CollectorOuterClass.CollectorResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static agent.CollectorOuterClass.CollectorResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static agent.CollectorOuterClass.CollectorResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(agent.CollectorOuterClass.CollectorResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code agent.CollectorResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:agent.CollectorResponse)
-        agent.CollectorOuterClass.CollectorResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return agent.CollectorOuterClass.internal_static_agent_CollectorResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return agent.CollectorOuterClass.internal_static_agent_CollectorResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                agent.CollectorOuterClass.CollectorResponse.class, agent.CollectorOuterClass.CollectorResponse.Builder.class);
-      }
-
-      // Construct using agent.CollectorOuterClass.CollectorResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        deletedBy_ = "";
-        collectorKey_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return agent.CollectorOuterClass.internal_static_agent_CollectorResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.CollectorResponse getDefaultInstanceForType() {
-        return agent.CollectorOuterClass.CollectorResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.CollectorResponse build() {
-        agent.CollectorOuterClass.CollectorResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public agent.CollectorOuterClass.CollectorResponse buildPartial() {
-        agent.CollectorOuterClass.CollectorResponse result = new agent.CollectorOuterClass.CollectorResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(agent.CollectorOuterClass.CollectorResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.deletedBy_ = deletedBy_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.collectorKey_ = collectorKey_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof agent.CollectorOuterClass.CollectorResponse) {
-          return mergeFrom((agent.CollectorOuterClass.CollectorResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(agent.CollectorOuterClass.CollectorResponse other) {
-        if (other == agent.CollectorOuterClass.CollectorResponse.getDefaultInstance()) return this;
-        if (!other.getDeletedBy().isEmpty()) {
-          deletedBy_ = other.deletedBy_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getCollectorKey().isEmpty()) {
-          collectorKey_ = other.collectorKey_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                deletedBy_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                collectorKey_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object deletedBy_ = "";
-      /**
-       * <code>string deleted_by = 1;</code>
-       * @return The deletedBy.
-       */
-      public java.lang.String getDeletedBy() {
-        java.lang.Object ref = deletedBy_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          deletedBy_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string deleted_by = 1;</code>
-       * @return The bytes for deletedBy.
-       */
-      public com.google.protobuf.ByteString
-          getDeletedByBytes() {
-        java.lang.Object ref = deletedBy_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          deletedBy_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string deleted_by = 1;</code>
-       * @param value The deletedBy to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDeletedBy(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        deletedBy_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string deleted_by = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearDeletedBy() {
-        deletedBy_ = getDefaultInstance().getDeletedBy();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string deleted_by = 1;</code>
-       * @param value The bytes for deletedBy to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDeletedByBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        deletedBy_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object collectorKey_ = "";
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return The collectorKey.
-       */
-      public java.lang.String getCollectorKey() {
-        java.lang.Object ref = collectorKey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          collectorKey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return The bytes for collectorKey.
-       */
-      public com.google.protobuf.ByteString
-          getCollectorKeyBytes() {
-        java.lang.Object ref = collectorKey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          collectorKey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @param value The collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKey(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        collectorKey_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCollectorKey() {
-        collectorKey_ = getDefaultInstance().getCollectorKey();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string collector_key = 2;</code>
-       * @param value The bytes for collectorKey to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCollectorKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        collectorKey_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:agent.CollectorResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:agent.CollectorResponse)
-    private static final agent.CollectorOuterClass.CollectorResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new agent.CollectorOuterClass.CollectorResponse();
-    }
-
-    public static agent.CollectorOuterClass.CollectorResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CollectorResponse>
-        PARSER = new com.google.protobuf.AbstractParser<CollectorResponse>() {
-      @java.lang.Override
-      public CollectorResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<CollectorResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CollectorResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public agent.CollectorOuterClass.CollectorResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12501,11 +11357,6 @@ public final class CollectorOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_agent_CollectorMessages_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_agent_Module_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_agent_Module_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_agent_CollectorHostnames_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -12525,6 +11376,11 @@ public final class CollectorOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_agent_RegisterRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_agent_ConfigRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_agent_ConfigRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_agent_Collector_descriptor;
   private static final 
@@ -12551,11 +11407,6 @@ public final class CollectorOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_agent_CollectorDelete_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_agent_CollectorResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_agent_CollectorResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_agent_ListCollectorResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -12569,60 +11420,56 @@ public final class CollectorOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017collector.proto\022\005agent\032\014common.proto\"\247" +
+      "\n\017collector.proto\022\005agent\032\014common.proto\"\242" +
       "\001\n\021CollectorMessages\022(\n\006config\030\001 \001(\0132\026.a" +
       "gent.CollectorConfigH\000\022(\n\006result\030\002 \001(\0132\026" +
-      ".agent.ConfigKnowledgeH\000\022,\n\rauth_respons" +
-      "e\030\003 \001(\0132\023.agent.AuthResponseH\000B\020\n\016stream" +
-      "_message\"0\n\006Module\022&\n\006module\030\001 \001(\0162\026.age" +
-      "nt.CollectorModule\"&\n\022CollectorHostnames" +
-      "\022\020\n\010hostname\030\001 \003(\t\"Q\n\025FilterByHostAndMod" +
-      "ule\022\020\n\010hostname\030\001 \001(\t\022&\n\006module\030\002 \001(\0162\026." +
-      "agent.CollectorModule\"7\n\017ConfigKnowledge" +
-      "\022\020\n\010accepted\030\001 \001(\t\022\022\n\nrequest_id\030\002 \001(\t\"k" +
-      "\n\017RegisterRequest\022\n\n\002ip\030\001 \001(\t\022\020\n\010hostnam" +
-      "e\030\002 \001(\t\022\017\n\007version\030\003 \001(\t\022)\n\tcollector\030\004 " +
-      "\001(\0162\026.agent.CollectorModule\"\344\001\n\tCollecto" +
-      "r\022\n\n\002id\030\001 \001(\005\022\035\n\006status\030\002 \001(\0162\r.agent.St" +
-      "atus\022\025\n\rcollector_key\030\003 \001(\t\022\n\n\002ip\030\004 \001(\t\022" +
-      "\020\n\010hostname\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\022&\n\006mo" +
-      "dule\030\007 \001(\0162\026.agent.CollectorModule\022+\n\006gr" +
-      "oups\030\010 \003(\0132\033.agent.CollectorConfigGroup\022" +
-      "\021\n\tlast_seen\030\t \001(\t\"\177\n\017CollectorConfig\022\025\n" +
-      "\rcollector_key\030\001 \001(\t\022+\n\006groups\030\002 \003(\0132\033.a" +
-      "gent.CollectorConfigGroup\022\022\n\nrequest_id\030" +
-      "\003 \001(\t\022\024\n\014internal_key\030\010 \001(\t\"\244\001\n\024Collecto" +
-      "rConfigGroup\022\n\n\002id\030\001 \001(\005\022\022\n\ngroup_name\030\003" +
-      " \001(\t\022\031\n\021group_description\030\004 \001(\t\022;\n\016confi" +
-      "gurations\030\005 \003(\0132#.agent.CollectorGroupCo" +
-      "nfigurations\022\024\n\014collector_id\030\006 \001(\005\"\262\001\n\034C" +
-      "ollectorGroupConfigurations\022\020\n\010group_id\030" +
-      "\002 \001(\005\022\020\n\010conf_key\030\003 \001(\t\022\022\n\nconf_value\030\004 " +
-      "\001(\t\022\021\n\tconf_name\030\005 \001(\t\022\030\n\020conf_descripti" +
-      "on\030\006 \001(\t\022\026\n\016conf_data_type\030\007 \001(\t\022\025\n\rconf" +
-      "_required\030\010 \001(\010\"<\n\017CollectorDelete\022\022\n\nde" +
-      "leted_by\030\001 \001(\t\022\025\n\rcollector_key\030\002 \001(\t\">\n" +
-      "\021CollectorResponse\022\022\n\ndeleted_by\030\001 \001(\t\022\025" +
-      "\n\rcollector_key\030\002 \001(\t\"F\n\025ListCollectorRe" +
-      "sponse\022\036\n\004rows\030\001 \003(\0132\020.agent.Collector\022\r" +
-      "\n\005total\030\002 \001(\005*\035\n\017CollectorModule\022\n\n\006AS_4" +
-      "00\020\0002\334\003\n\020CollectorService\022B\n\021RegisterCol" +
-      "lector\022\026.agent.RegisterRequest\032\023.agent.A" +
-      "uthResponse\"\000\022E\n\017DeleteCollector\022\026.agent" +
-      ".CollectorDelete\032\030.agent.CollectorRespon" +
-      "se\"\000\022C\n\rListCollector\022\022.agent.ListReques" +
-      "t\032\034.agent.ListCollectorResponse\"\000\022K\n\017Col" +
-      "lectorStream\022\030.agent.CollectorMessages\032\030" +
-      ".agent.CollectorMessages\"\000(\0010\001\022I\n\026ListCo" +
-      "llectorHostnames\022\022.agent.ListRequest\032\031.a" +
-      "gent.CollectorHostnames\"\000\022`\n GetCollecto" +
-      "rsByHostnameAndModule\022\034.agent.FilterByHo" +
-      "stAndModule\032\034.agent.ListCollectorRespons" +
-      "e\"\0002n\n\035CollectorConfigurationService\022M\n\025" +
-      "CollectorConfigStream\022\026.agent.CollectorC" +
-      "onfig\032\026.agent.ConfigKnowledge\"\000(\0010\001B$Z\"g" +
-      "ithub.com/utmstack/UTMStack/agentb\006proto" +
-      "3"
+      ".agent.ConfigKnowledgeH\000\022\'\n\007request\030\003 \001(" +
+      "\0132\024.agent.ConfigRequestH\000B\020\n\016stream_mess" +
+      "age\"&\n\022CollectorHostnames\022\020\n\010hostname\030\001 " +
+      "\003(\t\"Q\n\025FilterByHostAndModule\022\020\n\010hostname" +
+      "\030\001 \001(\t\022&\n\006module\030\002 \001(\0162\026.agent.Collector" +
+      "Module\"7\n\017ConfigKnowledge\022\020\n\010accepted\030\001 " +
+      "\001(\t\022\022\n\nrequest_id\030\002 \001(\t\"k\n\017RegisterReque" +
+      "st\022\n\n\002ip\030\001 \001(\t\022\020\n\010hostname\030\002 \001(\t\022\017\n\007vers" +
+      "ion\030\003 \001(\t\022)\n\tcollector\030\004 \001(\0162\026.agent.Col" +
+      "lectorModule\"7\n\rConfigRequest\022&\n\006module\030" +
+      "\001 \001(\0162\026.agent.CollectorModule\"\344\001\n\tCollec" +
+      "tor\022\n\n\002id\030\001 \001(\005\022\035\n\006status\030\002 \001(\0162\r.agent." +
+      "Status\022\025\n\rcollector_key\030\003 \001(\t\022\n\n\002ip\030\004 \001(" +
+      "\t\022\020\n\010hostname\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\022&\n\006" +
+      "module\030\007 \001(\0162\026.agent.CollectorModule\022+\n\006" +
+      "groups\030\010 \003(\0132\033.agent.CollectorConfigGrou" +
+      "p\022\021\n\tlast_seen\030\t \001(\t\"R\n\017CollectorConfig\022" +
+      "+\n\006groups\030\001 \003(\0132\033.agent.CollectorConfigG" +
+      "roup\022\022\n\nrequest_id\030\002 \001(\t\"\244\001\n\024CollectorCo" +
+      "nfigGroup\022\n\n\002id\030\001 \001(\005\022\022\n\ngroup_name\030\003 \001(" +
+      "\t\022\031\n\021group_description\030\004 \001(\t\022;\n\016configur" +
+      "ations\030\005 \003(\0132#.agent.CollectorGroupConfi" +
+      "gurations\022\024\n\014collector_id\030\006 \001(\005\"\262\001\n\034Coll" +
+      "ectorGroupConfigurations\022\020\n\010group_id\030\002 \001" +
+      "(\005\022\020\n\010conf_key\030\003 \001(\t\022\022\n\nconf_value\030\004 \001(\t" +
+      "\022\021\n\tconf_name\030\005 \001(\t\022\030\n\020conf_description\030" +
+      "\006 \001(\t\022\026\n\016conf_data_type\030\007 \001(\t\022\025\n\rconf_re" +
+      "quired\030\010 \001(\010\"%\n\017CollectorDelete\022\022\n\ndelet" +
+      "ed_by\030\001 \001(\t\"F\n\025ListCollectorResponse\022\036\n\004" +
+      "rows\030\001 \003(\0132\020.agent.Collector\022\r\n\005total\030\002 " +
+      "\001(\005*\035\n\017CollectorModule\022\n\n\006AS_400\020\0002\327\003\n\020C" +
+      "ollectorService\022B\n\021RegisterCollector\022\026.a" +
+      "gent.RegisterRequest\032\023.agent.AuthRespons" +
+      "e\"\000\022@\n\017DeleteCollector\022\026.agent.Collector" +
+      "Delete\032\023.agent.AuthResponse\"\000\022C\n\rListCol" +
+      "lector\022\022.agent.ListRequest\032\034.agent.ListC" +
+      "ollectorResponse\"\000\022K\n\017CollectorStream\022\030." +
+      "agent.CollectorMessages\032\030.agent.Collecto" +
+      "rMessages\"\000(\0010\001\022I\n\026ListCollectorHostname" +
+      "s\022\022.agent.ListRequest\032\031.agent.CollectorH" +
+      "ostnames\"\000\022`\n GetCollectorsByHostnameAnd" +
+      "Module\022\034.agent.FilterByHostAndModule\032\034.a" +
+      "gent.ListCollectorResponse\"\0002b\n\025PanelCol" +
+      "lectorService\022I\n\025CollectorConfigStream\022\026" +
+      ".agent.CollectorConfig\032\026.agent.ConfigKno" +
+      "wledge\"\000B2Z0github.com/utmstack/UTMStack" +
+      "/agent-manager/agentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12634,37 +11481,37 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorMessages_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorMessages_descriptor,
-        new java.lang.String[] { "Config", "Result", "AuthResponse", "StreamMessage", });
-    internal_static_agent_Module_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_agent_Module_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_agent_Module_descriptor,
-        new java.lang.String[] { "Module", });
+        new java.lang.String[] { "Config", "Result", "Request", "StreamMessage", });
     internal_static_agent_CollectorHostnames_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_agent_CollectorHostnames_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorHostnames_descriptor,
         new java.lang.String[] { "Hostname", });
     internal_static_agent_FilterByHostAndModule_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_agent_FilterByHostAndModule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_FilterByHostAndModule_descriptor,
         new java.lang.String[] { "Hostname", "Module", });
     internal_static_agent_ConfigKnowledge_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_agent_ConfigKnowledge_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_ConfigKnowledge_descriptor,
         new java.lang.String[] { "Accepted", "RequestId", });
     internal_static_agent_RegisterRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_agent_RegisterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_RegisterRequest_descriptor,
         new java.lang.String[] { "Ip", "Hostname", "Version", "Collector", });
+    internal_static_agent_ConfigRequest_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_agent_ConfigRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_agent_ConfigRequest_descriptor,
+        new java.lang.String[] { "Module", });
     internal_static_agent_Collector_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_agent_Collector_fieldAccessorTable = new
@@ -12676,7 +11523,7 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorConfig_descriptor,
-        new java.lang.String[] { "CollectorKey", "Groups", "RequestId", "InternalKey", });
+        new java.lang.String[] { "Groups", "RequestId", });
     internal_static_agent_CollectorConfigGroup_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_agent_CollectorConfigGroup_fieldAccessorTable = new
@@ -12694,15 +11541,9 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorDelete_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorDelete_descriptor,
-        new java.lang.String[] { "DeletedBy", "CollectorKey", });
-    internal_static_agent_CollectorResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
-    internal_static_agent_CollectorResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_agent_CollectorResponse_descriptor,
-        new java.lang.String[] { "DeletedBy", "CollectorKey", });
+        new java.lang.String[] { "DeletedBy", });
     internal_static_agent_ListCollectorResponse_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_agent_ListCollectorResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_ListCollectorResponse_descriptor,

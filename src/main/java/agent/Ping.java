@@ -19,27 +19,12 @@ public final class Ping {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     * @return Whether the auth field is set.
-     */
-    boolean hasAuth();
-    /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     * @return The auth.
-     */
-    agent.Common.AuthResponse getAuth();
-    /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     */
-    agent.Common.AuthResponseOrBuilder getAuthOrBuilder();
-
-    /**
-     * <code>.agent.ConnectorType type = 2;</code>
+     * <code>.agent.ConnectorType type = 1;</code>
      * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
-     * <code>.agent.ConnectorType type = 2;</code>
+     * <code>.agent.ConnectorType type = 1;</code>
      * @return The type.
      */
     agent.Common.ConnectorType getType();
@@ -80,43 +65,17 @@ public final class Ping {
               agent.Ping.PingRequest.class, agent.Ping.PingRequest.Builder.class);
     }
 
-    public static final int AUTH_FIELD_NUMBER = 1;
-    private agent.Common.AuthResponse auth_;
-    /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     * @return Whether the auth field is set.
-     */
-    @java.lang.Override
-    public boolean hasAuth() {
-      return auth_ != null;
-    }
-    /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     * @return The auth.
-     */
-    @java.lang.Override
-    public agent.Common.AuthResponse getAuth() {
-      return auth_ == null ? agent.Common.AuthResponse.getDefaultInstance() : auth_;
-    }
-    /**
-     * <code>.agent.AuthResponse auth = 1;</code>
-     */
-    @java.lang.Override
-    public agent.Common.AuthResponseOrBuilder getAuthOrBuilder() {
-      return auth_ == null ? agent.Common.AuthResponse.getDefaultInstance() : auth_;
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 2;
+    public static final int TYPE_FIELD_NUMBER = 1;
     private int type_ = 0;
     /**
-     * <code>.agent.ConnectorType type = 2;</code>
+     * <code>.agent.ConnectorType type = 1;</code>
      * @return The enum numeric value on the wire for type.
      */
     @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
-     * <code>.agent.ConnectorType type = 2;</code>
+     * <code>.agent.ConnectorType type = 1;</code>
      * @return The type.
      */
     @java.lang.Override public agent.Common.ConnectorType getType() {
@@ -138,11 +97,8 @@ public final class Ping {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (auth_ != null) {
-        output.writeMessage(1, getAuth());
-      }
       if (type_ != agent.Common.ConnectorType.AGENT.getNumber()) {
-        output.writeEnum(2, type_);
+        output.writeEnum(1, type_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -153,13 +109,9 @@ public final class Ping {
       if (size != -1) return size;
 
       size = 0;
-      if (auth_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getAuth());
-      }
       if (type_ != agent.Common.ConnectorType.AGENT.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, type_);
+          .computeEnumSize(1, type_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -176,11 +128,6 @@ public final class Ping {
       }
       agent.Ping.PingRequest other = (agent.Ping.PingRequest) obj;
 
-      if (hasAuth() != other.hasAuth()) return false;
-      if (hasAuth()) {
-        if (!getAuth()
-            .equals(other.getAuth())) return false;
-      }
       if (type_ != other.type_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
@@ -193,10 +140,6 @@ public final class Ping {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasAuth()) {
-        hash = (37 * hash) + AUTH_FIELD_NUMBER;
-        hash = (53 * hash) + getAuth().hashCode();
-      }
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + type_;
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -330,11 +273,6 @@ public final class Ping {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        auth_ = null;
-        if (authBuilder_ != null) {
-          authBuilder_.dispose();
-          authBuilder_ = null;
-        }
         type_ = 0;
         return this;
       }
@@ -370,11 +308,6 @@ public final class Ping {
       private void buildPartial0(agent.Ping.PingRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.auth_ = authBuilder_ == null
-              ? auth_
-              : authBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.type_ = type_;
         }
       }
@@ -423,9 +356,6 @@ public final class Ping {
 
       public Builder mergeFrom(agent.Ping.PingRequest other) {
         if (other == agent.Ping.PingRequest.getDefaultInstance()) return this;
-        if (other.hasAuth()) {
-          mergeAuth(other.getAuth());
-        }
         if (other.type_ != 0) {
           setTypeValue(other.getTypeValue());
         }
@@ -455,18 +385,11 @@ public final class Ping {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                input.readMessage(
-                    getAuthFieldBuilder().getBuilder(),
-                    extensionRegistry);
+              case 8: {
+                type_ = input.readEnum();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 10
-              case 16: {
-                type_ = input.readEnum();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 16
+              } // case 8
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -484,146 +407,27 @@ public final class Ping {
       }
       private int bitField0_;
 
-      private agent.Common.AuthResponse auth_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder> authBuilder_;
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       * @return Whether the auth field is set.
-       */
-      public boolean hasAuth() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       * @return The auth.
-       */
-      public agent.Common.AuthResponse getAuth() {
-        if (authBuilder_ == null) {
-          return auth_ == null ? agent.Common.AuthResponse.getDefaultInstance() : auth_;
-        } else {
-          return authBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public Builder setAuth(agent.Common.AuthResponse value) {
-        if (authBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          auth_ = value;
-        } else {
-          authBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public Builder setAuth(
-          agent.Common.AuthResponse.Builder builderForValue) {
-        if (authBuilder_ == null) {
-          auth_ = builderForValue.build();
-        } else {
-          authBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public Builder mergeAuth(agent.Common.AuthResponse value) {
-        if (authBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            auth_ != null &&
-            auth_ != agent.Common.AuthResponse.getDefaultInstance()) {
-            getAuthBuilder().mergeFrom(value);
-          } else {
-            auth_ = value;
-          }
-        } else {
-          authBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public Builder clearAuth() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        auth_ = null;
-        if (authBuilder_ != null) {
-          authBuilder_.dispose();
-          authBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public agent.Common.AuthResponse.Builder getAuthBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getAuthFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      public agent.Common.AuthResponseOrBuilder getAuthOrBuilder() {
-        if (authBuilder_ != null) {
-          return authBuilder_.getMessageOrBuilder();
-        } else {
-          return auth_ == null ?
-              agent.Common.AuthResponse.getDefaultInstance() : auth_;
-        }
-      }
-      /**
-       * <code>.agent.AuthResponse auth = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder> 
-          getAuthFieldBuilder() {
-        if (authBuilder_ == null) {
-          authBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              agent.Common.AuthResponse, agent.Common.AuthResponse.Builder, agent.Common.AuthResponseOrBuilder>(
-                  getAuth(),
-                  getParentForChildren(),
-                  isClean());
-          auth_ = null;
-        }
-        return authBuilder_;
-      }
-
       private int type_ = 0;
       /**
-       * <code>.agent.ConnectorType type = 2;</code>
+       * <code>.agent.ConnectorType type = 1;</code>
        * @return The enum numeric value on the wire for type.
        */
       @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
-       * <code>.agent.ConnectorType type = 2;</code>
+       * <code>.agent.ConnectorType type = 1;</code>
        * @param value The enum numeric value on the wire for type to set.
        * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
         type_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>.agent.ConnectorType type = 2;</code>
+       * <code>.agent.ConnectorType type = 1;</code>
        * @return The type.
        */
       @java.lang.Override
@@ -632,7 +436,7 @@ public final class Ping {
         return result == null ? agent.Common.ConnectorType.UNRECOGNIZED : result;
       }
       /**
-       * <code>.agent.ConnectorType type = 2;</code>
+       * <code>.agent.ConnectorType type = 1;</code>
        * @param value The type to set.
        * @return This builder for chaining.
        */
@@ -640,17 +444,17 @@ public final class Ping {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         type_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.agent.ConnectorType type = 2;</code>
+       * <code>.agent.ConnectorType type = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearType() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         type_ = 0;
         onChanged();
         return this;
@@ -1290,13 +1094,13 @@ public final class Ping {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nping.proto\022\005agent\032\014common.proto\"T\n\013Pin" +
-      "gRequest\022!\n\004auth\030\001 \001(\0132\023.agent.AuthRespo" +
-      "nse\022\"\n\004type\030\002 \001(\0162\024.agent.ConnectorType\"" +
-      " \n\014PingResponse\022\020\n\010received\030\001 \001(\t2D\n\013Pin" +
-      "gService\0225\n\004Ping\022\022.agent.PingRequest\032\023.a" +
-      "gent.PingResponse\"\000(\0010\001B$Z\"github.com/ut" +
-      "mstack/UTMStack/agentb\006proto3"
+      "\n\nping.proto\022\005agent\032\014common.proto\"1\n\013Pin" +
+      "gRequest\022\"\n\004type\030\001 \001(\0162\024.agent.Connector" +
+      "Type\" \n\014PingResponse\022\020\n\010received\030\001 \001(\t2B" +
+      "\n\013PingService\0223\n\004Ping\022\022.agent.PingReques" +
+      "t\032\023.agent.PingResponse\"\000(\001B2Z0github.com" +
+      "/utmstack/UTMStack/agent-manager/agentb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1308,7 +1112,7 @@ public final class Ping {
     internal_static_agent_PingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_PingRequest_descriptor,
-        new java.lang.String[] { "Auth", "Type", });
+        new java.lang.String[] { "Type", });
     internal_static_agent_PingResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_agent_PingResponse_fieldAccessorTable = new

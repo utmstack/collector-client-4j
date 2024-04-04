@@ -2289,9 +2289,9 @@ public final class Common {
       "uthResponse\022\n\n\002id\030\001 \001(\r\022\013\n\003key\030\002 \001(\t\"\034\n\010" +
       "Hostname\022\020\n\010hostname\030\001 \001(\t*.\n\006Status\022\n\n\006" +
       "ONLINE\020\000\022\013\n\007OFFLINE\020\001\022\013\n\007UNKNOWN\020\002*)\n\rCo" +
-      "nnectorType\022\t\n\005AGENT\020\000\022\r\n\tCOLLECTOR\020\001B$Z" +
-      "\"github.com/utmstack/UTMStack/agentb\006pro" +
-      "to3"
+      "nnectorType\022\t\n\005AGENT\020\000\022\r\n\tCOLLECTOR\020\001B2Z" +
+      "0github.com/utmstack/UTMStack/agent-mana" +
+      "ger/agentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
