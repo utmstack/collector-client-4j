@@ -1,21 +1,21 @@
 package com.utmstack.grpc.service;
 
-import agent.CollectorOuterClass.CollectorConfig;
-import agent.CollectorOuterClass.RegisterRequest;
-import agent.CollectorOuterClass.CollectorResponse;
-import agent.CollectorOuterClass.CollectorDelete;
-import agent.CollectorOuterClass.ListCollectorResponse;
-import agent.CollectorOuterClass.CollectorMessages;
 import agent.CollectorOuterClass.CollectorHostnames;
+import agent.CollectorOuterClass.CollectorDelete;
+import agent.CollectorOuterClass.RegisterRequest;
+import agent.CollectorOuterClass.CollectorMessages;
+import agent.CollectorOuterClass.CollectorConfig;
+import agent.CollectorOuterClass.ListCollectorResponse;
 import agent.CollectorOuterClass.FilterByHostAndModule;
-import agent.CollectorServiceGrpc;
 import agent.Common.ListRequest;
+import agent.CollectorServiceGrpc;
 import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.exception.PingException;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcConnectionKeyInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcInternalKeyInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 import io.grpc.*;
@@ -23,13 +23,8 @@ import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * @author Freddy R. Laffita Almaguer.
@@ -52,15 +47,17 @@ public class CollectorService {
 
 
     /**
-     * Method to register a collector
+     * Method to register a collector.
      *
-     * @param request is th information of the collector to register
-     * @throws CollectorServiceGrpcException if the action can't be performed
+     * @param request is th information of the collector to register.
+     * @param connectionKey is the connection key to communicate internally.
+     * @throws CollectorServiceGrpcException if the action can't be performed.
      */
-    public AuthResponse registerCollector(RegisterRequest request) throws CollectorServiceGrpcException {
+    public AuthResponse registerCollector(RegisterRequest request, String connectionKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".registerCollector";
         try {
-            return blockingStub.registerCollector(request);
+            return blockingStub.withInterceptors(new GrpcConnectionKeyInterceptor().withConnectionKey(connectionKey))
+                    .registerCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error registering collector: " + e.getMessage();
             logger.error(msg);
@@ -69,18 +66,18 @@ public class CollectorService {
     }
 
     /**
-     * Method to remove a collector
+     * Method to remove a collector.
      *
-     * @param request     is th information of the collector to delete
-     * @param collectorId is the database id of the collector to delete
-     * @throws CollectorServiceGrpcException if the action can't be performed
+     * @param request     is th information of the collector to delete.
+     * @param collector is the information of the collector to delete.
+     * @throws CollectorServiceGrpcException if the action can't be performed.
      */
-    public CollectorResponse deleteCollector(CollectorDelete request, int collectorId) throws CollectorServiceGrpcException {
+    public AuthResponse deleteCollector(CollectorDelete request, AuthResponse collector) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".deleteCollector";
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
-                                    .withCollectorKey(request.getCollectorKey()),
-                            new GrpcIdInterceptor().withCollectorId(collectorId))
+                                    .withCollectorKey(collector.getKey()),
+                            new GrpcIdInterceptor().withCollectorId(collector.getId()))
                     .deleteCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error removing collector: " + e.getMessage();
@@ -92,14 +89,16 @@ public class CollectorService {
 
     /**
      * Method to initialize the collector messages stream between client and the server.
-     * If the stream can't be created will try to create a new one
-     * The management
+     *
+     * @param toDoAction implementation of the action to execute.
+     * @param interceptors list of interceptors to be applied to the call.
+     * If the stream can't be created will try to create a new one.
      */
-    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction) throws CollectorServiceGrpcException {
+    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction, ClientInterceptor ... interceptors) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".getCollectorStreamObserver";
         final CountDownLatch waitingLatch = new CountDownLatch(1);
         try {
-            return nonBlockingStub.collectorStream(new StreamObserver<>() {
+            return nonBlockingStub.withInterceptors(interceptors).collectorStream(new StreamObserver<>() {
 
                 @Override
                 public void onNext(CollectorMessages messages) {
@@ -111,7 +110,7 @@ public class CollectorService {
                     logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
                     try {
                         waitingLatch.await(10, TimeUnit.SECONDS); // Wait for a second before reconnect
-                        getCollectorStreamObserver(toDoAction); // Try to reconnect again
+                        getCollectorStreamObserver(toDoAction, interceptors); // Try to reconnect again
                     } catch (CollectorServiceGrpcException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -128,42 +127,17 @@ public class CollectorService {
     }
 
     /**
-     * Method used to insert/update a configuration in the list of configurations.
-     *
-     * @param message is the instance of CollectorMessages to check if the CollectorConfig configuration is present.
-     */
-    public static List<CollectorConfig> upsertConfiguration(List<CollectorConfig> baseList, CollectorMessages message) {
-        CollectorConfig current = message.getConfig();
-        Optional<CollectorConfig> search = baseList.stream()
-                .filter(c -> c.getCollectorKey().equals(current.getCollectorKey())).findFirst();
-
-        if (search.isPresent()) {
-            baseList.remove(search.get());
-            baseList.add(current);
-        } else {
-            baseList.add(current);
-        }
-        return baseList;
-    }
-
-    /**
-     * Method to get the list of CollectorConfig in case that has more than one received from the gRPC server
-     */
-    public static List<CollectorConfig> getConfigurationsByCollector(List<CollectorConfig> baseList, String collectorKey) {
-        return baseList.stream().filter(c -> c.getCollectorKey().equals(collectorKey)).collect(Collectors.toList());
-    }
-
-    /**
-     * Method to get collector list
+     * Method to get collector list.
      *
      * @param request is the request with all the pagination and search params used to list collectors
-     *                according to those params
-     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed
+     *                according to those params.
+     * @param internalKey is the internal key to communicate internally.
+     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
-    public ListCollectorResponse listCollector(ListRequest request) throws CollectorServiceGrpcException {
+    public ListCollectorResponse listCollector(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".listCollector";
         try {
-            return blockingStub.listCollector(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors: " + e.getMessage();
             logger.error(msg);
@@ -174,12 +148,17 @@ public class CollectorService {
 // ----------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Method to List Collector by Hostnames (Not implemented by server yet)
+     * Method to List Collector by Hostnames.
+     *
+     * @param request is the request with all the pagination and search params used to list collectors.
+     *                according to those params.
+     * @param internalKey is the internal key to communicate internally.
+     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
-    private CollectorHostnames ListCollectorHostnames(ListRequest request) throws CollectorServiceGrpcException {
+    private CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
-            return blockingStub.listCollectorHostnames(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollectorHostnames(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors hostnames: " + e.getMessage();
             logger.error(msg);
@@ -188,12 +167,16 @@ public class CollectorService {
     }
 
     /**
-     * Method to get collectors by hostname and module (Not implemented by server yet)
+     * Method to get collectors by hostname and module.
+     *
+     * @param request contains the filter information used to search.
+     * @param internalKey is the internal key to communicate internally.
+     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
-    private ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request) throws CollectorServiceGrpcException {
+    private ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
-            return blockingStub.getCollectorsByHostnameAndModule(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
             logger.error(msg);

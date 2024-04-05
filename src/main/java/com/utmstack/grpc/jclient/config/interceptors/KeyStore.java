@@ -2,7 +2,7 @@ package com.utmstack.grpc.jclient.config.interceptors;
 
 /**
  * @author Freddy R. Laffita Almaguer.
- * This class is used to store the keys used by the interceptors
+ * This class is used to store useful keys across the api.
  * */
 public class KeyStore {
     private static String CONNECTION_KEY = "";
