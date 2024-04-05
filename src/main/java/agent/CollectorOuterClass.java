@@ -147,21 +147,6 @@ public final class CollectorOuterClass {
      */
     agent.CollectorOuterClass.ConfigKnowledgeOrBuilder getResultOrBuilder();
 
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     * @return Whether the request field is set.
-     */
-    boolean hasRequest();
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     * @return The request.
-     */
-    agent.CollectorOuterClass.ConfigRequest getRequest();
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     */
-    agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder();
-
     agent.CollectorOuterClass.CollectorMessages.StreamMessageCase getStreamMessageCase();
   }
   /**
@@ -207,7 +192,6 @@ public final class CollectorOuterClass {
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       CONFIG(1),
       RESULT(2),
-      REQUEST(3),
       STREAMMESSAGE_NOT_SET(0);
       private final int value;
       private StreamMessageCase(int value) {
@@ -227,7 +211,6 @@ public final class CollectorOuterClass {
         switch (value) {
           case 1: return CONFIG;
           case 2: return RESULT;
-          case 3: return REQUEST;
           case 0: return STREAMMESSAGE_NOT_SET;
           default: return null;
         }
@@ -305,37 +288,6 @@ public final class CollectorOuterClass {
       return agent.CollectorOuterClass.ConfigKnowledge.getDefaultInstance();
     }
 
-    public static final int REQUEST_FIELD_NUMBER = 3;
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     * @return Whether the request field is set.
-     */
-    @java.lang.Override
-    public boolean hasRequest() {
-      return streamMessageCase_ == 3;
-    }
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     * @return The request.
-     */
-    @java.lang.Override
-    public agent.CollectorOuterClass.ConfigRequest getRequest() {
-      if (streamMessageCase_ == 3) {
-         return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
-      }
-      return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-    }
-    /**
-     * <code>.agent.ConfigRequest request = 3;</code>
-     */
-    @java.lang.Override
-    public agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder() {
-      if (streamMessageCase_ == 3) {
-         return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
-      }
-      return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -356,9 +308,6 @@ public final class CollectorOuterClass {
       if (streamMessageCase_ == 2) {
         output.writeMessage(2, (agent.CollectorOuterClass.ConfigKnowledge) streamMessage_);
       }
-      if (streamMessageCase_ == 3) {
-        output.writeMessage(3, (agent.CollectorOuterClass.ConfigRequest) streamMessage_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -375,10 +324,6 @@ public final class CollectorOuterClass {
       if (streamMessageCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, (agent.CollectorOuterClass.ConfigKnowledge) streamMessage_);
-      }
-      if (streamMessageCase_ == 3) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (agent.CollectorOuterClass.ConfigRequest) streamMessage_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -405,10 +350,6 @@ public final class CollectorOuterClass {
           if (!getResult()
               .equals(other.getResult())) return false;
           break;
-        case 3:
-          if (!getRequest()
-              .equals(other.getRequest())) return false;
-          break;
         case 0:
         default:
       }
@@ -431,10 +372,6 @@ public final class CollectorOuterClass {
         case 2:
           hash = (37 * hash) + RESULT_FIELD_NUMBER;
           hash = (53 * hash) + getResult().hashCode();
-          break;
-        case 3:
-          hash = (37 * hash) + REQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getRequest().hashCode();
           break;
         case 0:
         default:
@@ -576,9 +513,6 @@ public final class CollectorOuterClass {
         if (resultBuilder_ != null) {
           resultBuilder_.clear();
         }
-        if (requestBuilder_ != null) {
-          requestBuilder_.clear();
-        }
         streamMessageCase_ = 0;
         streamMessage_ = null;
         return this;
@@ -627,10 +561,6 @@ public final class CollectorOuterClass {
         if (streamMessageCase_ == 2 &&
             resultBuilder_ != null) {
           result.streamMessage_ = resultBuilder_.build();
-        }
-        if (streamMessageCase_ == 3 &&
-            requestBuilder_ != null) {
-          result.streamMessage_ = requestBuilder_.build();
         }
       }
 
@@ -687,10 +617,6 @@ public final class CollectorOuterClass {
             mergeResult(other.getResult());
             break;
           }
-          case REQUEST: {
-            mergeRequest(other.getRequest());
-            break;
-          }
           case STREAMMESSAGE_NOT_SET: {
             break;
           }
@@ -735,13 +661,6 @@ public final class CollectorOuterClass {
                 streamMessageCase_ = 2;
                 break;
               } // case 18
-              case 26: {
-                input.readMessage(
-                    getRequestFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                streamMessageCase_ = 3;
-                break;
-              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1056,148 +975,6 @@ public final class CollectorOuterClass {
         streamMessageCase_ = 2;
         onChanged();
         return resultBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder> requestBuilder_;
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       * @return Whether the request field is set.
-       */
-      @java.lang.Override
-      public boolean hasRequest() {
-        return streamMessageCase_ == 3;
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       * @return The request.
-       */
-      @java.lang.Override
-      public agent.CollectorOuterClass.ConfigRequest getRequest() {
-        if (requestBuilder_ == null) {
-          if (streamMessageCase_ == 3) {
-            return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
-          }
-          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-        } else {
-          if (streamMessageCase_ == 3) {
-            return requestBuilder_.getMessage();
-          }
-          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      public Builder setRequest(agent.CollectorOuterClass.ConfigRequest value) {
-        if (requestBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          streamMessage_ = value;
-          onChanged();
-        } else {
-          requestBuilder_.setMessage(value);
-        }
-        streamMessageCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      public Builder setRequest(
-          agent.CollectorOuterClass.ConfigRequest.Builder builderForValue) {
-        if (requestBuilder_ == null) {
-          streamMessage_ = builderForValue.build();
-          onChanged();
-        } else {
-          requestBuilder_.setMessage(builderForValue.build());
-        }
-        streamMessageCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      public Builder mergeRequest(agent.CollectorOuterClass.ConfigRequest value) {
-        if (requestBuilder_ == null) {
-          if (streamMessageCase_ == 3 &&
-              streamMessage_ != agent.CollectorOuterClass.ConfigRequest.getDefaultInstance()) {
-            streamMessage_ = agent.CollectorOuterClass.ConfigRequest.newBuilder((agent.CollectorOuterClass.ConfigRequest) streamMessage_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            streamMessage_ = value;
-          }
-          onChanged();
-        } else {
-          if (streamMessageCase_ == 3) {
-            requestBuilder_.mergeFrom(value);
-          } else {
-            requestBuilder_.setMessage(value);
-          }
-        }
-        streamMessageCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      public Builder clearRequest() {
-        if (requestBuilder_ == null) {
-          if (streamMessageCase_ == 3) {
-            streamMessageCase_ = 0;
-            streamMessage_ = null;
-            onChanged();
-          }
-        } else {
-          if (streamMessageCase_ == 3) {
-            streamMessageCase_ = 0;
-            streamMessage_ = null;
-          }
-          requestBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      public agent.CollectorOuterClass.ConfigRequest.Builder getRequestBuilder() {
-        return getRequestFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      @java.lang.Override
-      public agent.CollectorOuterClass.ConfigRequestOrBuilder getRequestOrBuilder() {
-        if ((streamMessageCase_ == 3) && (requestBuilder_ != null)) {
-          return requestBuilder_.getMessageOrBuilder();
-        } else {
-          if (streamMessageCase_ == 3) {
-            return (agent.CollectorOuterClass.ConfigRequest) streamMessage_;
-          }
-          return agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.agent.ConfigRequest request = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder> 
-          getRequestFieldBuilder() {
-        if (requestBuilder_ == null) {
-          if (!(streamMessageCase_ == 3)) {
-            streamMessage_ = agent.CollectorOuterClass.ConfigRequest.getDefaultInstance();
-          }
-          requestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              agent.CollectorOuterClass.ConfigRequest, agent.CollectorOuterClass.ConfigRequest.Builder, agent.CollectorOuterClass.ConfigRequestOrBuilder>(
-                  (agent.CollectorOuterClass.ConfigRequest) streamMessage_,
-                  getParentForChildren(),
-                  isClean());
-          streamMessage_ = null;
-        }
-        streamMessageCase_ = 3;
-        onChanged();
-        return requestBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -11568,57 +11345,58 @@ public final class CollectorOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017collector.proto\022\005agent\032\014common.proto\"\242" +
-      "\001\n\021CollectorMessages\022(\n\006config\030\001 \001(\0132\026.a" +
-      "gent.CollectorConfigH\000\022(\n\006result\030\002 \001(\0132\026" +
-      ".agent.ConfigKnowledgeH\000\022\'\n\007request\030\003 \001(" +
-      "\0132\024.agent.ConfigRequestH\000B\020\n\016stream_mess" +
-      "age\"&\n\022CollectorHostnames\022\020\n\010hostname\030\001 " +
-      "\003(\t\"Q\n\025FilterByHostAndModule\022\020\n\010hostname" +
-      "\030\001 \001(\t\022&\n\006module\030\002 \001(\0162\026.agent.Collector" +
-      "Module\"7\n\017ConfigKnowledge\022\020\n\010accepted\030\001 " +
-      "\001(\t\022\022\n\nrequest_id\030\002 \001(\t\"k\n\017RegisterReque" +
-      "st\022\n\n\002ip\030\001 \001(\t\022\020\n\010hostname\030\002 \001(\t\022\017\n\007vers" +
-      "ion\030\003 \001(\t\022)\n\tcollector\030\004 \001(\0162\026.agent.Col" +
-      "lectorModule\"7\n\rConfigRequest\022&\n\006module\030" +
-      "\001 \001(\0162\026.agent.CollectorModule\"\344\001\n\tCollec" +
-      "tor\022\n\n\002id\030\001 \001(\005\022\035\n\006status\030\002 \001(\0162\r.agent." +
-      "Status\022\025\n\rcollector_key\030\003 \001(\t\022\n\n\002ip\030\004 \001(" +
-      "\t\022\020\n\010hostname\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\022&\n\006" +
-      "module\030\007 \001(\0162\026.agent.CollectorModule\022+\n\006" +
-      "groups\030\010 \003(\0132\033.agent.CollectorConfigGrou" +
-      "p\022\021\n\tlast_seen\030\t \001(\t\"i\n\017CollectorConfig\022" +
-      "\025\n\rcollector_key\030\001 \001(\t\022+\n\006groups\030\002 \003(\0132\033" +
-      ".agent.CollectorConfigGroup\022\022\n\nrequest_i" +
-      "d\030\003 \001(\t\"\244\001\n\024CollectorConfigGroup\022\n\n\002id\030\001" +
-      " \001(\005\022\022\n\ngroup_name\030\003 \001(\t\022\031\n\021group_descri" +
-      "ption\030\004 \001(\t\022;\n\016configurations\030\005 \003(\0132#.ag" +
-      "ent.CollectorGroupConfigurations\022\024\n\014coll" +
-      "ector_id\030\006 \001(\005\"\262\001\n\034CollectorGroupConfigu" +
-      "rations\022\020\n\010group_id\030\002 \001(\005\022\020\n\010conf_key\030\003 " +
-      "\001(\t\022\022\n\nconf_value\030\004 \001(\t\022\021\n\tconf_name\030\005 \001" +
-      "(\t\022\030\n\020conf_description\030\006 \001(\t\022\026\n\016conf_dat" +
-      "a_type\030\007 \001(\t\022\025\n\rconf_required\030\010 \001(\010\"%\n\017C" +
-      "ollectorDelete\022\022\n\ndeleted_by\030\001 \001(\t\"F\n\025Li" +
-      "stCollectorResponse\022\036\n\004rows\030\001 \003(\0132\020.agen" +
-      "t.Collector\022\r\n\005total\030\002 \001(\005*\035\n\017CollectorM" +
-      "odule\022\n\n\006AS_400\020\0002\327\003\n\020CollectorService\022B" +
-      "\n\021RegisterCollector\022\026.agent.RegisterRequ" +
-      "est\032\023.agent.AuthResponse\"\000\022@\n\017DeleteColl" +
-      "ector\022\026.agent.CollectorDelete\032\023.agent.Au" +
-      "thResponse\"\000\022C\n\rListCollector\022\022.agent.Li" +
-      "stRequest\032\034.agent.ListCollectorResponse\"" +
-      "\000\022K\n\017CollectorStream\022\030.agent.CollectorMe" +
-      "ssages\032\030.agent.CollectorMessages\"\000(\0010\001\022I" +
-      "\n\026ListCollectorHostnames\022\022.agent.ListReq" +
-      "uest\032\031.agent.CollectorHostnames\"\000\022`\n Get" +
-      "CollectorsByHostnameAndModule\022\034.agent.Fi" +
-      "lterByHostAndModule\032\034.agent.ListCollecto" +
-      "rResponse\"\0002d\n\025PanelCollectorService\022K\n\027" +
-      "RegisterCollectorConfig\022\026.agent.Collecto" +
-      "rConfig\032\026.agent.ConfigKnowledge\"\000B2Z0git" +
-      "hub.com/utmstack/UTMStack/agent-manager/" +
-      "agentb\006proto3"
+      "\n\017collector.proto\022\005agent\032\014common.proto\"y" +
+      "\n\021CollectorMessages\022(\n\006config\030\001 \001(\0132\026.ag" +
+      "ent.CollectorConfigH\000\022(\n\006result\030\002 \001(\0132\026." +
+      "agent.ConfigKnowledgeH\000B\020\n\016stream_messag" +
+      "e\"&\n\022CollectorHostnames\022\020\n\010hostname\030\001 \003(" +
+      "\t\"Q\n\025FilterByHostAndModule\022\020\n\010hostname\030\001" +
+      " \001(\t\022&\n\006module\030\002 \001(\0162\026.agent.CollectorMo" +
+      "dule\"7\n\017ConfigKnowledge\022\020\n\010accepted\030\001 \001(" +
+      "\t\022\022\n\nrequest_id\030\002 \001(\t\"k\n\017RegisterRequest" +
+      "\022\n\n\002ip\030\001 \001(\t\022\020\n\010hostname\030\002 \001(\t\022\017\n\007versio" +
+      "n\030\003 \001(\t\022)\n\tcollector\030\004 \001(\0162\026.agent.Colle" +
+      "ctorModule\"7\n\rConfigRequest\022&\n\006module\030\001 " +
+      "\001(\0162\026.agent.CollectorModule\"\344\001\n\tCollecto" +
+      "r\022\n\n\002id\030\001 \001(\005\022\035\n\006status\030\002 \001(\0162\r.agent.St" +
+      "atus\022\025\n\rcollector_key\030\003 \001(\t\022\n\n\002ip\030\004 \001(\t\022" +
+      "\020\n\010hostname\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\022&\n\006mo" +
+      "dule\030\007 \001(\0162\026.agent.CollectorModule\022+\n\006gr" +
+      "oups\030\010 \003(\0132\033.agent.CollectorConfigGroup\022" +
+      "\021\n\tlast_seen\030\t \001(\t\"i\n\017CollectorConfig\022\025\n" +
+      "\rcollector_key\030\001 \001(\t\022+\n\006groups\030\002 \003(\0132\033.a" +
+      "gent.CollectorConfigGroup\022\022\n\nrequest_id\030" +
+      "\003 \001(\t\"\244\001\n\024CollectorConfigGroup\022\n\n\002id\030\001 \001" +
+      "(\005\022\022\n\ngroup_name\030\003 \001(\t\022\031\n\021group_descript" +
+      "ion\030\004 \001(\t\022;\n\016configurations\030\005 \003(\0132#.agen" +
+      "t.CollectorGroupConfigurations\022\024\n\014collec" +
+      "tor_id\030\006 \001(\005\"\262\001\n\034CollectorGroupConfigura" +
+      "tions\022\020\n\010group_id\030\002 \001(\005\022\020\n\010conf_key\030\003 \001(" +
+      "\t\022\022\n\nconf_value\030\004 \001(\t\022\021\n\tconf_name\030\005 \001(\t" +
+      "\022\030\n\020conf_description\030\006 \001(\t\022\026\n\016conf_data_" +
+      "type\030\007 \001(\t\022\025\n\rconf_required\030\010 \001(\010\"%\n\017Col" +
+      "lectorDelete\022\022\n\ndeleted_by\030\001 \001(\t\"F\n\025List" +
+      "CollectorResponse\022\036\n\004rows\030\001 \003(\0132\020.agent." +
+      "Collector\022\r\n\005total\030\002 \001(\005*\035\n\017CollectorMod" +
+      "ule\022\n\n\006AS_400\020\0002\235\004\n\020CollectorService\022B\n\021" +
+      "RegisterCollector\022\026.agent.RegisterReques" +
+      "t\032\023.agent.AuthResponse\"\000\022@\n\017DeleteCollec" +
+      "tor\022\026.agent.CollectorDelete\032\023.agent.Auth" +
+      "Response\"\000\022C\n\rListCollector\022\022.agent.List" +
+      "Request\032\034.agent.ListCollectorResponse\"\000\022" +
+      "K\n\017CollectorStream\022\030.agent.CollectorMess" +
+      "ages\032\030.agent.CollectorMessages\"\000(\0010\001\022I\n\026" +
+      "ListCollectorHostnames\022\022.agent.ListReque" +
+      "st\032\031.agent.CollectorHostnames\"\000\022`\n GetCo" +
+      "llectorsByHostnameAndModule\022\034.agent.Filt" +
+      "erByHostAndModule\032\034.agent.ListCollectorR" +
+      "esponse\"\000\022D\n\022GetCollectorConfig\022\024.agent." +
+      "ConfigRequest\032\026.agent.CollectorConfig\"\0002" +
+      "d\n\025PanelCollectorService\022K\n\027RegisterColl" +
+      "ectorConfig\022\026.agent.CollectorConfig\032\026.ag" +
+      "ent.ConfigKnowledge\"\000B2Z0github.com/utms" +
+      "tack/UTMStack/agent-manager/agentb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11630,7 +11408,7 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorMessages_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorMessages_descriptor,
-        new java.lang.String[] { "Config", "Result", "Request", "StreamMessage", });
+        new java.lang.String[] { "Config", "Result", "StreamMessage", });
     internal_static_agent_CollectorHostnames_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_agent_CollectorHostnames_fieldAccessorTable = new

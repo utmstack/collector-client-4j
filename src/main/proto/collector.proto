@@ -12,6 +12,7 @@ service CollectorService {
   rpc CollectorStream(stream CollectorMessages) returns (stream CollectorMessages) {}
   rpc ListCollectorHostnames (ListRequest) returns (CollectorHostnames) {}
   rpc GetCollectorsByHostnameAndModule (FilterByHostAndModule) returns (ListCollectorResponse) {}
+  rpc GetCollectorConfig (ConfigRequest) returns (CollectorConfig) {}
 }
 
 service PanelCollectorService {
@@ -26,7 +27,6 @@ message CollectorMessages {
   oneof stream_message {
     CollectorConfig config = 1;
     ConfigKnowledge result = 2;
-    ConfigRequest request = 3;
   }
 }
 
@@ -99,6 +99,3 @@ message ListCollectorResponse {
   repeated Collector rows = 1;
   int32 total = 2;
 }
-
-
-

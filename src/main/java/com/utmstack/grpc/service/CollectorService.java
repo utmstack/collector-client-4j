@@ -1,5 +1,6 @@
 package com.utmstack.grpc.service;
 
+import agent.CollectorOuterClass.ConfigRequest;
 import agent.CollectorOuterClass.CollectorHostnames;
 import agent.CollectorOuterClass.CollectorDelete;
 import agent.CollectorOuterClass.RegisterRequest;
@@ -49,7 +50,7 @@ public class CollectorService {
     /**
      * Method to register a collector.
      *
-     * @param request is th information of the collector to register.
+     * @param request is the information of the collector to register.
      * @param connectionKey is the connection key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
@@ -60,6 +61,27 @@ public class CollectorService {
                     .registerCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error registering collector: " + e.getMessage();
+            logger.error(msg);
+            throw new CollectorServiceGrpcException(msg);
+        }
+    }
+
+    /**
+     * Method to get a collector configuration.
+     *
+     * @param request is to let the server know what module is making a request.
+     * @param collector is the collector which is requesting the configuration.
+     * @throws CollectorServiceGrpcException if the action can't be performed.
+     */
+    public CollectorConfig requestCollectorConfig(ConfigRequest request, AuthResponse collector) throws CollectorServiceGrpcException {
+        final String ctx = CLASSNAME + ".requestCollectorConfig";
+        try {
+            return blockingStub.withInterceptors(new GrpcKeyInterceptor()
+                                    .withCollectorKey(collector.getKey()),
+                            new GrpcIdInterceptor().withCollectorId(collector.getId()))
+                    .getCollectorConfig(request);
+        } catch (Exception e) {
+            String msg = ctx + ": Error getting collector configuration: " + e.getMessage();
             logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
