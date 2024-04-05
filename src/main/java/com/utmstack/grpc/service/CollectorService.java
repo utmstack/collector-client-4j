@@ -91,14 +91,17 @@ public class CollectorService {
      * Method to initialize the collector messages stream between client and the server.
      *
      * @param toDoAction implementation of the action to execute.
-     * @param interceptors list of interceptors to be applied to the call.
+     * @param collector is the information of the collector to connect from.
      * If the stream can't be created will try to create a new one.
      */
-    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction, ClientInterceptor ... interceptors) throws CollectorServiceGrpcException {
+    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction, AuthResponse collector) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".getCollectorStreamObserver";
         final CountDownLatch waitingLatch = new CountDownLatch(1);
         try {
-            return nonBlockingStub.withInterceptors(interceptors).collectorStream(new StreamObserver<>() {
+            return nonBlockingStub.withInterceptors(
+                    new GrpcIdInterceptor().withCollectorId(collector.getId()),
+                    new GrpcKeyInterceptor().withCollectorKey(collector.getKey())
+            ).collectorStream(new StreamObserver<>() {
 
                 @Override
                 public void onNext(CollectorMessages messages) {
@@ -110,7 +113,7 @@ public class CollectorService {
                     logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
                     try {
                         waitingLatch.await(10, TimeUnit.SECONDS); // Wait for a second before reconnect
-                        getCollectorStreamObserver(toDoAction, interceptors); // Try to reconnect again
+                        getCollectorStreamObserver(toDoAction, collector); // Try to reconnect again
                     } catch (CollectorServiceGrpcException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }

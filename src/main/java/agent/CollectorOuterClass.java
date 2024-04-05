@@ -6509,36 +6509,48 @@ public final class CollectorOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>string collector_key = 1;</code>
+     * @return The collectorKey.
+     */
+    java.lang.String getCollectorKey();
+    /**
+     * <code>string collector_key = 1;</code>
+     * @return The bytes for collectorKey.
+     */
+    com.google.protobuf.ByteString
+        getCollectorKeyBytes();
+
+    /**
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> 
         getGroupsList();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index);
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     int getGroupsCount();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
         getGroupsOrBuilderList();
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
         int index);
 
     /**
-     * <code>string request_id = 2;</code>
+     * <code>string request_id = 3;</code>
      * @return The requestId.
      */
     java.lang.String getRequestId();
     /**
-     * <code>string request_id = 2;</code>
+     * <code>string request_id = 3;</code>
      * @return The bytes for requestId.
      */
     com.google.protobuf.ByteString
@@ -6557,6 +6569,7 @@ public final class CollectorOuterClass {
       super(builder);
     }
     private CollectorConfig() {
+      collectorKey_ = "";
       groups_ = java.util.Collections.emptyList();
       requestId_ = "";
     }
@@ -6581,18 +6594,57 @@ public final class CollectorOuterClass {
               agent.CollectorOuterClass.CollectorConfig.class, agent.CollectorOuterClass.CollectorConfig.Builder.class);
     }
 
-    public static final int GROUPS_FIELD_NUMBER = 1;
+    public static final int COLLECTOR_KEY_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object collectorKey_ = "";
+    /**
+     * <code>string collector_key = 1;</code>
+     * @return The collectorKey.
+     */
+    @java.lang.Override
+    public java.lang.String getCollectorKey() {
+      java.lang.Object ref = collectorKey_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        collectorKey_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string collector_key = 1;</code>
+     * @return The bytes for collectorKey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCollectorKeyBytes() {
+      java.lang.Object ref = collectorKey_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        collectorKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GROUPS_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
     private java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> groups_;
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     @java.lang.Override
     public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> getGroupsList() {
       return groups_;
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     @java.lang.Override
     public java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
@@ -6600,21 +6652,21 @@ public final class CollectorOuterClass {
       return groups_;
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index) {
       return groups_.get(index);
     }
     /**
-     * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+     * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
      */
     @java.lang.Override
     public agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
@@ -6622,11 +6674,11 @@ public final class CollectorOuterClass {
       return groups_.get(index);
     }
 
-    public static final int REQUEST_ID_FIELD_NUMBER = 2;
+    public static final int REQUEST_ID_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
     private volatile java.lang.Object requestId_ = "";
     /**
-     * <code>string request_id = 2;</code>
+     * <code>string request_id = 3;</code>
      * @return The requestId.
      */
     @java.lang.Override
@@ -6643,7 +6695,7 @@ public final class CollectorOuterClass {
       }
     }
     /**
-     * <code>string request_id = 2;</code>
+     * <code>string request_id = 3;</code>
      * @return The bytes for requestId.
      */
     @java.lang.Override
@@ -6675,11 +6727,14 @@ public final class CollectorOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, collectorKey_);
+      }
       for (int i = 0; i < groups_.size(); i++) {
-        output.writeMessage(1, groups_.get(i));
+        output.writeMessage(2, groups_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requestId_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, requestId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6690,12 +6745,15 @@ public final class CollectorOuterClass {
       if (size != -1) return size;
 
       size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(collectorKey_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, collectorKey_);
+      }
       for (int i = 0; i < groups_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, groups_.get(i));
+          .computeMessageSize(2, groups_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requestId_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, requestId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -6712,6 +6770,8 @@ public final class CollectorOuterClass {
       }
       agent.CollectorOuterClass.CollectorConfig other = (agent.CollectorOuterClass.CollectorConfig) obj;
 
+      if (!getCollectorKey()
+          .equals(other.getCollectorKey())) return false;
       if (!getGroupsList()
           .equals(other.getGroupsList())) return false;
       if (!getRequestId()
@@ -6727,6 +6787,8 @@ public final class CollectorOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + COLLECTOR_KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getCollectorKey().hashCode();
       if (getGroupsCount() > 0) {
         hash = (37 * hash) + GROUPS_FIELD_NUMBER;
         hash = (53 * hash) + getGroupsList().hashCode();
@@ -6864,13 +6926,14 @@ public final class CollectorOuterClass {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        collectorKey_ = "";
         if (groupsBuilder_ == null) {
           groups_ = java.util.Collections.emptyList();
         } else {
           groups_ = null;
           groupsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         requestId_ = "";
         return this;
       }
@@ -6906,9 +6969,9 @@ public final class CollectorOuterClass {
 
       private void buildPartialRepeatedFields(agent.CollectorOuterClass.CollectorConfig result) {
         if (groupsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             groups_ = java.util.Collections.unmodifiableList(groups_);
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.groups_ = groups_;
         } else {
@@ -6918,7 +6981,10 @@ public final class CollectorOuterClass {
 
       private void buildPartial0(agent.CollectorOuterClass.CollectorConfig result) {
         int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.collectorKey_ = collectorKey_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.requestId_ = requestId_;
         }
       }
@@ -6967,11 +7033,16 @@ public final class CollectorOuterClass {
 
       public Builder mergeFrom(agent.CollectorOuterClass.CollectorConfig other) {
         if (other == agent.CollectorOuterClass.CollectorConfig.getDefaultInstance()) return this;
+        if (!other.getCollectorKey().isEmpty()) {
+          collectorKey_ = other.collectorKey_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         if (groupsBuilder_ == null) {
           if (!other.groups_.isEmpty()) {
             if (groups_.isEmpty()) {
               groups_ = other.groups_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureGroupsIsMutable();
               groups_.addAll(other.groups_);
@@ -6984,7 +7055,7 @@ public final class CollectorOuterClass {
               groupsBuilder_.dispose();
               groupsBuilder_ = null;
               groups_ = other.groups_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
               groupsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getGroupsFieldBuilder() : null;
@@ -6995,7 +7066,7 @@ public final class CollectorOuterClass {
         }
         if (!other.getRequestId().isEmpty()) {
           requestId_ = other.requestId_;
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -7025,6 +7096,11 @@ public final class CollectorOuterClass {
                 done = true;
                 break;
               case 10: {
+                collectorKey_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
                 agent.CollectorOuterClass.CollectorConfigGroup m =
                     input.readMessage(
                         agent.CollectorOuterClass.CollectorConfigGroup.parser(),
@@ -7036,12 +7112,12 @@ public final class CollectorOuterClass {
                   groupsBuilder_.addMessage(m);
                 }
                 break;
-              } // case 10
-              case 18: {
-                requestId_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
               } // case 18
+              case 26: {
+                requestId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -7059,12 +7135,84 @@ public final class CollectorOuterClass {
       }
       private int bitField0_;
 
+      private java.lang.Object collectorKey_ = "";
+      /**
+       * <code>string collector_key = 1;</code>
+       * @return The collectorKey.
+       */
+      public java.lang.String getCollectorKey() {
+        java.lang.Object ref = collectorKey_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          collectorKey_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string collector_key = 1;</code>
+       * @return The bytes for collectorKey.
+       */
+      public com.google.protobuf.ByteString
+          getCollectorKeyBytes() {
+        java.lang.Object ref = collectorKey_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          collectorKey_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string collector_key = 1;</code>
+       * @param value The collectorKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCollectorKey(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        collectorKey_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string collector_key = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCollectorKey() {
+        collectorKey_ = getDefaultInstance().getCollectorKey();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string collector_key = 1;</code>
+       * @param value The bytes for collectorKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCollectorKeyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        collectorKey_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> groups_ =
         java.util.Collections.emptyList();
       private void ensureGroupsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           groups_ = new java.util.ArrayList<agent.CollectorOuterClass.CollectorConfigGroup>(groups_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -7072,7 +7220,7 @@ public final class CollectorOuterClass {
           agent.CollectorOuterClass.CollectorConfigGroup, agent.CollectorOuterClass.CollectorConfigGroup.Builder, agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> groupsBuilder_;
 
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup> getGroupsList() {
         if (groupsBuilder_ == null) {
@@ -7082,7 +7230,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public int getGroupsCount() {
         if (groupsBuilder_ == null) {
@@ -7092,7 +7240,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup getGroups(int index) {
         if (groupsBuilder_ == null) {
@@ -7102,7 +7250,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder setGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup value) {
@@ -7119,7 +7267,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder setGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7133,7 +7281,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder addGroups(agent.CollectorOuterClass.CollectorConfigGroup value) {
         if (groupsBuilder_ == null) {
@@ -7149,7 +7297,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder addGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup value) {
@@ -7166,7 +7314,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder addGroups(
           agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7180,7 +7328,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder addGroups(
           int index, agent.CollectorOuterClass.CollectorConfigGroup.Builder builderForValue) {
@@ -7194,7 +7342,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder addAllGroups(
           java.lang.Iterable<? extends agent.CollectorOuterClass.CollectorConfigGroup> values) {
@@ -7209,12 +7357,12 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder clearGroups() {
         if (groupsBuilder_ == null) {
           groups_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           groupsBuilder_.clear();
@@ -7222,7 +7370,7 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public Builder removeGroups(int index) {
         if (groupsBuilder_ == null) {
@@ -7235,14 +7383,14 @@ public final class CollectorOuterClass {
         return this;
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder getGroupsBuilder(
           int index) {
         return getGroupsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroupOrBuilder getGroupsOrBuilder(
           int index) {
@@ -7252,7 +7400,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public java.util.List<? extends agent.CollectorOuterClass.CollectorConfigGroupOrBuilder> 
            getGroupsOrBuilderList() {
@@ -7263,14 +7411,14 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder addGroupsBuilder() {
         return getGroupsFieldBuilder().addBuilder(
             agent.CollectorOuterClass.CollectorConfigGroup.getDefaultInstance());
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public agent.CollectorOuterClass.CollectorConfigGroup.Builder addGroupsBuilder(
           int index) {
@@ -7278,7 +7426,7 @@ public final class CollectorOuterClass {
             index, agent.CollectorOuterClass.CollectorConfigGroup.getDefaultInstance());
       }
       /**
-       * <code>repeated .agent.CollectorConfigGroup groups = 1;</code>
+       * <code>repeated .agent.CollectorConfigGroup groups = 2;</code>
        */
       public java.util.List<agent.CollectorOuterClass.CollectorConfigGroup.Builder> 
            getGroupsBuilderList() {
@@ -7291,7 +7439,7 @@ public final class CollectorOuterClass {
           groupsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               agent.CollectorOuterClass.CollectorConfigGroup, agent.CollectorOuterClass.CollectorConfigGroup.Builder, agent.CollectorOuterClass.CollectorConfigGroupOrBuilder>(
                   groups_,
-                  ((bitField0_ & 0x00000001) != 0),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           groups_ = null;
@@ -7301,7 +7449,7 @@ public final class CollectorOuterClass {
 
       private java.lang.Object requestId_ = "";
       /**
-       * <code>string request_id = 2;</code>
+       * <code>string request_id = 3;</code>
        * @return The requestId.
        */
       public java.lang.String getRequestId() {
@@ -7317,7 +7465,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>string request_id = 2;</code>
+       * <code>string request_id = 3;</code>
        * @return The bytes for requestId.
        */
       public com.google.protobuf.ByteString
@@ -7334,7 +7482,7 @@ public final class CollectorOuterClass {
         }
       }
       /**
-       * <code>string request_id = 2;</code>
+       * <code>string request_id = 3;</code>
        * @param value The requestId to set.
        * @return This builder for chaining.
        */
@@ -7342,22 +7490,22 @@ public final class CollectorOuterClass {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         requestId_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>string request_id = 2;</code>
+       * <code>string request_id = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearRequestId() {
         requestId_ = getDefaultInstance().getRequestId();
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
       /**
-       * <code>string request_id = 2;</code>
+       * <code>string request_id = 3;</code>
        * @param value The bytes for requestId to set.
        * @return This builder for chaining.
        */
@@ -7366,7 +7514,7 @@ public final class CollectorOuterClass {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         requestId_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -11439,37 +11587,38 @@ public final class CollectorOuterClass {
       "\t\022\020\n\010hostname\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\022&\n\006" +
       "module\030\007 \001(\0162\026.agent.CollectorModule\022+\n\006" +
       "groups\030\010 \003(\0132\033.agent.CollectorConfigGrou" +
-      "p\022\021\n\tlast_seen\030\t \001(\t\"R\n\017CollectorConfig\022" +
-      "+\n\006groups\030\001 \003(\0132\033.agent.CollectorConfigG" +
-      "roup\022\022\n\nrequest_id\030\002 \001(\t\"\244\001\n\024CollectorCo" +
-      "nfigGroup\022\n\n\002id\030\001 \001(\005\022\022\n\ngroup_name\030\003 \001(" +
-      "\t\022\031\n\021group_description\030\004 \001(\t\022;\n\016configur" +
-      "ations\030\005 \003(\0132#.agent.CollectorGroupConfi" +
-      "gurations\022\024\n\014collector_id\030\006 \001(\005\"\262\001\n\034Coll" +
-      "ectorGroupConfigurations\022\020\n\010group_id\030\002 \001" +
-      "(\005\022\020\n\010conf_key\030\003 \001(\t\022\022\n\nconf_value\030\004 \001(\t" +
-      "\022\021\n\tconf_name\030\005 \001(\t\022\030\n\020conf_description\030" +
-      "\006 \001(\t\022\026\n\016conf_data_type\030\007 \001(\t\022\025\n\rconf_re" +
-      "quired\030\010 \001(\010\"%\n\017CollectorDelete\022\022\n\ndelet" +
-      "ed_by\030\001 \001(\t\"F\n\025ListCollectorResponse\022\036\n\004" +
-      "rows\030\001 \003(\0132\020.agent.Collector\022\r\n\005total\030\002 " +
-      "\001(\005*\035\n\017CollectorModule\022\n\n\006AS_400\020\0002\327\003\n\020C" +
-      "ollectorService\022B\n\021RegisterCollector\022\026.a" +
-      "gent.RegisterRequest\032\023.agent.AuthRespons" +
-      "e\"\000\022@\n\017DeleteCollector\022\026.agent.Collector" +
-      "Delete\032\023.agent.AuthResponse\"\000\022C\n\rListCol" +
-      "lector\022\022.agent.ListRequest\032\034.agent.ListC" +
-      "ollectorResponse\"\000\022K\n\017CollectorStream\022\030." +
-      "agent.CollectorMessages\032\030.agent.Collecto" +
-      "rMessages\"\000(\0010\001\022I\n\026ListCollectorHostname" +
-      "s\022\022.agent.ListRequest\032\031.agent.CollectorH" +
-      "ostnames\"\000\022`\n GetCollectorsByHostnameAnd" +
-      "Module\022\034.agent.FilterByHostAndModule\032\034.a" +
-      "gent.ListCollectorResponse\"\0002d\n\025PanelCol" +
-      "lectorService\022K\n\027RegisterCollectorConfig" +
-      "\022\026.agent.CollectorConfig\032\026.agent.ConfigK" +
-      "nowledge\"\000B2Z0github.com/utmstack/UTMSta" +
-      "ck/agent-manager/agentb\006proto3"
+      "p\022\021\n\tlast_seen\030\t \001(\t\"i\n\017CollectorConfig\022" +
+      "\025\n\rcollector_key\030\001 \001(\t\022+\n\006groups\030\002 \003(\0132\033" +
+      ".agent.CollectorConfigGroup\022\022\n\nrequest_i" +
+      "d\030\003 \001(\t\"\244\001\n\024CollectorConfigGroup\022\n\n\002id\030\001" +
+      " \001(\005\022\022\n\ngroup_name\030\003 \001(\t\022\031\n\021group_descri" +
+      "ption\030\004 \001(\t\022;\n\016configurations\030\005 \003(\0132#.ag" +
+      "ent.CollectorGroupConfigurations\022\024\n\014coll" +
+      "ector_id\030\006 \001(\005\"\262\001\n\034CollectorGroupConfigu" +
+      "rations\022\020\n\010group_id\030\002 \001(\005\022\020\n\010conf_key\030\003 " +
+      "\001(\t\022\022\n\nconf_value\030\004 \001(\t\022\021\n\tconf_name\030\005 \001" +
+      "(\t\022\030\n\020conf_description\030\006 \001(\t\022\026\n\016conf_dat" +
+      "a_type\030\007 \001(\t\022\025\n\rconf_required\030\010 \001(\010\"%\n\017C" +
+      "ollectorDelete\022\022\n\ndeleted_by\030\001 \001(\t\"F\n\025Li" +
+      "stCollectorResponse\022\036\n\004rows\030\001 \003(\0132\020.agen" +
+      "t.Collector\022\r\n\005total\030\002 \001(\005*\035\n\017CollectorM" +
+      "odule\022\n\n\006AS_400\020\0002\327\003\n\020CollectorService\022B" +
+      "\n\021RegisterCollector\022\026.agent.RegisterRequ" +
+      "est\032\023.agent.AuthResponse\"\000\022@\n\017DeleteColl" +
+      "ector\022\026.agent.CollectorDelete\032\023.agent.Au" +
+      "thResponse\"\000\022C\n\rListCollector\022\022.agent.Li" +
+      "stRequest\032\034.agent.ListCollectorResponse\"" +
+      "\000\022K\n\017CollectorStream\022\030.agent.CollectorMe" +
+      "ssages\032\030.agent.CollectorMessages\"\000(\0010\001\022I" +
+      "\n\026ListCollectorHostnames\022\022.agent.ListReq" +
+      "uest\032\031.agent.CollectorHostnames\"\000\022`\n Get" +
+      "CollectorsByHostnameAndModule\022\034.agent.Fi" +
+      "lterByHostAndModule\032\034.agent.ListCollecto" +
+      "rResponse\"\0002d\n\025PanelCollectorService\022K\n\027" +
+      "RegisterCollectorConfig\022\026.agent.Collecto" +
+      "rConfig\032\026.agent.ConfigKnowledge\"\000B2Z0git" +
+      "hub.com/utmstack/UTMStack/agent-manager/" +
+      "agentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11523,7 +11672,7 @@ public final class CollectorOuterClass {
     internal_static_agent_CollectorConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_CollectorConfig_descriptor,
-        new java.lang.String[] { "Groups", "RequestId", });
+        new java.lang.String[] { "CollectorKey", "Groups", "RequestId", });
     internal_static_agent_CollectorConfigGroup_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_agent_CollectorConfigGroup_fieldAccessorTable = new

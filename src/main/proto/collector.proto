@@ -68,8 +68,9 @@ message Collector {
 }
 
 message CollectorConfig {
-  repeated CollectorConfigGroup groups = 1;
-  string request_id = 2;
+  string collector_key = 1;
+  repeated CollectorConfigGroup groups = 2;
+  string request_id = 3;
 }
 
 message CollectorConfigGroup {
