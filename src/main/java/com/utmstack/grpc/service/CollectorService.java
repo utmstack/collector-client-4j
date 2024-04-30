@@ -134,7 +134,7 @@ public class CollectorService {
                 public void onError(Throwable cause) {
                     logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
                     try {
-                        waitingLatch.await(10, TimeUnit.SECONDS); // Wait for a second before reconnect
+                        waitingLatch.await(30, TimeUnit.SECONDS); // Wait for a second before reconnect
                         getCollectorStreamObserver(toDoAction, collector); // Try to reconnect again
                     } catch (CollectorServiceGrpcException | InterruptedException e) {
                         throw new RuntimeException(e);
