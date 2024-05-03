@@ -1,10 +1,8 @@
 package com.utmstack.grpc.service;
 
 import com.utmstack.grpc.connection.GrpcConnection;
-import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.exception.LogMessagingException;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcLogAuthProxyKeyInterceptor;
 import io.grpc.ManagedChannel;
 import logservice.Log.ReceivedMessage;
@@ -43,7 +41,6 @@ public class LogMessagingService {
                     .withLogAuthProxyCollectorKey(collectorKey)).processLogs(request);
         } catch (Exception e) {
             String msg = ctx + ": Error sending logs: " + e.getMessage();
-            logger.error(msg);
             throw new LogMessagingException(msg);
         }
     }

@@ -59,7 +59,6 @@ public class PingService {
                 initPingRequestStreamObserver(collector);
             } catch (InterruptedException e) {
                 String msg = ctx + ": Ping process was interrupted: " + e.getMessage();
-                logger.error(msg);
                 throw new PingException(msg);
             }
         }

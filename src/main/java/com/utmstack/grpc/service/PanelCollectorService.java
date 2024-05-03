@@ -44,7 +44,6 @@ public class PanelCollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).registerCollectorConfig(config);
         } catch (Exception e) {
             String msg = ctx + ": Error inserting collector configuration: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorConfigurationGrpcException(msg);
         }
     }
