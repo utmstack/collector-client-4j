@@ -59,7 +59,6 @@ public class PingService {
                 initPingRequestStreamObserver(collector);
             } catch (InterruptedException e) {
                 String msg = ctx + ": Ping process was interrupted: " + e.getMessage();
-                logger.error(msg);
                 throw new PingException(msg);
             }
         }
@@ -87,7 +86,7 @@ public class PingService {
                     logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
                     try {
                         // Wait 10 seconds before try again
-                        finishLatch.await(10, TimeUnit.SECONDS);
+                        finishLatch.await(30, TimeUnit.SECONDS);
                         initPingRequestStreamObserver(collector);
                     } catch (PingException | InterruptedException e) {
                         throw new RuntimeException(e);

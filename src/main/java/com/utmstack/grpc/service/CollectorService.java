@@ -61,7 +61,6 @@ public class CollectorService {
                     .registerCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error registering collector: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -82,7 +81,6 @@ public class CollectorService {
                     .getCollectorConfig(request);
         } catch (Exception e) {
             String msg = ctx + ": Error getting collector configuration: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -103,7 +101,6 @@ public class CollectorService {
                     .deleteCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error removing collector: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -134,7 +131,7 @@ public class CollectorService {
                 public void onError(Throwable cause) {
                     logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
                     try {
-                        waitingLatch.await(10, TimeUnit.SECONDS); // Wait for a second before reconnect
+                        waitingLatch.await(30, TimeUnit.SECONDS); // Wait for a second before reconnect
                         getCollectorStreamObserver(toDoAction, collector); // Try to reconnect again
                     } catch (CollectorServiceGrpcException | InterruptedException e) {
                         throw new RuntimeException(e);
@@ -165,7 +162,6 @@ public class CollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -180,13 +176,12 @@ public class CollectorService {
      * @param internalKey is the internal key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
-    private CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
+    public CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollectorHostnames(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors hostnames: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -198,13 +193,12 @@ public class CollectorService {
      * @param internalKey is the internal key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
-    private ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
+    public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
-            logger.error(msg);
             throw new CollectorServiceGrpcException(msg);
         }
     }

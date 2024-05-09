@@ -19,36 +19,47 @@ public final class Log {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string log_type = 1;</code>
+     * <code>.agent.ConnectorType type = 1;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.agent.ConnectorType type = 1;</code>
+     * @return The type.
+     */
+    agent.Common.ConnectorType getType();
+
+    /**
+     * <code>string log_type = 2;</code>
      * @return The logType.
      */
     java.lang.String getLogType();
     /**
-     * <code>string log_type = 1;</code>
+     * <code>string log_type = 2;</code>
      * @return The bytes for logType.
      */
     com.google.protobuf.ByteString
         getLogTypeBytes();
 
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @return A list containing the data.
      */
     java.util.List<java.lang.String>
         getDataList();
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @return The count of data.
      */
     int getDataCount();
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @param index The index of the element to return.
      * @return The data at the given index.
      */
     java.lang.String getData(int index);
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @param index The index of the value to return.
      * @return The bytes of the data at the given index.
      */
@@ -68,6 +79,7 @@ public final class Log {
       super(builder);
     }
     private LogMessage() {
+      type_ = 0;
       logType_ = "";
       data_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
@@ -93,11 +105,29 @@ public final class Log {
               logservice.Log.LogMessage.class, logservice.Log.LogMessage.Builder.class);
     }
 
-    public static final int LOG_TYPE_FIELD_NUMBER = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_ = 0;
+    /**
+     * <code>.agent.ConnectorType type = 1;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.agent.ConnectorType type = 1;</code>
+     * @return The type.
+     */
+    @java.lang.Override public agent.Common.ConnectorType getType() {
+      agent.Common.ConnectorType result = agent.Common.ConnectorType.forNumber(type_);
+      return result == null ? agent.Common.ConnectorType.UNRECOGNIZED : result;
+    }
+
+    public static final int LOG_TYPE_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
     private volatile java.lang.Object logType_ = "";
     /**
-     * <code>string log_type = 1;</code>
+     * <code>string log_type = 2;</code>
      * @return The logType.
      */
     @java.lang.Override
@@ -114,7 +144,7 @@ public final class Log {
       }
     }
     /**
-     * <code>string log_type = 1;</code>
+     * <code>string log_type = 2;</code>
      * @return The bytes for logType.
      */
     @java.lang.Override
@@ -132,12 +162,12 @@ public final class Log {
       }
     }
 
-    public static final int DATA_FIELD_NUMBER = 2;
+    public static final int DATA_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
     private com.google.protobuf.LazyStringArrayList data_ =
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @return A list containing the data.
      */
     public com.google.protobuf.ProtocolStringList
@@ -145,14 +175,14 @@ public final class Log {
       return data_;
     }
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @return The count of data.
      */
     public int getDataCount() {
       return data_.size();
     }
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @param index The index of the element to return.
      * @return The data at the given index.
      */
@@ -160,7 +190,7 @@ public final class Log {
       return data_.get(index);
     }
     /**
-     * <code>repeated string data = 2;</code>
+     * <code>repeated string data = 3;</code>
      * @param index The index of the value to return.
      * @return The bytes of the data at the given index.
      */
@@ -183,11 +213,14 @@ public final class Log {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (type_ != agent.Common.ConnectorType.AGENT.getNumber()) {
+        output.writeEnum(1, type_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(logType_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, logType_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, logType_);
       }
       for (int i = 0; i < data_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, data_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, data_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -198,8 +231,12 @@ public final class Log {
       if (size != -1) return size;
 
       size = 0;
+      if (type_ != agent.Common.ConnectorType.AGENT.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(logType_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, logType_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, logType_);
       }
       {
         int dataSize = 0;
@@ -224,6 +261,7 @@ public final class Log {
       }
       logservice.Log.LogMessage other = (logservice.Log.LogMessage) obj;
 
+      if (type_ != other.type_) return false;
       if (!getLogType()
           .equals(other.getLogType())) return false;
       if (!getDataList()
@@ -239,6 +277,8 @@ public final class Log {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (37 * hash) + LOG_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getLogType().hashCode();
       if (getDataCount() > 0) {
@@ -376,6 +416,7 @@ public final class Log {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        type_ = 0;
         logType_ = "";
         data_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
@@ -413,9 +454,12 @@ public final class Log {
       private void buildPartial0(logservice.Log.LogMessage result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.logType_ = logType_;
+          result.type_ = type_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.logType_ = logType_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           data_.makeImmutable();
           result.data_ = data_;
         }
@@ -465,15 +509,18 @@ public final class Log {
 
       public Builder mergeFrom(logservice.Log.LogMessage other) {
         if (other == logservice.Log.LogMessage.getDefaultInstance()) return this;
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
         if (!other.getLogType().isEmpty()) {
           logType_ = other.logType_;
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         if (!other.data_.isEmpty()) {
           if (data_.isEmpty()) {
             data_ = other.data_;
-            bitField0_ |= 0x00000002;
+            bitField0_ |= 0x00000004;
           } else {
             ensureDataIsMutable();
             data_.addAll(other.data_);
@@ -506,17 +553,22 @@ public final class Log {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                logType_ = input.readStringRequireUtf8();
+              case 8: {
+                type_ = input.readEnum();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 10
+              } // case 8
               case 18: {
+                logType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
                 java.lang.String s = input.readStringRequireUtf8();
                 ensureDataIsMutable();
                 data_.add(s);
                 break;
-              } // case 18
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -534,9 +586,62 @@ public final class Log {
       }
       private int bitField0_;
 
+      private int type_ = 0;
+      /**
+       * <code>.agent.ConnectorType type = 1;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.agent.ConnectorType type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.agent.ConnectorType type = 1;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public agent.Common.ConnectorType getType() {
+        agent.Common.ConnectorType result = agent.Common.ConnectorType.forNumber(type_);
+        return result == null ? agent.Common.ConnectorType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.agent.ConnectorType type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(agent.Common.ConnectorType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.agent.ConnectorType type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object logType_ = "";
       /**
-       * <code>string log_type = 1;</code>
+       * <code>string log_type = 2;</code>
        * @return The logType.
        */
       public java.lang.String getLogType() {
@@ -552,7 +657,7 @@ public final class Log {
         }
       }
       /**
-       * <code>string log_type = 1;</code>
+       * <code>string log_type = 2;</code>
        * @return The bytes for logType.
        */
       public com.google.protobuf.ByteString
@@ -569,7 +674,7 @@ public final class Log {
         }
       }
       /**
-       * <code>string log_type = 1;</code>
+       * <code>string log_type = 2;</code>
        * @param value The logType to set.
        * @return This builder for chaining.
        */
@@ -577,22 +682,22 @@ public final class Log {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         logType_ = value;
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>string log_type = 1;</code>
+       * <code>string log_type = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearLogType() {
         logType_ = getDefaultInstance().getLogType();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string log_type = 1;</code>
+       * <code>string log_type = 2;</code>
        * @param value The bytes for logType to set.
        * @return This builder for chaining.
        */
@@ -601,7 +706,7 @@ public final class Log {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         logType_ = value;
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -612,10 +717,10 @@ public final class Log {
         if (!data_.isModifiable()) {
           data_ = new com.google.protobuf.LazyStringArrayList(data_);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @return A list containing the data.
        */
       public com.google.protobuf.ProtocolStringList
@@ -624,14 +729,14 @@ public final class Log {
         return data_;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @return The count of data.
        */
       public int getDataCount() {
         return data_.size();
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param index The index of the element to return.
        * @return The data at the given index.
        */
@@ -639,7 +744,7 @@ public final class Log {
         return data_.get(index);
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param index The index of the value to return.
        * @return The bytes of the data at the given index.
        */
@@ -648,7 +753,7 @@ public final class Log {
         return data_.getByteString(index);
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param index The index to set the value at.
        * @param value The data to set.
        * @return This builder for chaining.
@@ -658,12 +763,12 @@ public final class Log {
         if (value == null) { throw new NullPointerException(); }
         ensureDataIsMutable();
         data_.set(index, value);
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param value The data to add.
        * @return This builder for chaining.
        */
@@ -672,12 +777,12 @@ public final class Log {
         if (value == null) { throw new NullPointerException(); }
         ensureDataIsMutable();
         data_.add(value);
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param values The data to add.
        * @return This builder for chaining.
        */
@@ -686,23 +791,23 @@ public final class Log {
         ensureDataIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, data_);
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearData() {
         data_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);;
+        bitField0_ = (bitField0_ & ~0x00000004);;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string data = 2;</code>
+       * <code>repeated string data = 3;</code>
        * @param value The bytes of the data to add.
        * @return This builder for chaining.
        */
@@ -712,7 +817,7 @@ public final class Log {
         checkByteStringIsUtf8(value);
         ensureDataIsMutable();
         data_.add(value);
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -1424,30 +1529,34 @@ public final class Log {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tlog.proto\022\nlogservice\",\n\nLogMessage\022\020\n" +
-      "\010log_type\030\001 \001(\t\022\014\n\004data\030\002 \003(\t\"4\n\017Receive" +
-      "dMessage\022\020\n\010received\030\001 \001(\010\022\017\n\007message\030\002 " +
-      "\001(\t2R\n\nLogService\022D\n\013ProcessLogs\022\026.logse" +
-      "rvice.LogMessage\032\033.logservice.ReceivedMe" +
-      "ssage\"\000B;Z9github.com/AtlasInsideCorp/UT" +
-      "MStackAgentServer/logserviceb\006proto3"
+      "\n\tlog.proto\022\nlogservice\032\014common.proto\"P\n" +
+      "\nLogMessage\022\"\n\004type\030\001 \001(\0162\024.agent.Connec" +
+      "torType\022\020\n\010log_type\030\002 \001(\t\022\014\n\004data\030\003 \003(\t\"" +
+      "4\n\017ReceivedMessage\022\020\n\010received\030\001 \001(\010\022\017\n\007" +
+      "message\030\002 \001(\t2R\n\nLogService\022D\n\013ProcessLo" +
+      "gs\022\026.logservice.LogMessage\032\033.logservice." +
+      "ReceivedMessage\"\000B8Z6github.com/utmstack" +
+      "/UTMStack/log-auth-proxy/logserviceb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          agent.Common.getDescriptor(),
         });
     internal_static_logservice_LogMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_logservice_LogMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_logservice_LogMessage_descriptor,
-        new java.lang.String[] { "LogType", "Data", });
+        new java.lang.String[] { "Type", "LogType", "Data", });
     internal_static_logservice_ReceivedMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_logservice_ReceivedMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_logservice_ReceivedMessage_descriptor,
         new java.lang.String[] { "Received", "Message", });
+    agent.Common.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
