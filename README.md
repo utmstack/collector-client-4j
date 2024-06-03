@@ -20,6 +20,11 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [Send logs to log-auth-proxy](#send-logs-to-log-auth-proxy)
     - [Important classes](#important-classes)
         + [AuthResponse](#authresponse)
+    - [Proto files](#proto-files)
+        + [Collector](#collector)
+        + [Logs](#logs)
+        + [Ping](#ping)
+        + [Common](#common)
 
 ## Adding client to your project
 [Back to Contents](#contents)<br>
@@ -72,7 +77,8 @@ GrpcEmptyAuthInterceptor as default.
 [Back to Contents](#contents)<br>
 The client has some services used to perform ping from a collector, register, remove, list and other actions over a collector.
 Also has methods to send logs to UTMStack platform as mentioned before. To use a service you need first to instantiate 
-the service class and, then, use the method.
+the service class and then, use the method. Check the [proto files](#proto-files) to see more about the structure and services
+explained in this section.
 #### Register a collector
 This method is used to register a collector in the agent manager.
 <br>**Imports**
@@ -503,6 +509,111 @@ con.getConnectionChannel().shutdown();
 ~~~
 
 
+#### Upsert collector configuration
+[Back to Contents](#contents)<br>
+This method is used to send a collector's configuration to the server and get a confirmation back. 
+If the configuration for the specified collector, exists, is override, if not is inserted. First, you will see 
+in the [proto files](#proto-files) that a CollectorConfig has a list of CollectorConfigGroup and this one, 
+has a list of CollectorGroupConfigurations inside. The configurations vary from one collector to another, so, 
+you must know what configurations you need for each collector.
+<br>**Imports**
+~~~
+import agent.CollectorOuterClass.ConfigKnowledge;
+import agent.CollectorOuterClass.CollectorConfig;
+import agent.CollectorOuterClass.CollectorConfigGroup;
+import agent.CollectorOuterClass.CollectorGroupConfigurations;
+import com.utmstack.grpc.service.PanelCollectorService;
+import com.utmstack.grpc.connection.GrpcConnection;
+import com.utmstack.grpc.exception.CollectorConfigurationGrpcException;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+~~~
+<br>**Usage**<br>
+~~~
+try {
+GrpcConnection con = new GrpcConnection();
+con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
+
+// Calling the service
+PanelCollectorService serv = new PanelCollectorService(con);
+
+
+// Authentication information
+String internalKey = "the UTMStack's internal key";
+
+// Creating the configuration, in this example we show the AS400's configuration
+List<CollectorGroupConfigurations> configRows = new ArrayList<>();
+            CollectorGroupConfigurations hostname = CollectorGroupConfigurations.newBuilder()
+                    .setConfName("Host name")
+                    .setConfDescription("Host name of the AS400")
+                    .setConfKey("collector.as400.hostname")
+                    .setConfValue("The host name of the as400 you're trying to connect to")
+                    .setConfDataType("text")
+                    .setConfRequired(true)
+                    .build();
+
+            CollectorGroupConfigurations username = CollectorGroupConfigurations.newBuilder()
+                    .setConfName("User name")
+                    .setConfDescription("User name to authenticate into the AS400")
+                    .setConfKey("collector.as400.user")
+                    .setConfValue("The user name used to connect to the as400")
+                    .setConfDataType("text")
+                    .setConfRequired(true)
+                    .build();
+
+            CollectorGroupConfigurations password = CollectorGroupConfigurations.newBuilder()
+                    .setConfName("Password")
+                    .setConfDescription("Password of the user used to authenticate into the AS400")
+                    .setConfKey("collector.as400.password")
+                    .setConfValue("The password of the user used to connect to the as400")
+                    .setConfDataType("password")
+                    .setConfRequired(true)
+                    .build();
+
+            // Adding individual configurations to create the group
+            configRows.add(hostname);
+            configRows.add(username);
+            configRows.add(password);
+
+            // Creating a group with those configurations
+            CollectorConfigGroup myFirstAS400Config = CollectorConfigGroup.newBuilder()
+                    .setGroupName("AS400Server1")
+                    .setGroupDescription("This is my first AS400 server configuration")
+                    .addAllConfigurations(configRows)
+                    .build();
+
+            // You can add as many groups as you need for the same collector
+            List<CollectorConfigGroup> configGroups = new ArrayList<>();
+            configGroups.add(myFirstAS400Config);
+            
+            // Put all together to create the final configuration
+            CollectorConfig collectorConfig = CollectorConfig.newBuilder()
+                    .setCollectorKey("your collector's key")
+                    .addAllGroups(configGroups)
+                    .setRequestId("some unique id to identify the request (number, UUID, hash ...)")
+                    .build();
+
+
+            // Call the gRPC upsert config method
+            ConfigKnowledge confirmation = serv.insertCollectorConfig(collectorConfig, internalKey);
+
+            // Is not important for now but you can check the response from server
+            if(confirmation.getAccepted().equals("yes")) {
+                // Great !!!
+            }
+
+} catch (GrpcConnectionException e) {
+// Your exception handling here when the channel can't be created
+} catch (LogMessagingException e) {
+// Your exception handling here when the log can't be forwarded to log-auth-proxy
+}
+~~~
+**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
+~~~
+// Close the connection channel
+con.getConnectionChannel().shutdown();
+~~~
+
+
 ### Important classes
 This section shows some creational examples of classes not explained in the examples.
 #### AuthResponse
@@ -520,3 +631,203 @@ int collectorId = 1; // The database id of the collector
 AuthResponse collector = AuthResponse.newBuilder().setKey("collector key")
                     .setId(collectorId).build();
 ~~~    
+
+### Proto files
+This section shows all .proto files with the structure and services used across the client.
+
+#### Collector
+This .proto file has all the collector's services and structure definitions.
+
+~~~
+syntax = "proto3";
+
+option go_package = "github.com/utmstack/UTMStack/agent-manager/agent";
+import "common.proto";
+
+package agent;
+
+service CollectorService {
+  rpc RegisterCollector(RegisterRequest) returns (AuthResponse) {}
+  rpc DeleteCollector(CollectorDelete) returns (AuthResponse) {}
+  rpc ListCollector (ListRequest) returns (ListCollectorResponse) {}
+  rpc CollectorStream(stream CollectorMessages) returns (stream CollectorMessages) {}
+  rpc ListCollectorHostnames (ListRequest) returns (CollectorHostnames) {}
+  rpc GetCollectorsByHostnameAndModule (FilterByHostAndModule) returns (ListCollectorResponse) {}
+  rpc GetCollectorConfig (ConfigRequest) returns (CollectorConfig) {}
+}
+
+service PanelCollectorService {
+  rpc RegisterCollectorConfig(CollectorConfig) returns (ConfigKnowledge) {}
+}
+
+enum CollectorModule{
+  AS_400 = 0;
+}
+
+message CollectorMessages {
+  oneof stream_message {
+    CollectorConfig config = 1;
+    ConfigKnowledge result = 2;
+  }
+}
+
+message CollectorHostnames{
+  repeated string hostname = 1;
+}
+
+message FilterByHostAndModule{
+  string hostname = 1;
+  CollectorModule module = 2;
+}
+
+message ConfigKnowledge{
+  string accepted = 1;
+  string request_id = 2;
+}
+
+message RegisterRequest {
+  string ip = 1;
+  string hostname = 2;
+  string version = 3;
+  CollectorModule collector = 4;
+}
+
+message ConfigRequest {
+  CollectorModule module = 1;
+}
+
+message Collector {
+  int32 id = 1;
+  Status status = 2;
+  string collector_key = 3;
+  string ip = 4;
+  string hostname = 5;
+  string version = 6;
+  CollectorModule module = 7;
+  repeated CollectorConfigGroup groups = 8;
+  string last_seen = 9;
+}
+
+message CollectorConfig {
+  string collector_key = 1;
+  repeated CollectorConfigGroup groups = 2;
+  string request_id = 3;
+}
+
+message CollectorConfigGroup {
+  int32 id = 1;
+  string group_name = 3;
+  string group_description = 4;
+  repeated CollectorGroupConfigurations configurations = 5;
+  int32 collector_id = 6;
+}
+
+message CollectorGroupConfigurations {
+  int32 group_id = 2;
+  string conf_key = 3;
+  string conf_value = 4;
+  string conf_name = 5;
+  string conf_description = 6;
+  string conf_data_type = 7;
+  bool conf_required = 8;
+}
+
+message CollectorDelete {
+  string deleted_by = 1;
+}
+
+message ListCollectorResponse {
+  repeated Collector rows = 1;
+  int32 total = 2;
+}
+~~~
+
+#### Logs
+This .proto file has all the services and structure definitions used to send logs to the [log-auth-proxy](#description).
+
+~~~
+syntax = "proto3";
+
+option go_package = "github.com/utmstack/UTMStack/log-auth-proxy/logservice";
+
+package logservice;
+
+import "common.proto";
+
+message LogMessage {
+  agent.ConnectorType type = 1;
+  string log_type = 2;
+  repeated string data = 3;
+}
+message ReceivedMessage {
+  bool received = 1;
+  string message = 2;
+}
+service LogService {
+  rpc ProcessLogs(LogMessage) returns (ReceivedMessage) {}
+}
+~~~
+
+#### Ping
+This .proto file has all the services and structure definitions to make ping requests to the 
+server, to let the server know that the collector is alive.
+
+~~~
+syntax = "proto3";
+
+option go_package = "github.com/utmstack/UTMStack/agent-manager/agent";
+
+package agent;
+
+import "common.proto";
+
+service PingService {
+  rpc Ping(stream PingRequest) returns (PingResponse) {}
+}
+
+message PingRequest{
+  ConnectorType type = 1;
+}
+
+message PingResponse {
+  string received= 1;
+}
+~~~
+
+#### Common
+This .proto file has common structure definitions used in other .proto files.
+
+~~~
+syntax = "proto3";
+
+option go_package = "github.com/utmstack/UTMStack/agent-manager/agent";
+
+package agent;
+
+message ListRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  string search_query = 3;
+  string sort_by = 4;
+}
+
+enum Status {
+  ONLINE = 0;
+  OFFLINE = 1;
+  UNKNOWN = 2;
+}
+
+enum ConnectorType{
+  AGENT = 0;
+  COLLECTOR = 1;
+}
+
+message AuthResponse {
+  uint32 id = 1;
+  string key = 2;
+}
+
+message Hostname{
+  string hostname = 1;
+}
+~~~
