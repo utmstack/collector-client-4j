@@ -17,6 +17,7 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [List collectors](#list-collectors)
         + [List collector's hostnames](#list-collectors-hostnames)
         + [Collector by hostname and module](#collector-by-hostname-and-module)
+        + [Send logs to log-auth-proxy](#send-logs-to-log-auth-proxy)
     - [Important classes](#important-classes)
         + [AuthResponse](#authresponse)
 
@@ -314,7 +315,6 @@ import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
-import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 ~~~
 <br>**Usage**<br>
 ~~~
@@ -363,7 +363,6 @@ import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
-import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 ~~~
 <br>**Usage**<br>
 ~~~
@@ -415,7 +414,6 @@ import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
-import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 ~~~
 <br>**Usage**<br>
 ~~~
@@ -440,6 +438,62 @@ ListCollectorResponse response = serv.GetCollectorsByHostnameAndModule(req, inte
 // Your exception handling here when the channel can't be created
 } catch (CollectorServiceGrpcException e) {
 // Your exception handling here when the collector's information can't be listed
+}
+~~~
+**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
+~~~
+// Close the connection channel
+con.getConnectionChannel().shutdown();
+~~~
+
+
+#### Send logs to log-auth-proxy
+[Back to Contents](#contents)<br>
+This method is used to send logs from a collector to [log-auth-proxy](#description).
+<br>**Imports**
+~~~
+import logservice.Log.ReceivedMessage;
+import logservice.Log.LogMessage;
+import logservice.LogServiceGrpc;
+import agent.CollectorOuterClass.CollectorModule;
+import agent.Common.ConnectorType;
+import com.utmstack.grpc.connection.GrpcConnection;
+import com.utmstack.grpc.exception.LogMessagingException;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+~~~
+<br>**Usage**<br>
+~~~
+try {
+GrpcConnection con = new GrpcConnection();
+con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
+
+// Calling the service
+LogMessagingService serv = new LogMessagingService(con);
+
+
+// Authentication information
+String collectorKey = "the collector's key";
+
+// Creating the batch list to store the messages to send according to the gRPC service batch size
+// Actually you must send batches of 100 to avoid log-auth-proxy issues
+List<String> grpcBatchList = new ArrayList<>();
+// Add some messages to the list
+grpcBatchList.add("My first log");
+grpcBatchList.add("My second log");
+grpcBatchList.add("More logs");
+
+// Adding the data 
+LogMessage messageBatch = LogMessage.newBuilder().addAllData(grpcBatchList)
+                            .setLogType(CollectorModule.AS_400.name()).setType(ConnectorType.COLLECTOR).build();
+
+// Send logs and clear the list
+serv.sendLogs(messageBatch, collectorKey);
+grpcBatchList.clear();
+
+} catch (GrpcConnectionException e) {
+// Your exception handling here when the channel can't be created
+} catch (LogMessagingException e) {
+// Your exception handling here when the log can't be forwarded to log-auth-proxy
 }
 ~~~
 **Note:** When you use non-streaming methods like before, ensure that you close the channel with:
