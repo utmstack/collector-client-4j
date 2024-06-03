@@ -604,7 +604,7 @@ List<CollectorGroupConfigurations> configRows = new ArrayList<>();
 } catch (GrpcConnectionException e) {
 // Your exception handling here when the channel can't be created
 } catch (LogMessagingException e) {
-// Your exception handling here when the log can't be forwarded to log-auth-proxy
+// Your exception handling here when the configuration wasn't upserted
 }
 ~~~
 **Note:** When you use non-streaming methods like before, ensure that you close the channel with:
