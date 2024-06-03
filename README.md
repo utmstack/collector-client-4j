@@ -349,6 +349,56 @@ ListCollectorResponse response = serv.listCollector(req, internalKey);
 con.getConnectionChannel().shutdown();
 ~~~
 
+#### List collector's hostnames
+[Back to Contents](#contents)<br>
+This method is similar than the list collector but only return the hostnames of collectors, the request can be filtered and sorted as needed.
+<br>**Imports**
+~~~
+import com.utmstack.grpc.service.CollectorService;
+import com.utmstack.grpc.exception.CollectorServiceGrpcException;
+import agent.CollectorOuterClass.CollectorModule;
+import agent.CollectorOuterClass.CollectorHostnames
+import agent.Common.ListRequest;
+import com.utmstack.grpc.connection.GrpcConnection;
+import com.utmstack.grpc.exception.GrpcConnectionException;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
+~~~
+<br>**Usage**<br>
+~~~
+try {
+GrpcConnection con = new GrpcConnection();
+con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
+
+// Instantiating the collector service with a connection to the agent manager
+CollectorService serv = new CollectorService(con);
+
+// Authentication information
+String internalKey = "the UTMStack's internal key";
+
+ListRequest req = ListRequest.newBuilder()
+                     .setPageNumber(0)
+                     .setPageSize(1000)
+                     .setSearchQuery("module.Is=" + CollectorModuleEnum.AS_400)
+                     .setSortBy("")
+                     .build()
+
+// List collector's hostnames according to the filters
+// CollectorHostnames is an array of Strings containing the hostnames
+CollectorHostnames response = serv.ListCollectorHostnames(req, internalKey);
+
+} catch (GrpcConnectionException e) {
+// Your exception handling here when the channel can't be created
+} catch (CollectorServiceGrpcException e) {
+// Your exception handling here when the collector's hostnames can't be listed
+}
+~~~
+**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
+~~~
+// Close the connection channel
+con.getConnectionChannel().shutdown();
+~~~
+
 
 ### Important classes
 This section shows some creational examples of classes not explained in the examples.
