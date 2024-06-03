@@ -308,7 +308,8 @@ This method is used to list the collectors, the request can be filtered and sort
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import agent.CollectorOuterClass.CollectorModule;
-import agent.CollectorOuterClass.
+import agent.CollectorOuterClass.ListCollectorResponse
+import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
@@ -324,9 +325,7 @@ con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInter
 CollectorService serv = new CollectorService(con);
 
 // Authentication information
-String collectorKey = "the collector key";
-String collectorId = "the collector's database id"
-String deletedBy = "a user name, or IP, or hostname"; // Something that indicates who performed the action
+String internalKey = "the UTMStack's internal key";
 
 ListRequest req = ListRequest.newBuilder()
                      .setPageNumber(0)
@@ -335,13 +334,13 @@ ListRequest req = ListRequest.newBuilder()
                      .setSortBy("")
                      .build()
 
-// Removing the collector via gRPC
-serv.deleteCollector(req, collector);
+// List collector's information
+ListCollectorResponse response = serv.listCollector(req, internalKey);
 
 } catch (GrpcConnectionException e) {
 // Your exception handling here when the channel can't be created
 } catch (CollectorServiceGrpcException e) {
-// Your exception handling here when the collector can't be removed
+// Your exception handling here when the collector's can't be listed
 }
 ~~~
 **Note:** When you use non-streaming methods like before, ensure that you close the channel with:
