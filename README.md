@@ -18,6 +18,7 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [List collector's hostnames](#list-collectors-hostnames)
         + [Collector by hostname and module](#collector-by-hostname-and-module)
         + [Send logs to log-auth-proxy](#send-logs-to-log-auth-proxy)
+        + [Upsert collector configuration](#upsert-collector-configuration)
     - [Important classes](#important-classes)
         + [AuthResponse](#authresponse)
     - [Proto files](#proto-files)
