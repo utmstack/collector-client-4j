@@ -16,6 +16,7 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [Configuration stream](#configuration-stream)
         + [List collectors](#list-collectors)
         + [List collector's hostnames](#list-collectors-hostnames)
+        + [Collector by hostname and module](#collector-by-hostname-and-module)
     - [Important classes](#important-classes)
         + [AuthResponse](#authresponse)
 
@@ -171,7 +172,6 @@ This method is used to remove all information of a collector, including its conf
 ~~~
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
-import agent.CollectorOuterClass.CollectorModule;
 import agent.CollectorOuterClass.CollectorDelete;
 import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
@@ -222,7 +222,6 @@ a configuration, to do that you must create a class that implements the `IExecut
 ~~~
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
-import agent.CollectorOuterClass.CollectorModule;
 import agent.CollectorOuterClass.CollectorMessages;
 import agent.CollectorOuterClass.CollectorConfig;
 import agent.Common.AuthResponse;
@@ -310,7 +309,7 @@ This method is used to list the collectors, the request can be filtered and sort
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import agent.CollectorOuterClass.CollectorModule;
-import agent.CollectorOuterClass.ListCollectorResponse
+import agent.CollectorOuterClass.ListCollectorResponse;
 import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
@@ -332,7 +331,7 @@ String internalKey = "the UTMStack's internal key";
 ListRequest req = ListRequest.newBuilder()
                      .setPageNumber(0)
                      .setPageSize(1000)
-                     .setSearchQuery("module.Is=" + CollectorModuleEnum.AS_400)
+                     .setSearchQuery("module.Is=" + CollectorModule.AS_400.name())
                      .setSortBy("")
                      .build()
 
@@ -359,7 +358,7 @@ This method is similar than the list collector but only return the hostnames of 
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import agent.CollectorOuterClass.CollectorModule;
-import agent.CollectorOuterClass.CollectorHostnames
+import agent.CollectorOuterClass.CollectorHostnames;
 import agent.Common.ListRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
@@ -381,7 +380,7 @@ String internalKey = "the UTMStack's internal key";
 ListRequest req = ListRequest.newBuilder()
                      .setPageNumber(0)
                      .setPageSize(1000)
-                     .setSearchQuery("module.Is=" + CollectorModuleEnum.AS_400)
+                     .setSearchQuery("module.Is=" + CollectorModule.AS_400.name())
                      .setSortBy("")
                      .build()
 
@@ -393,6 +392,54 @@ CollectorHostnames response = serv.ListCollectorHostnames(req, internalKey);
 // Your exception handling here when the channel can't be created
 } catch (CollectorServiceGrpcException e) {
 // Your exception handling here when the collector's hostnames can't be listed
+}
+~~~
+**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
+~~~
+// Close the connection channel
+con.getConnectionChannel().shutdown();
+~~~
+
+
+#### Collector by hostname and module
+[Back to Contents](#contents)<br>
+This method is used to get a collector with its configuration by hostname and module.
+<br>**Imports**
+~~~
+import com.utmstack.grpc.service.CollectorService;
+import com.utmstack.grpc.exception.CollectorServiceGrpcException;
+import agent.CollectorOuterClass.CollectorModule;
+import agent.CollectorOuterClass.CollectorHostnames;
+import agent.CollectorOuterClass.FilterByHostAndModule
+import agent.Common.ListRequest;
+import com.utmstack.grpc.connection.GrpcConnection;
+import com.utmstack.grpc.exception.GrpcConnectionException;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
+~~~
+<br>**Usage**<br>
+~~~
+try {
+GrpcConnection con = new GrpcConnection();
+con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
+
+// Instantiating the collector service with a connection to the agent manager
+CollectorService serv = new CollectorService(con);
+
+// Authentication information
+String internalKey = "the UTMStack's internal key";
+
+FilterByHostAndModule req = FilterByHostAndModule.newBuilder()
+                    .setHostname("Collector's hostname")
+                    .setModule(CollectorModule.AS_400).build();
+
+// Receiving the collector information, including configurations
+ListCollectorResponse response = serv.GetCollectorsByHostnameAndModule(req, internalKey);
+
+} catch (GrpcConnectionException e) {
+// Your exception handling here when the channel can't be created
+} catch (CollectorServiceGrpcException e) {
+// Your exception handling here when the collector's information can't be listed
 }
 ~~~
 **Note:** When you use non-streaming methods like before, ensure that you close the channel with:
