@@ -14,6 +14,8 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [Get collector's configuration](#get-collectors-configuration)
         + [Remove collector](#remove-collector)
         + [Configuration stream](#configuration-stream)
+        + [List collectors](#list-collectors)
+        + [List collector's hostnames](#list-collectors-hostnames)
     - [Important classes](#important-classes)
         + [AuthResponse](#authresponse)
 
