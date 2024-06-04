@@ -152,7 +152,7 @@ CollectorService serv = new CollectorService(con);
 
 // Authentication information
 String collectorKey = "the collector key";
-String collectorId = "the collector's database id"
+int collectorId = 1; // the collector's database id
 
 ConfigRequest req = ConfigRequest.newBuilder().setModule(CollectorModule.AS_400).build();
 AuthResponse collector = AuthResponse.newBuilder().setKey(collectorKey)
@@ -197,7 +197,7 @@ CollectorService serv = new CollectorService(con);
 
 // Authentication information
 String collectorKey = "the collector key";
-String collectorId = "the collector's database id"
+int collectorId = 1; // the collector's database id
 String deletedBy = "a user name, or IP, or hostname"; // Something that indicates who performed the action
 
 CollectorDelete req = CollectorDelete.newBuilder()
@@ -226,17 +226,23 @@ con.getConnectionChannel().shutdown();
 This method is a bidirectional stream used to receive collector's configurations asynchronously from the server and send confirmation back when received. 
 This method is more complex than the others because needs that you implement you own action when receiving
 a configuration, to do that you must create a class that implements the `IExecuteActionOnNext` interface.
+This method try to recover itself after server reconnections, so, you don't have to worry about connect
+to server do all over again, but we strongly **_recommend to execute the code below in a separated thread_**
+to avoid unwanted interruptions.
 <br>**Imports**
 ~~~
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import agent.CollectorOuterClass.CollectorMessages;
 import agent.CollectorOuterClass.CollectorConfig;
+import agent.CollectorOuterClass.ConfigKnowledge;
 import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
+
+import io.grpc.stub.StreamObserver;
 ~~~
 <br>**Usage**<br>
 Create a class that holds the action to execute when a configuration is received, see an example below.
@@ -270,7 +276,7 @@ try {
     
     // Authentication information
     String collectorKey = "the collector key";
-    String collectorId = "the collector's database id"
+    int collectorId = 1; // the collector's database id
     
     // Creating the stream
     StreamObserver<CollectorMessages> collectorStreamObserver;
@@ -598,7 +604,7 @@ List<CollectorGroupConfigurations> configRows = new ArrayList<>();
             ConfigKnowledge confirmation = serv.insertCollectorConfig(collectorConfig, internalKey);
 
             // Is not important for now but you can check the response from server
-            if(confirmation.getAccepted().equals("yes")) {
+            if(confirmation.getAccepted().equals("true")) {
                 // Great !!!
             }
 
@@ -612,6 +618,58 @@ List<CollectorGroupConfigurations> configRows = new ArrayList<>();
 ~~~
 // Close the connection channel
 con.getConnectionChannel().shutdown();
+~~~
+
+#### Ping from collector
+[Back to Contents](#contents)<br>
+This method is used to send ping requests from a collector to the [agent manager](#description), so, the server knows 
+that the collector is alive.
+The ping method recovers itself after server reconnections, so, you don't have to worry about connect 
+to server and perform ping request again, we just only **_recommend to execute ping in a separated thread_** 
+to avoid unwanted interruptions.
+<br>**Imports**
+~~~
+import agent.Common.AuthResponse;
+import agent.Common.ConnectorType;
+import agent.Ping.PingRequest;
+import agent.Ping.PingResponse;
+import agent.PingServiceGrpc;
+import com.utmstack.grpc.exception.PingException;
+import com.utmstack.grpc.connection.GrpcConnection;
+import com.utmstack.grpc.service.PingService;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+
+import java.util.concurrent.TimeUnit;
+~~~
+<br>**Usage**<br>
+~~~
+try {
+            GrpcConnection con = new GrpcConnection();
+            con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
+
+            // Used to set the TimeUnit to execute the ping request
+            TimeUnit pingTimeUnit = TimeUnit.SECONDS;
+            // Used to set the amount of 'pingTimeUnit' value to execute the ping request
+            int pingTimeAmount = 10;
+            
+            // Creating ping requests of the current collector
+            PingRequest pingRequest = PingRequest.newBuilder()
+                    .setType(ConnectorType.COLLECTOR)
+                    .build();
+            
+            // Authentication info to let the server know what collector is performing th ping.
+            String collectorKey = "the collector key";
+            int collectorId = 1; // the collector's database id
+            AuthResponse collector = AuthResponse.newBuilder().setKey(collectorKey)
+                    .setId(collectorId).build();
+
+            // Creating the ping service and perform continuous ping
+            PingService servPing = new PingService(con);
+            servPing.ping(pingRequest, collector, pingTimeUnit, pingTimeAmount);
+
+        } catch (GrpcConnectionException | PingException e) {
+            // Put your error handlig here
+        }
 ~~~
 
 
@@ -634,7 +692,8 @@ AuthResponse collector = AuthResponse.newBuilder().setKey("collector key")
 ~~~    
 
 ### Proto files
-This section shows all .proto files with the structure and services used across the client.
+This section shows all .proto files with the structure and services used across the client. If you aren't
+familiar with gRPC and protocol buffer, you can start [here](https://grpc.io/docs/languages/java/basics/).
 
 #### Collector
 This .proto file has all the collector's services and structure definitions.
