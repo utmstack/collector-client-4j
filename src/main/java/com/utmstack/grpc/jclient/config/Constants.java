@@ -11,4 +11,7 @@ public final class Constants {
     public static final String COLLECTOR_KEY_HEADER = "key";
     public static final String COLLECTOR_ID_HEADER = "id";
 
+    // Collector key prefix
+    public static final String COLLECTOR_PREFIX = "Collector ";
+
 }
