@@ -14,10 +14,7 @@ import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcConnectionKeyInterceptor;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcInternalKeyInterceptor;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.*;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
@@ -57,7 +54,8 @@ public class CollectorService {
     public AuthResponse registerCollector(RegisterRequest request, String connectionKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".registerCollector";
         try {
-            return blockingStub.withInterceptors(new GrpcConnectionKeyInterceptor().withConnectionKey(connectionKey))
+            return blockingStub.withInterceptors(new GrpcConnectionKeyInterceptor().withConnectionKey(connectionKey),
+                            new GrpcTypeInterceptor())
                     .registerCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error registering collector: " + e.getMessage();
@@ -77,7 +75,8 @@ public class CollectorService {
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
                                     .withCollectorKey(collector.getKey()),
-                            new GrpcIdInterceptor().withCollectorId(collector.getId()))
+                            new GrpcIdInterceptor().withCollectorId(collector.getId()),
+                            new GrpcTypeInterceptor())
                     .getCollectorConfig(request);
         } catch (Exception e) {
             String msg = ctx + ": Error getting collector configuration: " + e.getMessage();
@@ -97,7 +96,8 @@ public class CollectorService {
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
                                     .withCollectorKey(collector.getKey()),
-                            new GrpcIdInterceptor().withCollectorId(collector.getId()))
+                            new GrpcIdInterceptor().withCollectorId(collector.getId()),
+                            new GrpcTypeInterceptor())
                     .deleteCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error removing collector: " + e.getMessage();
@@ -119,7 +119,8 @@ public class CollectorService {
         try {
             return nonBlockingStub.withInterceptors(
                     new GrpcIdInterceptor().withCollectorId(collector.getId()),
-                    new GrpcKeyInterceptor().withCollectorKey(collector.getKey())
+                    new GrpcKeyInterceptor().withCollectorKey(collector.getKey()),
+                    new GrpcTypeInterceptor()
             ).collectorStream(new StreamObserver<>() {
 
                 @Override
@@ -159,7 +160,8 @@ public class CollectorService {
     public ListCollectorResponse listCollector(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".listCollector";
         try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollector(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
+                    new GrpcTypeInterceptor()).listCollector(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors: " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
@@ -179,7 +181,8 @@ public class CollectorService {
     public CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).listCollectorHostnames(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
+                    new GrpcTypeInterceptor()).listCollectorHostnames(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors hostnames: " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
@@ -196,7 +199,8 @@ public class CollectorService {
     public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).getCollectorsByHostnameAndModule(request);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
+                    new GrpcTypeInterceptor()).getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);

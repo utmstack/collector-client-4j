@@ -20,6 +20,6 @@ message Log {
     string raw = 6;
 }
 
-service Engine{
-    rpc Input(stream Log) returns (stream Ack);
+service Integration{
+    rpc ProcessLog(stream Log) returns (stream Ack);
 }

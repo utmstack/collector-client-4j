@@ -8,6 +8,7 @@ import com.utmstack.grpc.exception.CollectorConfigurationGrpcException;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcInternalKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcTypeInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,8 @@ public class PanelCollectorService {
     public ConfigKnowledge insertCollectorConfig(CollectorConfig config, String internalKey) throws CollectorConfigurationGrpcException {
         final String ctx = CLASSNAME + ".insertCollectorConfig";
         try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey)).registerCollectorConfig(config);
+            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
+                    new GrpcTypeInterceptor()).registerCollectorConfig(config);
         } catch (Exception e) {
             String msg = ctx + ": Error inserting collector configuration: " + e.getMessage();
             throw new CollectorConfigurationGrpcException(msg);

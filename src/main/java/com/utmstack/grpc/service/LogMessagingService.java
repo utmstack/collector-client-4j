@@ -11,7 +11,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import plugins.EngineGrpc;
+import plugins.IntegrationGrpc;
 import plugins.Plugins;
 
 import static com.utmstack.grpc.util.StringUtil.collectorKeyFormat;
@@ -24,13 +24,13 @@ import static com.utmstack.grpc.util.StringUtil.collectorKeyFormat;
 public class LogMessagingService {
     private static final String CLASSNAME = "LogMessagingService";
     private static final Logger logger = LogManager.getLogger(LogMessagingService.class);
-    private final EngineGrpc.EngineStub nonBlockingStub;
+    private final IntegrationGrpc.IntegrationStub nonBlockingStub;
     private final ManagedChannel grpcManagedChannel;
 
 
     public LogMessagingService(GrpcConnection grpcConnection) throws GrpcConnectionException {
         this.grpcManagedChannel = grpcConnection.getConnectionChannel();
-        this.nonBlockingStub = EngineGrpc.newStub(grpcManagedChannel);
+        this.nonBlockingStub = IntegrationGrpc.newStub(grpcManagedChannel);
     }
 
 
@@ -46,7 +46,7 @@ public class LogMessagingService {
             return nonBlockingStub.withInterceptors(
                     new GrpcIdInterceptor().withCollectorId(collector.getId()),
                     new GrpcKeyInterceptor().withCollectorKey(collectorKeyFormat(collector.getKey()))
-            ).input(new StreamObserver<>() {
+            ).processLog(new StreamObserver<>() {
 
                 @Override
                 public void onNext(Plugins.Ack ack) {

@@ -1882,9 +1882,10 @@ public final class Plugins {
       "oto\"\025\n\003Ack\022\016\n\006lastId\030\001 \001(\t\"i\n\003Log\022\n\n\002id\030" +
       "\001 \001(\t\022\020\n\010dataType\030\002 \001(\t\022\022\n\ndataSource\030\003 " +
       "\001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\020\n\010tenantId\030\005 \001(\t" +
-      "\022\013\n\003raw\030\006 \001(\t21\n\006Engine\022\'\n\005Input\022\014.plugi" +
-      "ns.Log\032\014.plugins.Ack(\0010\001B\'Z%github.com/t" +
-      "hreatwinds/go-sdk/pluginsP\000P\001b\006proto3"
+      "\022\013\n\003raw\030\006 \001(\t2;\n\013Integration\022,\n\nProcessL" +
+      "og\022\014.plugins.Log\032\014.plugins.Ack(\0010\001B\'Z%gi" +
+      "thub.com/threatwinds/go-sdk/pluginsP\000P\001b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
