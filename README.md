@@ -465,14 +465,18 @@ con.getConnectionChannel().shutdown();
 This method is used to send logs from a collector to [log-auth-proxy](#description).
 <br>**Imports**
 ~~~
-import logservice.Log.ReceivedMessage;
-import logservice.Log.LogMessage;
-import logservice.LogServiceGrpc;
-import agent.CollectorOuterClass.CollectorModule;
-import agent.Common.ConnectorType;
+import agent.Common;
+import com.extractor.as400.grpc.actions.OnNextLogsAck;
+import com.extractor.as400.util.ConfigVerification;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.LogMessagingException;
+import com.utmstack.grpc.jclient.config.Constants;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
+import static com.utmstack.grpc.util.StringUtil.collectorKeyFormat;
+import com.utmstack.grpc.service.LogMessagingService;
+import io.grpc.stub.StreamObserver;
+import plugins.Plugins;
+import java.util.UUID;
 ~~~
 <br>**Usage**<br>
 ~~~
@@ -487,32 +491,26 @@ LogMessagingService serv = new LogMessagingService(con);
 // Authentication information
 String collectorKey = "the collector's key";
 
-// Creating the batch list to store the messages to send according to the gRPC service batch size
-// Actually you must send batches of 100 to avoid log-auth-proxy issues
-List<String> grpcBatchList = new ArrayList<>();
-// Add some messages to the list
-grpcBatchList.add("My first log");
-grpcBatchList.add("My second log");
-grpcBatchList.add("More logs");
+// Creating the stream used to send logs to server
+            StreamObserver<Plugins.Log> logStreamObserver = serv.getLogsStreamObserver(new OnNextLogsAck(),collector);
 
-// Adding the data 
-LogMessage messageBatch = LogMessage.newBuilder().addAllData(grpcBatchList)
-                            .setLogType(CollectorModule.AS_400.name()).setType(ConnectorType.COLLECTOR).build();
-
-// Send logs and clear the list
-serv.sendLogs(messageBatch, collectorKey);
-grpcBatchList.clear();
-
-} catch (GrpcConnectionException e) {
-// Your exception handling here when the channel can't be created
-} catch (LogMessagingException e) {
-// Your exception handling here when the log can't be forwarded to log-auth-proxy
+            // Create log message end through gRPC
+            String message = "Original raw message";
+            // Setting log's datatype, must match with the datatype value in UTMStack's DB
+            String DATA_TYPE = "ibm-as400";
+            
+                        Plugins.Log log = Plugins.Log.newBuilder()
+                                .setId(UUID.randomUUID().toString())
+                                .setDataSource("hostname, IP or some datasource identifier")
+                                .setDataType(DATA_TYPE)
+                                .setTimestamp(ConfigVerification.getActualTime())
+                                .setRaw(message)
+                                .build();
+                        logStreamObserver.onNext(log);
+            
+} catch (Exception e) {
+   throw new LogMessagingException(ctx + "Unable to send log -> " + e.getMessage());
 }
-~~~
-**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
-~~~
-// Close the connection channel
-con.getConnectionChannel().shutdown();
 ~~~
 
 
@@ -808,23 +806,28 @@ This .proto file has all the services and structure definitions used to send log
 ~~~
 syntax = "proto3";
 
-option go_package = "github.com/utmstack/UTMStack/log-auth-proxy/logservice";
+package plugins;
 
-package logservice;
+option go_package = "github.com/threatwinds/go-sdk/plugins";
 
-import "common.proto";
+import public "google/protobuf/empty.proto";
+import public "google/protobuf/struct.proto";
 
-message LogMessage {
-  agent.ConnectorType type = 1;
-  string log_type = 2;
-  repeated string data = 3;
+message Ack{
+    string lastId = 1;
 }
-message ReceivedMessage {
-  bool received = 1;
-  string message = 2;
+
+message Log {
+    string id = 1;
+    string dataType = 2;
+    string dataSource = 3;
+    string timestamp = 4;
+    string tenantId = 5;
+    string raw = 6;
 }
-service LogService {
-  rpc ProcessLogs(LogMessage) returns (ReceivedMessage) {}
+
+service Integration{
+    rpc ProcessLog(stream Log) returns (stream Ack);
 }
 ~~~
 
