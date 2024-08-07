@@ -5,14 +5,14 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.55.1)",
+    value = "by gRPC proto compiler (version 1.65.1)",
     comments = "Source: ping.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class PingServiceGrpc {
 
   private PingServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "agent.PingService";
+  public static final java.lang.String SERVICE_NAME = "agent.PingService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<agent.Ping.PingRequest,
@@ -245,9 +245,9 @@ public final class PingServiceGrpc {
   private static final class PingServiceMethodDescriptorSupplier
       extends PingServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    PingServiceMethodDescriptorSupplier(String methodName) {
+    PingServiceMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 

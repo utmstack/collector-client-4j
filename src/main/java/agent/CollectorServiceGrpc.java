@@ -5,14 +5,14 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.55.1)",
+    value = "by gRPC proto compiler (version 1.65.1)",
     comments = "Source: collector.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class CollectorServiceGrpc {
 
   private CollectorServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "agent.CollectorService";
+  public static final java.lang.String SERVICE_NAME = "agent.CollectorService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.RegisterRequest,
@@ -683,9 +683,9 @@ public final class CollectorServiceGrpc {
   private static final class CollectorServiceMethodDescriptorSupplier
       extends CollectorServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    CollectorServiceMethodDescriptorSupplier(String methodName) {
+    CollectorServiceMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 

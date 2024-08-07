@@ -35,6 +35,7 @@ public class CollectorService {
     private final CollectorServiceGrpc.CollectorServiceBlockingStub blockingStub;
     private final CollectorServiceGrpc.CollectorServiceStub nonBlockingStub;
     private final ManagedChannel grpcManagedChannel;
+    private StreamObserver<CollectorMessages> collectorMessagesObserver;
 
 
     public CollectorService(GrpcConnection grpcConnection) throws GrpcConnectionException {
@@ -47,7 +48,7 @@ public class CollectorService {
     /**
      * Method to register a collector.
      *
-     * @param request is the information of the collector to register.
+     * @param request       is the information of the collector to register.
      * @param connectionKey is the connection key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
@@ -66,7 +67,7 @@ public class CollectorService {
     /**
      * Method to get a collector configuration.
      *
-     * @param request is to let the server know what module is making a request.
+     * @param request   is to let the server know what module is making a request.
      * @param collector is the collector which is requesting the configuration.
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
@@ -87,7 +88,7 @@ public class CollectorService {
     /**
      * Method to remove a collector.
      *
-     * @param request     is th information of the collector to delete.
+     * @param request   is th information of the collector to delete.
      * @param collector is the information of the collector to delete.
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
@@ -110,40 +111,18 @@ public class CollectorService {
      * Method to initialize the collector messages stream between client and the server.
      *
      * @param toDoAction implementation of the action to execute.
-     * @param collector is the information of the collector to connect from.
-     * If the stream can't be created will try to create a new one.
+     * @param collector  is the information of the collector to connect from.
+     *                   If the stream can't be created will try to create a new one.
      */
     public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction, AuthResponse collector) throws CollectorServiceGrpcException {
         final String ctx = CLASSNAME + ".getCollectorStreamObserver";
-        final CountDownLatch waitingLatch = new CountDownLatch(1);
+
         try {
             return nonBlockingStub.withInterceptors(
                     new GrpcIdInterceptor().withCollectorId(collector.getId()),
                     new GrpcKeyInterceptor().withCollectorKey(collector.getKey()),
                     new GrpcTypeInterceptor()
-            ).collectorStream(new StreamObserver<>() {
-
-                @Override
-                public void onNext(CollectorMessages messages) {
-                    toDoAction.executeOnNext(messages);
-                }
-
-                @Override
-                public void onError(Throwable cause) {
-                    logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
-                    try {
-                        waitingLatch.await(30, TimeUnit.SECONDS); // Wait for a second before reconnect
-                        getCollectorStreamObserver(toDoAction, collector); // Try to reconnect again
-                    } catch (CollectorServiceGrpcException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-                @Override
-                public void onCompleted() {
-                    logger.info(ctx + ": Executed successfully.");
-                }
-            });
+            ).collectorStream(getCollectorMessagesObserver(toDoAction, ctx));
         } catch (Exception e) {
             throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
         }
@@ -152,8 +131,8 @@ public class CollectorService {
     /**
      * Method to get collector list.
      *
-     * @param request is the request with all the pagination and search params used to list collectors
-     *                according to those params.
+     * @param request     is the request with all the pagination and search params used to list collectors
+     *                    according to those params.
      * @param internalKey is the internal key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
@@ -173,8 +152,8 @@ public class CollectorService {
     /**
      * Method to List Collector by Hostnames.
      *
-     * @param request is the request with all the pagination and search params used to list collectors.
-     *                according to those params.
+     * @param request     is the request with all the pagination and search params used to list collectors.
+     *                    according to those params.
      * @param internalKey is the internal key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
@@ -192,7 +171,7 @@ public class CollectorService {
     /**
      * Method to get collectors by hostname and module.
      *
-     * @param request contains the filter information used to search.
+     * @param request     contains the filter information used to search.
      * @param internalKey is the internal key to communicate internally.
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
@@ -205,6 +184,35 @@ public class CollectorService {
             String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
         }
+    }
+
+    private StreamObserver<CollectorMessages> getCollectorMessagesObserver(IExecuteActionOnNext toDoAction, String ctx) {
+        final CountDownLatch waitingLatch = new CountDownLatch(1);
+        if (this.collectorMessagesObserver == null) {
+            return new StreamObserver<>() {
+
+                @Override
+                public void onNext(CollectorMessages messages) {
+                    toDoAction.executeOnNext(messages);
+                }
+
+                @Override
+                public void onError(Throwable cause) {
+                    logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
+                    try {
+                        waitingLatch.await(30, TimeUnit.SECONDS); // Wait for a second before reconnect
+
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                @Override
+                public void onCompleted() {
+                    logger.info(ctx + ": Executed successfully.");
+                }
+            };
+        } else return this.collectorMessagesObserver;
     }
 }
 

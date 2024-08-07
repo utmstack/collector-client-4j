@@ -42,7 +42,7 @@ public class GrpcConnection {
                     .build();
             this.AGENT_MANAGER_HOST = AGENT_MANAGER_HOST;
             this.AGENT_MANAGER_PORT = AGENT_MANAGER_PORT;
-            this.channel = conf.managedChannel();
+            this.channel = conf.configManagedChannel();
             logger.info(ctx + ": Success");
         } catch (Exception e) {
             logger.error(ctx + ": Error creating channel. " + e.getMessage());
@@ -73,6 +73,9 @@ public class GrpcConnection {
         if (!StringUtil.isNullOrEmpty(this.AGENT_MANAGER_HOST) && this.AGENT_MANAGER_PORT > 0
                 && this.baseInterceptor != null) {
             try {
+                if (this.channel != null && !this.channel.isShutdown()) {
+                    this.channel.shutdownNow();
+                }
                 createChannel(this.AGENT_MANAGER_HOST, this.AGENT_MANAGER_PORT, this.baseInterceptor);
             } catch (GrpcConnectionException e) {
                 logger.error(ctx + ": Error reconnecting the channel ...");
