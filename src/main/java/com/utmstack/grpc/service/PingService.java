@@ -9,6 +9,7 @@ import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.exception.PingException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcTypeInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -73,7 +74,8 @@ public class PingService {
 
         try {
             pingRequestStreamObserver = nonBlockingStub.withInterceptors(new GrpcKeyInterceptor().withCollectorKey(collector.getKey()),
-                            new GrpcIdInterceptor().withCollectorId(collector.getId()))
+                            new GrpcIdInterceptor().withCollectorId(collector.getId()),
+                            new GrpcTypeInterceptor())
                     .ping(new StreamObserver<>() {
 
                 @Override

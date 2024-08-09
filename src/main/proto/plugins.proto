@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package plugins;
+
+option go_package = "github.com/threatwinds/go-sdk/plugins";
+
+import public "google/protobuf/empty.proto";
+import public "google/protobuf/struct.proto";
+
+message Ack{
+    string lastId = 1;
+}
+
+message Log {
+    string id = 1;
+    string dataType = 2;
+    string dataSource = 3;
+    string timestamp = 4;
+    string tenantId = 5;
+    string raw = 6;
+}
+
+service Integration{
+    rpc ProcessLog(stream Log) returns (stream Ack);
+}
