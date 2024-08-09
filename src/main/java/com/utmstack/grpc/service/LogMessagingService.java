@@ -6,6 +6,7 @@ import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.exception.LogMessagingException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
+import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcTypeInterceptor;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
@@ -13,8 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import plugins.IntegrationGrpc;
 import plugins.Plugins;
-
-import static com.utmstack.grpc.util.StringUtil.collectorKeyFormat;
 
 
 /**
@@ -45,7 +44,8 @@ public class LogMessagingService {
         try {
             return nonBlockingStub.withInterceptors(
                     new GrpcIdInterceptor().withCollectorId(collector.getId()),
-                    new GrpcKeyInterceptor().withCollectorKey(collectorKeyFormat(collector.getKey()))
+                    new GrpcKeyInterceptor().withCollectorKey(collector.getKey()),
+                    new GrpcTypeInterceptor()
             ).processLog(new StreamObserver<>() {
 
                 @Override
