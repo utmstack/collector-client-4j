@@ -11,8 +11,4 @@ public class StringUtil {
     public static boolean hasText(String str) {
         return (str != null && !str.trim().isEmpty());
     }
-
-    public static String collectorKeyFormat(String key){
-        return Constants.COLLECTOR_PREFIX + key;
-    }
 }
