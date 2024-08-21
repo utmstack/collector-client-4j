@@ -15,6 +15,7 @@ import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.*;
+import com.utmstack.grpc.service.iface.IExecuteActionOnError;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
@@ -53,13 +54,12 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
     public AuthResponse registerCollector(RegisterRequest request, String connectionKey) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".registerCollector";
         try {
             return blockingStub.withInterceptors(new GrpcConnectionKeyInterceptor().withConnectionKey(connectionKey),
                             new GrpcTypeInterceptor())
                     .registerCollector(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error registering collector: " + e.getMessage();
+            String msg = "Error registering collector: " + e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -72,7 +72,6 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
     public CollectorConfig requestCollectorConfig(ConfigRequest request, AuthResponse collector) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".requestCollectorConfig";
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
                                     .withCollectorKey(collector.getKey()),
@@ -80,7 +79,8 @@ public class CollectorService {
                             new GrpcTypeInterceptor())
                     .getCollectorConfig(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error getting collector configuration: " + e.getMessage();
+            String msg = "Error getting collector configuration: " + e.getMessage()
+                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -93,7 +93,6 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
     public AuthResponse deleteCollector(CollectorDelete request, AuthResponse collector) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".deleteCollector";
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
                                     .withCollectorKey(collector.getKey()),
@@ -101,7 +100,7 @@ public class CollectorService {
                             new GrpcTypeInterceptor())
                     .deleteCollector(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error removing collector: " + e.getMessage();
+            String msg = "Error removing collector: " + e.getMessage();
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -114,17 +113,17 @@ public class CollectorService {
      * @param collector  is the information of the collector to connect from.
      *                   If the stream can't be created will try to create a new one.
      */
-    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction, AuthResponse collector) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".getCollectorStreamObserver";
+    public StreamObserver<CollectorMessages> getCollectorStreamObserver(IExecuteActionOnNext toDoAction,
+                                                                        IExecuteActionOnError errorAction, AuthResponse collector) throws CollectorServiceGrpcException {
 
         try {
             return nonBlockingStub.withInterceptors(
                     new GrpcIdInterceptor().withCollectorId(collector.getId()),
                     new GrpcKeyInterceptor().withCollectorKey(collector.getKey()),
                     new GrpcTypeInterceptor()
-            ).collectorStream(getCollectorMessagesObserver(toDoAction, ctx));
+            ).collectorStream(getCollectorMessagesObserver(toDoAction, errorAction));
         } catch (Exception e) {
-            throw new CollectorServiceGrpcException(ctx + ": " + e.getMessage());
+            throw new CollectorServiceGrpcException(e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE"));
         }
     }
 
@@ -137,12 +136,12 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
     public ListCollectorResponse listCollector(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".listCollector";
         try {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).listCollector(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error listing collectors: " + e.getMessage();
+            String msg = "Error listing collectors: " + e.getMessage()
+                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -158,12 +157,11 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
     public CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".ListCollectorHostnames";
         try {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).listCollectorHostnames(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error listing collectors hostnames: " + e.getMessage();
+            String msg = "Error listing collectors hostnames: " + e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
             throw new CollectorServiceGrpcException(msg);
         }
     }
@@ -176,17 +174,18 @@ public class CollectorService {
      * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
      */
     public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
-        final String ctx = CLASSNAME + ".GetCollectorsByHostnameAndModule";
         try {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
-            String msg = ctx + ": Error listing collectors by hostname and module: " + e.getMessage();
+            String msg = "Error listing collectors by hostname and module: " + e.getMessage()
+                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
             throw new CollectorServiceGrpcException(msg);
         }
     }
 
-    private StreamObserver<CollectorMessages> getCollectorMessagesObserver(IExecuteActionOnNext toDoAction, String ctx) {
+    private StreamObserver<CollectorMessages> getCollectorMessagesObserver(IExecuteActionOnNext toDoAction,
+                                                                           IExecuteActionOnError errorAction) {
         final CountDownLatch waitingLatch = new CountDownLatch(1);
         if (this.collectorMessagesObserver == null) {
             return new StreamObserver<>() {
@@ -198,7 +197,7 @@ public class CollectorService {
 
                 @Override
                 public void onError(Throwable cause) {
-                    logger.error(ctx + ": Creating the receiver stream, server responded with error: " + cause.getMessage());
+                    errorAction.executeOnError(cause.getMessage());
                     try {
                         waitingLatch.await(30, TimeUnit.SECONDS); // Wait for a second before reconnect
 
@@ -209,7 +208,7 @@ public class CollectorService {
 
                 @Override
                 public void onCompleted() {
-                    logger.info(ctx + ": Executed successfully.");
+                    logger.info("Configuration received successfully.");
                 }
             };
         } else return this.collectorMessagesObserver;

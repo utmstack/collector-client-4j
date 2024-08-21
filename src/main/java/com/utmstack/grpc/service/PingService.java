@@ -69,7 +69,6 @@ public class PingService {
      * Method to ping from a collector
      */
     private void initPingRequestStreamObserver(AuthResponse collector) throws PingException {
-        final String ctx = CLASSNAME + ".initPingRequestStreamObserver";
         final CountDownLatch finishLatch = new CountDownLatch(1);
 
         try {
@@ -85,7 +84,8 @@ public class PingService {
 
                 @Override
                 public void onError(Throwable cause) {
-                    logger.error(ctx + ": Executing ping request to server: " + cause.getMessage());
+                    logger.error("Executing ping request to server: " + cause.getMessage()
+                            .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE"));
                     try {
                         // Wait 10 seconds before try again
                         finishLatch.await(30, TimeUnit.SECONDS);
@@ -101,7 +101,7 @@ public class PingService {
                 }
             });
         } catch (Exception e) {
-            throw new PingException(ctx + ": " + e.getMessage());
+            throw new PingException(e.getMessage());
         }
     }
 }
