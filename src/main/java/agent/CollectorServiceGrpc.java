@@ -46,27 +46,27 @@ public final class CollectorServiceGrpc {
     return getRegisterCollectorMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorDelete,
+  private static volatile io.grpc.MethodDescriptor<agent.Common.DeleteRequest,
       agent.Common.AuthResponse> getDeleteCollectorMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "DeleteCollector",
-      requestType = agent.CollectorOuterClass.CollectorDelete.class,
+      requestType = agent.Common.DeleteRequest.class,
       responseType = agent.Common.AuthResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorDelete,
+  public static io.grpc.MethodDescriptor<agent.Common.DeleteRequest,
       agent.Common.AuthResponse> getDeleteCollectorMethod() {
-    io.grpc.MethodDescriptor<agent.CollectorOuterClass.CollectorDelete, agent.Common.AuthResponse> getDeleteCollectorMethod;
+    io.grpc.MethodDescriptor<agent.Common.DeleteRequest, agent.Common.AuthResponse> getDeleteCollectorMethod;
     if ((getDeleteCollectorMethod = CollectorServiceGrpc.getDeleteCollectorMethod) == null) {
       synchronized (CollectorServiceGrpc.class) {
         if ((getDeleteCollectorMethod = CollectorServiceGrpc.getDeleteCollectorMethod) == null) {
           CollectorServiceGrpc.getDeleteCollectorMethod = getDeleteCollectorMethod =
-              io.grpc.MethodDescriptor.<agent.CollectorOuterClass.CollectorDelete, agent.Common.AuthResponse>newBuilder()
+              io.grpc.MethodDescriptor.<agent.Common.DeleteRequest, agent.Common.AuthResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteCollector"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  agent.CollectorOuterClass.CollectorDelete.getDefaultInstance()))
+                  agent.Common.DeleteRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   agent.Common.AuthResponse.getDefaultInstance()))
               .setSchemaDescriptor(new CollectorServiceMethodDescriptorSupplier("DeleteCollector"))
@@ -289,7 +289,7 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    default void deleteCollector(agent.CollectorOuterClass.CollectorDelete request,
+    default void deleteCollector(agent.Common.DeleteRequest request,
         io.grpc.stub.StreamObserver<agent.Common.AuthResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteCollectorMethod(), responseObserver);
     }
@@ -367,7 +367,7 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    public void deleteCollector(agent.CollectorOuterClass.CollectorDelete request,
+    public void deleteCollector(agent.Common.DeleteRequest request,
         io.grpc.stub.StreamObserver<agent.Common.AuthResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteCollectorMethod(), getCallOptions()), request, responseObserver);
@@ -439,7 +439,7 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    public agent.Common.AuthResponse deleteCollector(agent.CollectorOuterClass.CollectorDelete request) {
+    public agent.Common.AuthResponse deleteCollector(agent.Common.DeleteRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteCollectorMethod(), getCallOptions(), request);
     }
@@ -500,7 +500,7 @@ public final class CollectorServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<agent.Common.AuthResponse> deleteCollector(
-        agent.CollectorOuterClass.CollectorDelete request) {
+        agent.Common.DeleteRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteCollectorMethod(), getCallOptions()), request);
     }
@@ -568,7 +568,7 @@ public final class CollectorServiceGrpc {
               (io.grpc.stub.StreamObserver<agent.Common.AuthResponse>) responseObserver);
           break;
         case METHODID_DELETE_COLLECTOR:
-          serviceImpl.deleteCollector((agent.CollectorOuterClass.CollectorDelete) request,
+          serviceImpl.deleteCollector((agent.Common.DeleteRequest) request,
               (io.grpc.stub.StreamObserver<agent.Common.AuthResponse>) responseObserver);
           break;
         case METHODID_LIST_COLLECTOR:
@@ -619,7 +619,7 @@ public final class CollectorServiceGrpc {
           getDeleteCollectorMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              agent.CollectorOuterClass.CollectorDelete,
+              agent.Common.DeleteRequest,
               agent.Common.AuthResponse>(
                 service, METHODID_DELETE_COLLECTOR)))
         .addMethod(
