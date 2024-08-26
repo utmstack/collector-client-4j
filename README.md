@@ -180,7 +180,7 @@ This method is used to remove all information of a collector, including its conf
 ~~~
 import com.utmstack.grpc.service.CollectorService;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
-import agent.CollectorOuterClass.CollectorDelete;
+import agent.Common.DeleteRequest;
 import agent.Common.AuthResponse;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
@@ -200,7 +200,7 @@ String collectorKey = "the collector key";
 int collectorId = 1; // the collector's database id
 String deletedBy = "a user name, or IP, or hostname"; // Something that indicates who performed the action
 
-CollectorDelete req = CollectorDelete.newBuilder()
+DeleteRequest req = DeleteRequest.newBuilder()
                         .setDeletedBy(deletedBy)
                         .build();
 AuthResponse collector = AuthResponse.newBuilder().setKey(collectorKey)
