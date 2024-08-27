@@ -10,6 +10,7 @@ import com.utmstack.grpc.exception.PingException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcIdInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcKeyInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcTypeInterceptor;
+import com.utmstack.grpc.util.StringUtil;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -84,8 +85,7 @@ public class PingService {
 
                 @Override
                 public void onError(Throwable cause) {
-                    logger.error("Executing ping request to server: " + cause.getMessage()
-                            .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE"));
+                    logger.error("Executing ping request to server: " + StringUtil.formatError(cause.getMessage()));
                     try {
                         // Wait 10 seconds before try again
                         finishLatch.await(30, TimeUnit.SECONDS);

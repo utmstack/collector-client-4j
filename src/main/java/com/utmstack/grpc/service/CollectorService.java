@@ -2,7 +2,6 @@ package com.utmstack.grpc.service;
 
 import agent.CollectorOuterClass.ConfigRequest;
 import agent.CollectorOuterClass.CollectorHostnames;
-import agent.CollectorOuterClass.CollectorDelete;
 import agent.CollectorOuterClass.RegisterRequest;
 import agent.CollectorOuterClass.CollectorMessages;
 import agent.CollectorOuterClass.CollectorConfig;
@@ -11,12 +10,14 @@ import agent.CollectorOuterClass.FilterByHostAndModule;
 import agent.Common.ListRequest;
 import agent.CollectorServiceGrpc;
 import agent.Common.AuthResponse;
+import agent.Common.DeleteRequest;
 import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.*;
 import com.utmstack.grpc.service.iface.IExecuteActionOnError;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
+import com.utmstack.grpc.util.StringUtil;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -59,8 +60,8 @@ public class CollectorService {
                             new GrpcTypeInterceptor())
                     .registerCollector(request);
         } catch (Exception e) {
-            String msg = "Error registering collector: " + e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorServiceGrpcException(msg);
+            String msg = "Error registering collector: " + e.getMessage();
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 
@@ -79,9 +80,8 @@ public class CollectorService {
                             new GrpcTypeInterceptor())
                     .getCollectorConfig(request);
         } catch (Exception e) {
-            String msg = "Error getting collector configuration: " + e.getMessage()
-                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorServiceGrpcException(msg);
+            String msg = "Error getting collector configuration: " + e.getMessage();
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 
@@ -92,7 +92,7 @@ public class CollectorService {
      * @param collector is the information of the collector to delete.
      * @throws CollectorServiceGrpcException if the action can't be performed.
      */
-    public AuthResponse deleteCollector(CollectorDelete request, AuthResponse collector) throws CollectorServiceGrpcException {
+    public AuthResponse deleteCollector(DeleteRequest request, AuthResponse collector) throws CollectorServiceGrpcException {
         try {
             return blockingStub.withInterceptors(new GrpcKeyInterceptor()
                                     .withCollectorKey(collector.getKey()),
@@ -101,7 +101,7 @@ public class CollectorService {
                     .deleteCollector(request);
         } catch (Exception e) {
             String msg = "Error removing collector: " + e.getMessage();
-            throw new CollectorServiceGrpcException(msg);
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 
@@ -123,7 +123,7 @@ public class CollectorService {
                     new GrpcTypeInterceptor()
             ).collectorStream(getCollectorMessagesObserver(toDoAction, errorAction));
         } catch (Exception e) {
-            throw new CollectorServiceGrpcException(e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE"));
+            throw new CollectorServiceGrpcException(StringUtil.formatError(e.getMessage()));
         }
     }
 
@@ -140,9 +140,8 @@ public class CollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).listCollector(request);
         } catch (Exception e) {
-            String msg = "Error listing collectors: " + e.getMessage()
-                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorServiceGrpcException(msg);
+            String msg = "Error listing collectors: " + e.getMessage();
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 
@@ -161,8 +160,8 @@ public class CollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).listCollectorHostnames(request);
         } catch (Exception e) {
-            String msg = "Error listing collectors hostnames: " + e.getMessage().replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorServiceGrpcException(msg);
+            String msg = "Error listing collectors hostnames: " + e.getMessage();
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 
@@ -178,9 +177,8 @@ public class CollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).getCollectorsByHostnameAndModule(request);
         } catch (Exception e) {
-            String msg = "Error listing collectors by hostname and module: " + e.getMessage()
-                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorServiceGrpcException(msg);
+            String msg = "Error listing collectors by hostname and module: " + e.getMessage();
+            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
 

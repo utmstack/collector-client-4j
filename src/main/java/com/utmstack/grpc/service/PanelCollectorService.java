@@ -9,6 +9,7 @@ import com.utmstack.grpc.exception.CollectorServiceGrpcException;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcInternalKeyInterceptor;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcTypeInterceptor;
+import com.utmstack.grpc.util.StringUtil;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
@@ -42,9 +43,8 @@ public class PanelCollectorService {
             return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
                     new GrpcTypeInterceptor()).registerCollectorConfig(config);
         } catch (Exception e) {
-            String msg = "Error inserting collector configuration: " + e.getMessage()
-                    .replace("UNAVAILABLE: io exception","SERVER UNAVAILABLE");
-            throw new CollectorConfigurationGrpcException(msg);
+            String msg = "Error inserting collector configuration: " + e.getMessage();
+            throw new CollectorConfigurationGrpcException(StringUtil.formatError(msg));
         }
     }
 }

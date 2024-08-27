@@ -2259,6 +2259,558 @@ public final class Common {
 
   }
 
+  public interface DeleteRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:agent.DeleteRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string deleted_by = 1;</code>
+     * @return The deletedBy.
+     */
+    java.lang.String getDeletedBy();
+    /**
+     * <code>string deleted_by = 1;</code>
+     * @return The bytes for deletedBy.
+     */
+    com.google.protobuf.ByteString
+        getDeletedByBytes();
+  }
+  /**
+   * Protobuf type {@code agent.DeleteRequest}
+   */
+  public static final class DeleteRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:agent.DeleteRequest)
+      DeleteRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DeleteRequest.newBuilder() to construct.
+    private DeleteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DeleteRequest() {
+      deletedBy_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DeleteRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return agent.Common.internal_static_agent_DeleteRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return agent.Common.internal_static_agent_DeleteRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              agent.Common.DeleteRequest.class, agent.Common.DeleteRequest.Builder.class);
+    }
+
+    public static final int DELETED_BY_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object deletedBy_ = "";
+    /**
+     * <code>string deleted_by = 1;</code>
+     * @return The deletedBy.
+     */
+    @java.lang.Override
+    public java.lang.String getDeletedBy() {
+      java.lang.Object ref = deletedBy_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deletedBy_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string deleted_by = 1;</code>
+     * @return The bytes for deletedBy.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDeletedByBytes() {
+      java.lang.Object ref = deletedBy_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deletedBy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, deletedBy_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deletedBy_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, deletedBy_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof agent.Common.DeleteRequest)) {
+        return super.equals(obj);
+      }
+      agent.Common.DeleteRequest other = (agent.Common.DeleteRequest) obj;
+
+      if (!getDeletedBy()
+          .equals(other.getDeletedBy())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DELETED_BY_FIELD_NUMBER;
+      hash = (53 * hash) + getDeletedBy().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static agent.Common.DeleteRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.Common.DeleteRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static agent.Common.DeleteRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static agent.Common.DeleteRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static agent.Common.DeleteRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static agent.Common.DeleteRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(agent.Common.DeleteRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code agent.DeleteRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:agent.DeleteRequest)
+        agent.Common.DeleteRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return agent.Common.internal_static_agent_DeleteRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return agent.Common.internal_static_agent_DeleteRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                agent.Common.DeleteRequest.class, agent.Common.DeleteRequest.Builder.class);
+      }
+
+      // Construct using agent.Common.DeleteRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        deletedBy_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return agent.Common.internal_static_agent_DeleteRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public agent.Common.DeleteRequest getDefaultInstanceForType() {
+        return agent.Common.DeleteRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public agent.Common.DeleteRequest build() {
+        agent.Common.DeleteRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public agent.Common.DeleteRequest buildPartial() {
+        agent.Common.DeleteRequest result = new agent.Common.DeleteRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(agent.Common.DeleteRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.deletedBy_ = deletedBy_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof agent.Common.DeleteRequest) {
+          return mergeFrom((agent.Common.DeleteRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(agent.Common.DeleteRequest other) {
+        if (other == agent.Common.DeleteRequest.getDefaultInstance()) return this;
+        if (!other.getDeletedBy().isEmpty()) {
+          deletedBy_ = other.deletedBy_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                deletedBy_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object deletedBy_ = "";
+      /**
+       * <code>string deleted_by = 1;</code>
+       * @return The deletedBy.
+       */
+      public java.lang.String getDeletedBy() {
+        java.lang.Object ref = deletedBy_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          deletedBy_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string deleted_by = 1;</code>
+       * @return The bytes for deletedBy.
+       */
+      public com.google.protobuf.ByteString
+          getDeletedByBytes() {
+        java.lang.Object ref = deletedBy_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          deletedBy_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string deleted_by = 1;</code>
+       * @param value The deletedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeletedBy(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        deletedBy_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string deleted_by = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeletedBy() {
+        deletedBy_ = getDefaultInstance().getDeletedBy();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string deleted_by = 1;</code>
+       * @param value The bytes for deletedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeletedByBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        deletedBy_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:agent.DeleteRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:agent.DeleteRequest)
+    private static final agent.Common.DeleteRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new agent.Common.DeleteRequest();
+    }
+
+    public static agent.Common.DeleteRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeleteRequest>
+        PARSER = new com.google.protobuf.AbstractParser<DeleteRequest>() {
+      @java.lang.Override
+      public DeleteRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeleteRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeleteRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public agent.Common.DeleteRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_agent_ListRequest_descriptor;
   private static final 
@@ -2274,6 +2826,11 @@ public final class Common {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_agent_Hostname_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_agent_DeleteRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_agent_DeleteRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2287,11 +2844,12 @@ public final class Common {
       "page_number\030\001 \001(\005\022\021\n\tpage_size\030\002 \001(\005\022\024\n\014" +
       "search_query\030\003 \001(\t\022\017\n\007sort_by\030\004 \001(\t\"\'\n\014A" +
       "uthResponse\022\n\n\002id\030\001 \001(\r\022\013\n\003key\030\002 \001(\t\"\034\n\010" +
-      "Hostname\022\020\n\010hostname\030\001 \001(\t*.\n\006Status\022\n\n\006" +
-      "ONLINE\020\000\022\013\n\007OFFLINE\020\001\022\013\n\007UNKNOWN\020\002*)\n\rCo" +
-      "nnectorType\022\t\n\005AGENT\020\000\022\r\n\tCOLLECTOR\020\001B2Z" +
-      "0github.com/utmstack/UTMStack/agent-mana" +
-      "ger/agentb\006proto3"
+      "Hostname\022\020\n\010hostname\030\001 \001(\t\"#\n\rDeleteRequ" +
+      "est\022\022\n\ndeleted_by\030\001 \001(\t*.\n\006Status\022\n\n\006ONL" +
+      "INE\020\000\022\013\n\007OFFLINE\020\001\022\013\n\007UNKNOWN\020\002*)\n\rConne" +
+      "ctorType\022\t\n\005AGENT\020\000\022\r\n\tCOLLECTOR\020\001B2Z0gi" +
+      "thub.com/utmstack/UTMStack/agent-manager" +
+      "/agentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2315,6 +2873,12 @@ public final class Common {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_agent_Hostname_descriptor,
         new java.lang.String[] { "Hostname", });
+    internal_static_agent_DeleteRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_agent_DeleteRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_agent_DeleteRequest_descriptor,
+        new java.lang.String[] { "DeletedBy", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

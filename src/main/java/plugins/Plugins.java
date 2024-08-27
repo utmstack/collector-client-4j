@@ -607,12 +607,12 @@ public final class Plugins {
         getDataSourceBytes();
 
     /**
-     * <code>string timestamp = 4;</code>
+     * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
      * @return The timestamp.
      */
     java.lang.String getTimestamp();
     /**
-     * <code>string timestamp = 4;</code>
+     * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
      * @return The bytes for timestamp.
      */
     com.google.protobuf.ByteString
@@ -804,7 +804,7 @@ public final class Plugins {
     @SuppressWarnings("serial")
     private volatile java.lang.Object timestamp_ = "";
     /**
-     * <code>string timestamp = 4;</code>
+     * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
      * @return The timestamp.
      */
     @java.lang.Override
@@ -821,7 +821,7 @@ public final class Plugins {
       }
     }
     /**
-     * <code>string timestamp = 4;</code>
+     * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
      * @return The bytes for timestamp.
      */
     @java.lang.Override
@@ -1581,7 +1581,7 @@ public final class Plugins {
 
       private java.lang.Object timestamp_ = "";
       /**
-       * <code>string timestamp = 4;</code>
+       * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
        * @return The timestamp.
        */
       public java.lang.String getTimestamp() {
@@ -1597,7 +1597,7 @@ public final class Plugins {
         }
       }
       /**
-       * <code>string timestamp = 4;</code>
+       * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
        * @return The bytes for timestamp.
        */
       public com.google.protobuf.ByteString
@@ -1614,7 +1614,7 @@ public final class Plugins {
         }
       }
       /**
-       * <code>string timestamp = 4;</code>
+       * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
        * @param value The timestamp to set.
        * @return This builder for chaining.
        */
@@ -1627,7 +1627,7 @@ public final class Plugins {
         return this;
       }
       /**
-       * <code>string timestamp = 4;</code>
+       * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTimestamp() {
@@ -1637,7 +1637,7 @@ public final class Plugins {
         return this;
       }
       /**
-       * <code>string timestamp = 4;</code>
+       * <code>string timestamp = 4 [json_name = "&#64;timestamp"];</code>
        * @param value The bytes for timestamp to set.
        * @return This builder for chaining.
        */
@@ -1879,13 +1879,13 @@ public final class Plugins {
     java.lang.String[] descriptorData = {
       "\n\rplugins.proto\022\007plugins\032\033google/protobu" +
       "f/empty.proto\032\034google/protobuf/struct.pr" +
-      "oto\"\025\n\003Ack\022\016\n\006lastId\030\001 \001(\t\"i\n\003Log\022\n\n\002id\030" +
+      "oto\"\025\n\003Ack\022\016\n\006lastId\030\001 \001(\t\"u\n\003Log\022\n\n\002id\030" +
       "\001 \001(\t\022\020\n\010dataType\030\002 \001(\t\022\022\n\ndataSource\030\003 " +
-      "\001(\t\022\021\n\ttimestamp\030\004 \001(\t\022\020\n\010tenantId\030\005 \001(\t" +
-      "\022\013\n\003raw\030\006 \001(\t2;\n\013Integration\022,\n\nProcessL" +
-      "og\022\014.plugins.Log\032\014.plugins.Ack(\0010\001B\'Z%gi" +
-      "thub.com/threatwinds/go-sdk/pluginsP\000P\001b" +
-      "\006proto3"
+      "\001(\t\022\035\n\ttimestamp\030\004 \001(\tR\n@timestamp\022\020\n\010te" +
+      "nantId\030\005 \001(\t\022\013\n\003raw\030\006 \001(\t2;\n\013Integration" +
+      "\022,\n\nProcessLog\022\014.plugins.Log\032\014.plugins.A" +
+      "ck(\0010\001B\'Z%github.com/threatwinds/go-sdk/" +
+      "pluginsP\000P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
