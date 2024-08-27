@@ -225,7 +225,7 @@ con.getConnectionChannel().shutdown();
 [Back to Contents](#contents)<br>
 This method is a bidirectional stream used to receive collector's configurations asynchronously from the server and send confirmation back when received. 
 This method is more complex than the others because needs that you implement you own action when receiving
-a configuration, to do that you must create a class that implements the `IExecuteActionOnNext` interface.
+a configuration, to do that you must create a class that implements the `IExecuteActionOnNext` and `IExecuteActionOnError` interfaces.
 This method try to recover itself after server reconnections, so, you don't have to worry about connect
 to server do all over again, but we strongly **_recommend to execute the code below in a separated thread_**
 to avoid unwanted interruptions.
@@ -241,11 +241,16 @@ import com.utmstack.grpc.connection.GrpcConnection;
 import com.utmstack.grpc.exception.GrpcConnectionException;
 import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
 import com.utmstack.grpc.service.iface.IExecuteActionOnNext;
+import com.utmstack.grpc.service.iface.IExecuteActionOnError;
+
+import com.utmstack.grpc.util.StringUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import io.grpc.stub.StreamObserver;
 ~~~
 <br>**Usage**<br>
-Create a class that holds the action to execute when a configuration is received, see an example below.
+Create a class that holds the action to execute when a configuration is received and other when stream has errors, see an example below.
 ~~~
 public class OnNextConfiguration implements IExecuteActionOnNext {
     
@@ -267,6 +272,23 @@ public class OnNextConfiguration implements IExecuteActionOnNext {
 }
 ~~~
 ~~~
+public class OnErrorCollectorMessagesStream implements IExecuteActionOnError {
+    private static final Logger logger = LogManager.getLogger(OnErrorCollectorMessagesStream.class);
+
+    @Override
+    public void executeOnError(String message) {
+        // Log the error message, check if it is server UNAVAILABLE, if true -> try to request configuration on the next execution
+        if (message.contains("UNAVAILABLE")) {
+            logger.error("Connecting to the collector configuration stream: " + StringUtil.formatError(message));
+        } else if (message.contains("ALREADY_EXISTS")) {
+            logger.info("Collector configuration stream is connected, reconnection is not needed.");
+        } else {
+            logger.error("Connecting to the collector configuration stream, server responded with unusual error: " + StringUtil.formatError(message));
+        }
+    }
+}
+~~~
+~~~
 try {
     GrpcConnection con = new GrpcConnection();
     con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
@@ -277,6 +299,8 @@ try {
     // Authentication information
     String collectorKey = "the collector key";
     int collectorId = 1; // the collector's database id
+    AuthResponse collector = AuthResponse.newBuilder().setKey(collectorKey)
+                    .setId(collectorId).build();
     
     // Creating the stream
     StreamObserver<CollectorMessages> collectorStreamObserver;
@@ -286,7 +310,7 @@ try {
             while (true) {
                 try {
                     // Connecting to the stream
-                    collectorStreamObserver = s.getCollectorStreamObserver(new OnNextConfiguration(),collector);
+                    collectorStreamObserver = s.getCollectorStreamObserver(new OnNextConfiguration(), new OnErrorCollectorMessagesStream(),collector);
 
                     // Wait for server response
                     finishLatch.await(10, TimeUnit.SECONDS);
@@ -462,7 +486,13 @@ con.getConnectionChannel().shutdown();
 
 #### Send logs to log-auth-proxy
 [Back to Contents](#contents)<br>
-This method is used to send logs from a collector to [log-auth-proxy](#description).
+This method is used to send logs from a collector to [log-auth-proxy](#description). This method is a bidirectional stream used to 
+ send logs to server and  receive the acknowledgment when received by server.
+This method is more complex than the others because needs that you implement you own action for the acknowledgment, to do 
+that you must create a class that implements the `OnNextLogsAck` interface.
+We strongly **_recommend to execute the code below in a separated thread_**
+to avoid unwanted interruptions.
+
 <br>**Imports**
 ~~~
 import agent.Common;
@@ -489,7 +519,10 @@ LogMessagingService serv = new LogMessagingService(con);
 
 
 // Authentication information
-String collectorKey = "the collector's key";
+    String collectorKey = "the collector key";
+    int collectorId = 1; // the collector's database id
+    AuthResponse collector = AuthResponse.newBuilder().setKey(collectorKey)
+                    .setId(collectorId).build();
 
 // Creating the stream used to send logs to server
             StreamObserver<Plugins.Log> logStreamObserver = serv.getLogsStreamObserver(new OnNextLogsAck(),collector);
@@ -503,7 +536,6 @@ String collectorKey = "the collector's key";
                                 .setId(UUID.randomUUID().toString())
                                 .setDataSource("hostname, IP or some datasource identifier")
                                 .setDataType(DATA_TYPE)
-                                .setTimestamp(ConfigVerification.getActualTime())
                                 .setRaw(message)
                                 .build();
                         logStreamObserver.onNext(log);
@@ -706,7 +738,7 @@ package agent;
 
 service CollectorService {
   rpc RegisterCollector(RegisterRequest) returns (AuthResponse) {}
-  rpc DeleteCollector(CollectorDelete) returns (AuthResponse) {}
+  rpc DeleteCollector(DeleteRequest) returns (AuthResponse) {}
   rpc ListCollector (ListRequest) returns (ListCollectorResponse) {}
   rpc CollectorStream(stream CollectorMessages) returns (stream CollectorMessages) {}
   rpc ListCollectorHostnames (ListRequest) returns (CollectorHostnames) {}
@@ -722,11 +754,64 @@ enum CollectorModule{
   AS_400 = 0;
 }
 
+message RegisterRequest {
+  string ip = 1;
+  string hostname = 2;
+  string version = 3;
+  CollectorModule collector = 4;
+}
+
+message ListCollectorResponse {
+  repeated Collector rows = 1;
+  int32 total = 2;
+}
+
+message Collector {
+  int32 id = 1;
+  Status status = 2;
+  string collector_key = 3;
+  string ip = 4;
+  string hostname = 5;
+  string version = 6;
+  CollectorModule module = 7;
+  string last_seen = 8;
+}
+
 message CollectorMessages {
   oneof stream_message {
     CollectorConfig config = 1;
     ConfigKnowledge result = 2;
   }
+}
+
+message CollectorConfig {
+  string collector_id = 1;
+  repeated CollectorConfigGroup groups = 2;
+  string request_id = 3;
+}
+
+message CollectorConfigGroup {
+  int32 id = 1;
+  string group_name = 2;
+  string group_description = 3;
+  repeated CollectorGroupConfigurations configurations = 4;
+  int32 collector_id = 5;
+}
+
+message CollectorGroupConfigurations {
+  int32 id = 1;
+  int32 group_id = 2;
+  string conf_key = 3;
+  string conf_value = 4;
+  string conf_name = 5;
+  string conf_description = 6;
+  string conf_data_type = 7;
+  bool conf_required = 8;
+}
+
+message ConfigKnowledge{
+  string accepted = 1;
+  string request_id = 2;
 }
 
 message CollectorHostnames{
@@ -738,66 +823,10 @@ message FilterByHostAndModule{
   CollectorModule module = 2;
 }
 
-message ConfigKnowledge{
-  string accepted = 1;
-  string request_id = 2;
-}
-
-message RegisterRequest {
-  string ip = 1;
-  string hostname = 2;
-  string version = 3;
-  CollectorModule collector = 4;
-}
-
 message ConfigRequest {
   CollectorModule module = 1;
 }
 
-message Collector {
-  int32 id = 1;
-  Status status = 2;
-  string collector_key = 3;
-  string ip = 4;
-  string hostname = 5;
-  string version = 6;
-  CollectorModule module = 7;
-  repeated CollectorConfigGroup groups = 8;
-  string last_seen = 9;
-}
-
-message CollectorConfig {
-  string collector_key = 1;
-  repeated CollectorConfigGroup groups = 2;
-  string request_id = 3;
-}
-
-message CollectorConfigGroup {
-  int32 id = 1;
-  string group_name = 3;
-  string group_description = 4;
-  repeated CollectorGroupConfigurations configurations = 5;
-  int32 collector_id = 6;
-}
-
-message CollectorGroupConfigurations {
-  int32 group_id = 2;
-  string conf_key = 3;
-  string conf_value = 4;
-  string conf_name = 5;
-  string conf_description = 6;
-  string conf_data_type = 7;
-  bool conf_required = 8;
-}
-
-message CollectorDelete {
-  string deleted_by = 1;
-}
-
-message ListCollectorResponse {
-  repeated Collector rows = 1;
-  int32 total = 2;
-}
 ~~~
 
 #### Logs
@@ -821,7 +850,7 @@ message Log {
     string id = 1;
     string dataType = 2;
     string dataSource = 3;
-    string timestamp = 4;
+    string timestamp = 4 [json_name="@timestamp"];
     string tenantId = 5;
     string raw = 6;
 }
@@ -892,5 +921,9 @@ message AuthResponse {
 
 message Hostname{
   string hostname = 1;
+}
+
+message DeleteRequest {
+  string deleted_by = 1;
 }
 ~~~
