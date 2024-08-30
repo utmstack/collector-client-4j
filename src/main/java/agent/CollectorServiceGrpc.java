@@ -139,68 +139,6 @@ public final class CollectorServiceGrpc {
     return getCollectorStreamMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<agent.Common.ListRequest,
-      agent.CollectorOuterClass.CollectorHostnames> getListCollectorHostnamesMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "ListCollectorHostnames",
-      requestType = agent.Common.ListRequest.class,
-      responseType = agent.CollectorOuterClass.CollectorHostnames.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<agent.Common.ListRequest,
-      agent.CollectorOuterClass.CollectorHostnames> getListCollectorHostnamesMethod() {
-    io.grpc.MethodDescriptor<agent.Common.ListRequest, agent.CollectorOuterClass.CollectorHostnames> getListCollectorHostnamesMethod;
-    if ((getListCollectorHostnamesMethod = CollectorServiceGrpc.getListCollectorHostnamesMethod) == null) {
-      synchronized (CollectorServiceGrpc.class) {
-        if ((getListCollectorHostnamesMethod = CollectorServiceGrpc.getListCollectorHostnamesMethod) == null) {
-          CollectorServiceGrpc.getListCollectorHostnamesMethod = getListCollectorHostnamesMethod =
-              io.grpc.MethodDescriptor.<agent.Common.ListRequest, agent.CollectorOuterClass.CollectorHostnames>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListCollectorHostnames"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  agent.Common.ListRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  agent.CollectorOuterClass.CollectorHostnames.getDefaultInstance()))
-              .setSchemaDescriptor(new CollectorServiceMethodDescriptorSupplier("ListCollectorHostnames"))
-              .build();
-        }
-      }
-    }
-    return getListCollectorHostnamesMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.FilterByHostAndModule,
-      agent.CollectorOuterClass.ListCollectorResponse> getGetCollectorsByHostnameAndModuleMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetCollectorsByHostnameAndModule",
-      requestType = agent.CollectorOuterClass.FilterByHostAndModule.class,
-      responseType = agent.CollectorOuterClass.ListCollectorResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<agent.CollectorOuterClass.FilterByHostAndModule,
-      agent.CollectorOuterClass.ListCollectorResponse> getGetCollectorsByHostnameAndModuleMethod() {
-    io.grpc.MethodDescriptor<agent.CollectorOuterClass.FilterByHostAndModule, agent.CollectorOuterClass.ListCollectorResponse> getGetCollectorsByHostnameAndModuleMethod;
-    if ((getGetCollectorsByHostnameAndModuleMethod = CollectorServiceGrpc.getGetCollectorsByHostnameAndModuleMethod) == null) {
-      synchronized (CollectorServiceGrpc.class) {
-        if ((getGetCollectorsByHostnameAndModuleMethod = CollectorServiceGrpc.getGetCollectorsByHostnameAndModuleMethod) == null) {
-          CollectorServiceGrpc.getGetCollectorsByHostnameAndModuleMethod = getGetCollectorsByHostnameAndModuleMethod =
-              io.grpc.MethodDescriptor.<agent.CollectorOuterClass.FilterByHostAndModule, agent.CollectorOuterClass.ListCollectorResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetCollectorsByHostnameAndModule"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  agent.CollectorOuterClass.FilterByHostAndModule.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  agent.CollectorOuterClass.ListCollectorResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new CollectorServiceMethodDescriptorSupplier("GetCollectorsByHostnameAndModule"))
-              .build();
-        }
-      }
-    }
-    return getGetCollectorsByHostnameAndModuleMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<agent.CollectorOuterClass.ConfigRequest,
       agent.CollectorOuterClass.CollectorConfig> getGetCollectorConfigMethod;
 
@@ -310,20 +248,6 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    default void listCollectorHostnames(agent.Common.ListRequest request,
-        io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorHostnames> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListCollectorHostnamesMethod(), responseObserver);
-    }
-
-    /**
-     */
-    default void getCollectorsByHostnameAndModule(agent.CollectorOuterClass.FilterByHostAndModule request,
-        io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ListCollectorResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetCollectorsByHostnameAndModuleMethod(), responseObserver);
-    }
-
-    /**
-     */
     default void getCollectorConfig(agent.CollectorOuterClass.ConfigRequest request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorConfig> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetCollectorConfigMethod(), responseObserver);
@@ -391,22 +315,6 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    public void listCollectorHostnames(agent.Common.ListRequest request,
-        io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorHostnames> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getListCollectorHostnamesMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void getCollectorsByHostnameAndModule(agent.CollectorOuterClass.FilterByHostAndModule request,
-        io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ListCollectorResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetCollectorsByHostnameAndModuleMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
     public void getCollectorConfig(agent.CollectorOuterClass.ConfigRequest request,
         io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorConfig> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -449,20 +357,6 @@ public final class CollectorServiceGrpc {
     public agent.CollectorOuterClass.ListCollectorResponse listCollector(agent.Common.ListRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListCollectorMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public agent.CollectorOuterClass.CollectorHostnames listCollectorHostnames(agent.Common.ListRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getListCollectorHostnamesMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public agent.CollectorOuterClass.ListCollectorResponse getCollectorsByHostnameAndModule(agent.CollectorOuterClass.FilterByHostAndModule request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetCollectorsByHostnameAndModuleMethod(), getCallOptions(), request);
     }
 
     /**
@@ -515,22 +409,6 @@ public final class CollectorServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.CollectorHostnames> listCollectorHostnames(
-        agent.Common.ListRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getListCollectorHostnamesMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.ListCollectorResponse> getCollectorsByHostnameAndModule(
-        agent.CollectorOuterClass.FilterByHostAndModule request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetCollectorsByHostnameAndModuleMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
     public com.google.common.util.concurrent.ListenableFuture<agent.CollectorOuterClass.CollectorConfig> getCollectorConfig(
         agent.CollectorOuterClass.ConfigRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -541,10 +419,8 @@ public final class CollectorServiceGrpc {
   private static final int METHODID_REGISTER_COLLECTOR = 0;
   private static final int METHODID_DELETE_COLLECTOR = 1;
   private static final int METHODID_LIST_COLLECTOR = 2;
-  private static final int METHODID_LIST_COLLECTOR_HOSTNAMES = 3;
-  private static final int METHODID_GET_COLLECTORS_BY_HOSTNAME_AND_MODULE = 4;
-  private static final int METHODID_GET_COLLECTOR_CONFIG = 5;
-  private static final int METHODID_COLLECTOR_STREAM = 6;
+  private static final int METHODID_GET_COLLECTOR_CONFIG = 3;
+  private static final int METHODID_COLLECTOR_STREAM = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -573,14 +449,6 @@ public final class CollectorServiceGrpc {
           break;
         case METHODID_LIST_COLLECTOR:
           serviceImpl.listCollector((agent.Common.ListRequest) request,
-              (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ListCollectorResponse>) responseObserver);
-          break;
-        case METHODID_LIST_COLLECTOR_HOSTNAMES:
-          serviceImpl.listCollectorHostnames((agent.Common.ListRequest) request,
-              (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.CollectorHostnames>) responseObserver);
-          break;
-        case METHODID_GET_COLLECTORS_BY_HOSTNAME_AND_MODULE:
-          serviceImpl.getCollectorsByHostnameAndModule((agent.CollectorOuterClass.FilterByHostAndModule) request,
               (io.grpc.stub.StreamObserver<agent.CollectorOuterClass.ListCollectorResponse>) responseObserver);
           break;
         case METHODID_GET_COLLECTOR_CONFIG:
@@ -636,20 +504,6 @@ public final class CollectorServiceGrpc {
               agent.CollectorOuterClass.CollectorMessages,
               agent.CollectorOuterClass.CollectorMessages>(
                 service, METHODID_COLLECTOR_STREAM)))
-        .addMethod(
-          getListCollectorHostnamesMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              agent.Common.ListRequest,
-              agent.CollectorOuterClass.CollectorHostnames>(
-                service, METHODID_LIST_COLLECTOR_HOSTNAMES)))
-        .addMethod(
-          getGetCollectorsByHostnameAndModuleMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              agent.CollectorOuterClass.FilterByHostAndModule,
-              agent.CollectorOuterClass.ListCollectorResponse>(
-                service, METHODID_GET_COLLECTORS_BY_HOSTNAME_AND_MODULE)))
         .addMethod(
           getGetCollectorConfigMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -709,8 +563,6 @@ public final class CollectorServiceGrpc {
               .addMethod(getDeleteCollectorMethod())
               .addMethod(getListCollectorMethod())
               .addMethod(getCollectorStreamMethod())
-              .addMethod(getListCollectorHostnamesMethod())
-              .addMethod(getGetCollectorsByHostnameAndModuleMethod())
               .addMethod(getGetCollectorConfigMethod())
               .build();
         }

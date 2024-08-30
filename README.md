@@ -15,8 +15,6 @@ responsible for the authentication of the logs and forwarding to UTMStack platfo
         + [Remove collector](#remove-collector)
         + [Configuration stream](#configuration-stream)
         + [List collectors](#list-collectors)
-        + [List collector's hostnames](#list-collectors-hostnames)
-        + [Collector by hostname and module](#collector-by-hostname-and-module)
         + [Send logs to log-auth-proxy](#send-logs-to-log-auth-proxy)
         + [Upsert collector configuration](#upsert-collector-configuration)
     - [Important classes](#important-classes)
@@ -387,102 +385,6 @@ ListCollectorResponse response = serv.listCollector(req, internalKey);
 con.getConnectionChannel().shutdown();
 ~~~
 
-#### List collector's hostnames
-[Back to Contents](#contents)<br>
-This method is similar than the list collector but only return the hostnames of collectors, the request can be filtered and sorted as needed.
-<br>**Imports**
-~~~
-import com.utmstack.grpc.service.CollectorService;
-import com.utmstack.grpc.exception.CollectorServiceGrpcException;
-import agent.CollectorOuterClass.CollectorModule;
-import agent.CollectorOuterClass.CollectorHostnames;
-import agent.Common.ListRequest;
-import com.utmstack.grpc.connection.GrpcConnection;
-import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
-~~~
-<br>**Usage**<br>
-~~~
-try {
-GrpcConnection con = new GrpcConnection();
-con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
-
-// Instantiating the collector service with a connection to the agent manager
-CollectorService serv = new CollectorService(con);
-
-// Authentication information
-String internalKey = "the UTMStack's internal key";
-
-ListRequest req = ListRequest.newBuilder()
-                     .setPageNumber(0)
-                     .setPageSize(1000)
-                     .setSearchQuery("module.Is=" + CollectorModule.AS_400.name())
-                     .setSortBy("")
-                     .build()
-
-// List collector's hostnames according to the filters
-// CollectorHostnames is an array of Strings containing the hostnames
-CollectorHostnames response = serv.ListCollectorHostnames(req, internalKey);
-
-} catch (GrpcConnectionException e) {
-// Your exception handling here when the channel can't be created
-} catch (CollectorServiceGrpcException e) {
-// Your exception handling here when the collector's hostnames can't be listed
-}
-~~~
-**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
-~~~
-// Close the connection channel
-con.getConnectionChannel().shutdown();
-~~~
-
-
-#### Collector by hostname and module
-[Back to Contents](#contents)<br>
-This method is used to get a collector with its configuration by hostname and module.
-<br>**Imports**
-~~~
-import com.utmstack.grpc.service.CollectorService;
-import com.utmstack.grpc.exception.CollectorServiceGrpcException;
-import agent.CollectorOuterClass.CollectorModule;
-import agent.CollectorOuterClass.CollectorHostnames;
-import agent.CollectorOuterClass.FilterByHostAndModule
-import agent.Common.ListRequest;
-import com.utmstack.grpc.connection.GrpcConnection;
-import com.utmstack.grpc.exception.GrpcConnectionException;
-import com.utmstack.grpc.jclient.config.interceptors.impl.GrpcEmptyAuthInterceptor;
-~~~
-<br>**Usage**<br>
-~~~
-try {
-GrpcConnection con = new GrpcConnection();
-con.createChannel(AGENT_MANAGER_HOST, AGENT_MANAGER_PORT, new GrpcEmptyAuthInterceptor());
-
-// Instantiating the collector service with a connection to the agent manager
-CollectorService serv = new CollectorService(con);
-
-// Authentication information
-String internalKey = "the UTMStack's internal key";
-
-FilterByHostAndModule req = FilterByHostAndModule.newBuilder()
-                    .setHostname("Collector's hostname")
-                    .setModule(CollectorModule.AS_400).build();
-
-// Receiving the collector information, including configurations
-ListCollectorResponse response = serv.GetCollectorsByHostnameAndModule(req, internalKey);
-
-} catch (GrpcConnectionException e) {
-// Your exception handling here when the channel can't be created
-} catch (CollectorServiceGrpcException e) {
-// Your exception handling here when the collector's information can't be listed
-}
-~~~
-**Note:** When you use non-streaming methods like before, ensure that you close the channel with:
-~~~
-// Close the connection channel
-con.getConnectionChannel().shutdown();
-~~~
-
 
 #### Send logs to log-auth-proxy
 [Back to Contents](#contents)<br>
@@ -741,8 +643,6 @@ service CollectorService {
   rpc DeleteCollector(DeleteRequest) returns (AuthResponse) {}
   rpc ListCollector (ListRequest) returns (ListCollectorResponse) {}
   rpc CollectorStream(stream CollectorMessages) returns (stream CollectorMessages) {}
-  rpc ListCollectorHostnames (ListRequest) returns (CollectorHostnames) {}
-  rpc GetCollectorsByHostnameAndModule (FilterByHostAndModule) returns (ListCollectorResponse) {}
   rpc GetCollectorConfig (ConfigRequest) returns (CollectorConfig) {}
 }
 
@@ -812,15 +712,6 @@ message CollectorGroupConfigurations {
 message ConfigKnowledge{
   string accepted = 1;
   string request_id = 2;
-}
-
-message CollectorHostnames{
-  repeated string hostname = 1;
-}
-
-message FilterByHostAndModule{
-  string hostname = 1;
-  CollectorModule module = 2;
 }
 
 message ConfigRequest {
@@ -919,11 +810,8 @@ message AuthResponse {
   string key = 2;
 }
 
-message Hostname{
-  string hostname = 1;
-}
-
 message DeleteRequest {
   string deleted_by = 1;
 }
+
 ~~~

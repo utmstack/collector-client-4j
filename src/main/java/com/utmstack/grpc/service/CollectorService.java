@@ -1,12 +1,10 @@
 package com.utmstack.grpc.service;
 
 import agent.CollectorOuterClass.ConfigRequest;
-import agent.CollectorOuterClass.CollectorHostnames;
 import agent.CollectorOuterClass.RegisterRequest;
 import agent.CollectorOuterClass.CollectorMessages;
 import agent.CollectorOuterClass.CollectorConfig;
 import agent.CollectorOuterClass.ListCollectorResponse;
-import agent.CollectorOuterClass.FilterByHostAndModule;
 import agent.Common.ListRequest;
 import agent.CollectorServiceGrpc;
 import agent.Common.AuthResponse;
@@ -141,43 +139,6 @@ public class CollectorService {
                     new GrpcTypeInterceptor()).listCollector(request);
         } catch (Exception e) {
             String msg = "Error listing collectors: " + e.getMessage();
-            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
-        }
-    }
-
-// ----------------------------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Method to List Collector by Hostnames.
-     *
-     * @param request     is the request with all the pagination and search params used to list collectors.
-     *                    according to those params.
-     * @param internalKey is the internal key to communicate internally.
-     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
-     */
-    public CollectorHostnames ListCollectorHostnames(ListRequest request, String internalKey) throws CollectorServiceGrpcException {
-        try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
-                    new GrpcTypeInterceptor()).listCollectorHostnames(request);
-        } catch (Exception e) {
-            String msg = "Error listing collectors hostnames: " + e.getMessage();
-            throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
-        }
-    }
-
-    /**
-     * Method to get collectors by hostname and module.
-     *
-     * @param request     contains the filter information used to search.
-     * @param internalKey is the internal key to communicate internally.
-     * @throws CollectorServiceGrpcException if the action can't be performed or the request is malformed.
-     */
-    public ListCollectorResponse GetCollectorsByHostnameAndModule(FilterByHostAndModule request, String internalKey) throws CollectorServiceGrpcException {
-        try {
-            return blockingStub.withInterceptors(new GrpcInternalKeyInterceptor().withInternalKey(internalKey),
-                    new GrpcTypeInterceptor()).getCollectorsByHostnameAndModule(request);
-        } catch (Exception e) {
-            String msg = "Error listing collectors by hostname and module: " + e.getMessage();
             throw new CollectorServiceGrpcException(StringUtil.formatError(msg));
         }
     }
