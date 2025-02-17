@@ -6,15 +6,19 @@ import com.utmstack.grpc.util.StringUtil;
 import io.grpc.ClientInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.netty.GrpcSslContexts;
+import io.grpc.netty.NettyChannelBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 
 import javax.annotation.PreDestroy;
+import javax.net.ssl.SSLException;
 
 
 /**
  * @author Freddy R. Laffita Almaguer.
  * This class is used to create default configuration channel with connection-key header
  * Note: You need to assign a CONNECTION_KEY variable value of the KeyStore class before use this class
- * */
+ */
 public class GrpcConfiguration {
     private ManagedChannel channel;
 
@@ -26,7 +30,8 @@ public class GrpcConfiguration {
 
     private static final String CLASSNAME = "GrpcConfiguration";
 
-    public GrpcConfiguration() {}
+    public GrpcConfiguration() {
+    }
 
     public GrpcConfiguration withServerAddress(String serverAddress) {
         this.serverAddress = serverAddress;
@@ -46,7 +51,7 @@ public class GrpcConfiguration {
     /**
      * Method used to verify the parameters to create the channel.
      * this method needs to be used always, and before managedChannel()
-     * */
+     */
     public GrpcConfiguration build() throws GrpcConfigurationException {
         final String ctx = CLASSNAME + ".build";
         if (!StringUtil.hasText(this.serverAddress)) {
@@ -63,18 +68,18 @@ public class GrpcConfiguration {
 
     /**
      * Method used to get the managed channel to execute the calls with
-     * */
-    public ManagedChannel managedChannel() throws GrpcConfigurationException {
+     */
+    public ManagedChannel configManagedChannel() throws GrpcConfigurationException, SSLException {
         final String ctx = CLASSNAME + ".managedChannel";
         if (this.baseInterceptor == null) {
             throw new GrpcConfigurationException(ctx + ": You must specify a base interceptor for all calls. " +
                     "Use the withBaseAuthInterceptor() method, then use build() method before calling managedChannel() method.");
         }
-        this.channel = ManagedChannelBuilder.forAddress(serverAddress, serverPort)
-            .intercept(this.baseInterceptor)
-            .usePlaintext()
-            .enableRetry()
-            .build();
+
+        this.channel = NettyChannelBuilder
+                .forAddress(serverAddress, serverPort)
+                .sslContext(GrpcSslContexts.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build())
+                .build();
         return this.channel;
     }
 
