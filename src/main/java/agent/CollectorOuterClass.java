@@ -23,6 +23,7 @@ public final class CollectorOuterClass {
      * <code>AS_400 = 0;</code>
      */
     AS_400(0),
+    UTMSTACK(1),
     UNRECOGNIZED(-1),
     ;
 
